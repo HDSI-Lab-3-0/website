@@ -42,13 +42,17 @@ The `src/` directory is where you will spend most of your time. This is where yo
 
 The `src/components/` directory is where you can place any Astro components that you want to use in your website. You can import these components in any `.astro` file in the `src/pages/` directory.
 
+You can think of it as reusable components that you can use across your website.
+
 #### Content
 
-The `src/content/` directory is where you can place any content that you want to be available in your website. This would be
+The `src/content/` directory is where you can place any content that you want to be available in your website. This would be any blog posts (or in this case, projects) that you want to be available in your website. This would be written in markdown (.md) or markdown with JSX (.mdx) files.
 
 #### Layouts
 
 The `src/layouts/` directory is where you can place any Astro layouts that you want to use in your website. You can import these layouts in any `.astro` file in the `src/pages/` directory.
+
+You can think of it as the wrapper for your pages. For example, you can place the header and footer in this layout.
 
 #### Pages
 
