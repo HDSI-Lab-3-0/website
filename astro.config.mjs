@@ -6,6 +6,6 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-    site: "hdsi-lab-3-0.github.io",
+    site: "https://hdsi-lab-3-0.github.io",
     integrations: [mdx(), sitemap()],
 });
