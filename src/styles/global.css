@@ -5,6 +5,7 @@
  */
 
 @import "tailwindcss";
+@plugin '../../hero.ts';
 
 :root {
     --accent: #2337ff;

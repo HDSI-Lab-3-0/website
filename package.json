@@ -12,8 +12,10 @@
     "@astrojs/mdx": "^4.3.10",
     "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
+    "@heroui/react": "^2.8.5",
     "@tailwindcss/vite": "^4.1.17",
     "astro": "^5.15.5",
+    "framer-motion": "^12.23.24",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.1.17"
   }
