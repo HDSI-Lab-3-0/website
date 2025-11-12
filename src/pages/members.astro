@@ -4,6 +4,17 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import "../styles/global.css";
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+
+const director = {
+  name: "Saura Naderi",
+  role: "Director",
+};
+
+const labFellows = [
+  { name: "Name", major: "Data Science", graduation: "2026", photo: "/images/placeholder.png" },
+  { name: "Name", major: "Statistics", graduation: "2025", photo: "/images/placeholder.png" },
+  { name: "Name", major: "Computer Science", graduation: "2027", photo: "/images/placeholder.png" },
+];
 ---
 
 <html lang="en">
@@ -13,19 +24,29 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
   <body>
     <Header />
 
-    <main>
-      <h1>Lab Members</h1>
+    <main class="container mx-auto py-10 px-4">
+      <h1 class="text-4xl font-bold mb-8 text-center">Lab Members</h1>
 
-      <section>
-        <h2>Director</h2>
-        <p>Saura Naderi</p>
+      <!-- Director Card -->
+      <section class="mb-12 flex justify-center">
+        <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-sm text-center">
+          <p class="text-xl font-semibold">{director.name}</p>
+          <p class="text-gray-500">{director.role}</p>
+        </div>
       </section>
 
+      <!-- Lab Fellows Cards -->
       <section>
-        <h2>Lab Fellows</h2>
-        <p>Major, Expected Graduation Year</p>
-        <p>Major, Expected Graduation Year</p>
-        <p>Major, Expected Graduation Year</p>
+        <h2 class="text-2xl font-semibold mb-6 text-center">Lab Fellows</h2>
+        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+          {labFellows.map(fellow => (
+            <div class="bg-white shadow-md rounded-lg p-6 text-center">
+              <p class="text-lg font-semibold">{fellow.name}</p>
+              <p class="text-gray-500">{fellow.major}</p>
+              <p class="text-gray-400">Expected Graduation: {fellow.graduation}</p>
+            </div>
+          ))}
+        </div>
       </section>
     </main>
 
