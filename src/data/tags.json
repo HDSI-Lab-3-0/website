@@ -1,0 +1,20 @@
+{
+    "categories": {
+        "Location": ["in classroom", "out of classroom", "at UCSD"],
+        "School Level": [
+            "Elementary",
+            "Middle School",
+            "High School",
+            "UCSD Undergraduate",
+            "Community College"
+        ],
+        "Sponsor": ["NSF TILOS", "NSF ENCORE ", "HDSI LAB 3.0"],
+        "Cost": ["Free", "Paid", "Offers Sponsorship"],
+        "Type": [
+            "Professional Development for Teachers",
+            "Summer Day Camp",
+            "Evening Workshops"
+        ],
+        "Other": [""]
+    }
+}

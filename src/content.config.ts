@@ -13,6 +13,16 @@ const projects = defineCollection({
             pubDate: z.coerce.date(),
             updatedDate: z.coerce.date().optional(),
             heroImage: image().optional(),
+            imageGif: image().optional(),
+            links: z
+                .object({
+                    lessonPlan: z.string().optional(),
+                    materials: z.string().optional(),
+                })
+                .optional(),
+            relevance: z.string().optional(),
+            tags: z.array(z.string()).optional(),
+            estimated_time: z.number().optional(),
         }),
 });
 
