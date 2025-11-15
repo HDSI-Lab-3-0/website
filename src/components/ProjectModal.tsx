@@ -4,7 +4,6 @@ import {
 	ModalContent,
 	Button,
 	Image,
-	Link,
 } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
 import {
@@ -26,7 +25,8 @@ export default function ProjectModal({
 	onClose,
 	project,
 }: ProjectModalProps) {
-	if (!project) {
+	// Only render modal content when both isOpen is true and project exists
+	if (!isOpen || !project) {
 		return null;
 	}
 
