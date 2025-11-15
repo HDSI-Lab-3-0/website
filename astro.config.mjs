@@ -9,14 +9,10 @@ import heroui from "./hero.ts";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://hdsi-lab-3-0.github.io",
-  integrations: [mdx(), sitemap()],
+    site: "https://hdsi-lab-3-0.github.io",
+    integrations: [mdx(), sitemap()],
 
-  vite: {
-    plugins: [
-      tailwindcss({
-        plugins: [heroui],
-      }),
-    ],
-  },
+    vite: {
+        plugins: [tailwindcss()],
+    },
 });
