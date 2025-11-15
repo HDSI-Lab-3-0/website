@@ -45,6 +45,24 @@ body {
     font-size: 20px;
     line-height: 1.7;
 }
+
+/* Reset font sizes for modal content to prevent conflicts */
+.modal-content {
+    font-family: inherit;
+}
+
+/* Ensure Tailwind utilities work properly in modals without overriding them */
+.modal-content .text-lg {
+    font-size: 1.125rem;
+}
+
+.modal-content .text-3xl {
+    font-size: 1.875rem;
+}
+
+.modal-content .text-4xl {
+    font-size: 2.25rem;
+}
 main {
     width: 720px;
     max-width: calc(100% - 2em);

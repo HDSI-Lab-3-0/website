@@ -89,21 +89,14 @@ const posts = (await getCollection('projects')).sort(
 				}, [projects, selectedTags]);
 
 				const handleProjectClick = (project: CollectionEntry<'projects'>) => {
-					console.log('Project clicked:', project.data.title);
 					setSelectedProject(project);
 					setIsModalOpen(true);
-					console.log('Modal state set to open');
 				};
 
 				const handleModalClose = () => {
 					setIsModalOpen(false);
 				};
 
-				// Update active filters count
-				const activeFiltersElement = document.getElementById('active-filters');
-				if (activeFiltersElement) {
-					activeFiltersElement.textContent = selectedTags.length.toString();
-				}
 	
 				return createElement(
 					HeroUIProvider,
