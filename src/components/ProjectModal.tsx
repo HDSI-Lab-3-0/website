@@ -47,12 +47,12 @@ export default function ProjectModal({
 			hideCloseButton={false}
 			classNames={{
 				backdrop: "bg-black/70 backdrop-blur-sm z-[1000]",
-				base: "z-[1001] max-h-[90vh] bg-white shadow-2xl modal-content flex flex-col",
+				base: "z-[1001] max-h-[90vh] bg-white shadow-2xl rounded-3xl modal-content flex flex-col border border-slate-200/50",
 				wrapper: "z-[1002] overflow-y-auto",
-				header: "border-b border-slate-200 bg-white p-0",
+				header: "border-b border-slate-200 bg-white p-0 rounded-t-3xl",
 				body: "py-0 px-6 bg-white flex-1 overflow-y-auto",
-				footer: "border-t border-slate-200 bg-white px-6 py-4 sticky bottom-0",
-				closeButton: "hover:bg-slate-100 active:bg-slate-200 rounded-lg absolute top-4 right-4 z-10",
+				footer: "border-t border-slate-200 bg-white px-6 py-4 sticky bottom-0 rounded-b-3xl",
+				closeButton: "hover:bg-slate-100 active:bg-slate-200 rounded-full absolute top-4 right-4 z-10 transition-all duration-200",
 			}}
 		>
 			<ModalContent>
@@ -61,7 +61,7 @@ export default function ProjectModal({
 						{/* Header with Hero Image */}
 						<div className="flex-shrink-0">
 							{displayImage && (
-								<div className="relative h-64 sm:h-80 w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+								<div className="relative h-64 sm:h-80 w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-3xl">
 									<Image
 										src={displayImage}
 										alt={data.title}
@@ -144,7 +144,7 @@ export default function ProjectModal({
 											</svg>
 											Relevance
 										</h3>
-										<div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+										<div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
 											<p className="text-slate-700 leading-relaxed text-sm">
 												{data.relevance}
 											</p>
@@ -163,9 +163,9 @@ export default function ProjectModal({
 										</h3>
 										<div className="space-y-3">
 											{data.links.lessonPlan && (
-												<div className="bg-blue-50 border border-blue-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+												<div className="bg-blue-50 border border-blue-200 rounded-xl p-4 hover:shadow-lg transition-all duration-200">
 													<div className="flex items-start gap-3">
-														<div className="p-2 bg-blue-100 rounded-lg">
+														<div className="p-2 bg-blue-100 rounded-xl">
 															<svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 																<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
 															</svg>
@@ -190,9 +190,9 @@ export default function ProjectModal({
 											)}
 
 											{data.links.materials && (
-												<div className="bg-green-50 border border-green-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+												<div className="bg-green-50 border border-green-200 rounded-xl p-4 hover:shadow-lg transition-all duration-200">
 													<div className="flex items-start gap-3">
-														<div className="p-2 bg-green-100 rounded-lg">
+														<div className="p-2 bg-green-100 rounded-xl">
 															<svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 																<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
 															</svg>
@@ -223,13 +223,13 @@ export default function ProjectModal({
 						</div>
 
 						{/* Sticky Footer with Action Buttons */}
-						<div className="sticky bottom-0 bg-white border-t border-slate-200 px-6 py-4">
+						<div className="sticky bottom-0 bg-white border-t border-slate-200 px-6 py-4 rounded-b-3xl">
 							<div className="flex flex-col sm:flex-row gap-3">
 								<Button
 									color="default"
 									variant="light"
 									onPress={onClose}
-									className="w-full sm:w-auto text-slate-600 bg-slate-100 hover:bg-slate-200"
+									className="w-full sm:w-auto text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-xl transition-all duration-200"
 								>
 									Close
 								</Button>
@@ -237,7 +237,7 @@ export default function ProjectModal({
 									as="a"
 									href={`/projects/${projectSlug}`}
 									onPress={onClose}
-									className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium"
+									className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 !text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02]"
 								>
 									View Full Project
 								</Button>
