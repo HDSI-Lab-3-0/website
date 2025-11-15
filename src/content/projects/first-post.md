@@ -1,8 +1,15 @@
 ---
 title: 'First post'
 description: 'Lorem ipsum dolor sit amet'
-pubDate: 'Jul 08 2022'
+pubDate: '07/08/22'
 heroImage: '../../assets/project-placeholder-3.jpg'
+imageGif: '../../assets/project-placeholder-1.jpg'
+links:
+  lessonPlan: 'https://example.com/lesson-plans/first-post'
+  materials: 'https://example.com/materials/first-post-resources'
+relevance: 'This project demonstrates fundamental concepts in modern web development, focusing on responsive design patterns and user interaction principles that are essential for creating accessible digital experiences.'
+tags: ['tutorial', 'beginner', 'web development']
+estimated_time: 45
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.

@@ -1,0 +1,117 @@
+# AI Prompt for Project Markdown Generation
+
+## Instructions for AI
+
+Generate a complete markdown document for a project following the specifications below. Your response must contain the entire markdown content in a single code block that can be easily copied and used.
+
+## Frontmatter Fields
+
+Include YAML frontmatter at the beginning of the file with these fields:
+
+### Required Fields:
+- title (string): The project title
+- description (string): Brief description of the project
+- pubDate (date): Publication date in YYYY-MM-DD format
+
+### Optional Fields:
+- updatedDate (date): Last updated date in YYYY-MM-DD format
+- heroImage (image path): Path to the main project image
+- imageGif (image path): Path to a project GIF
+- links (object): Contains lessonPlan and materials URLs
+- relevance (string): Explanation of why this project matters
+- tags (array of strings): Tags from the categories below
+- estimated_time (number): Time to complete in minutes
+
+## Tag Categories and Valid Options
+
+When adding tags, use only these exact values:
+
+### Location:
+- "in classroom"
+- "out of classroom" 
+- "at UCSD"
+
+### School Level:
+- "Elementary"
+- "Middle School"
+- "High School"
+- "UCSD Undergraduate"
+- "Community College"
+
+### Sponsor:
+- "NSF TILOS"
+- "NSF ENCORE"
+- "HDSI LAB 3.0"
+
+### Cost:
+- "Free"
+- "Paid"
+- "Offers Sponsorship"
+
+### Type:
+- "Professional Development for Teachers"
+- "Summer Day Camp"
+- "Evening Workshops"
+
+## Content Structure
+
+After the frontmatter, use standard markdown formatting:
+
+- Use headings (# ## ###) for structure
+- Write clear paragraphs
+- Include images with alt text
+- Use blockquotes for highlights
+- Create tables when needed
+- Include code blocks for technical content
+- Use lists (ordered and unordered) appropriately
+
+## Example Structure
+
+```markdown
+---
+title: "Example Project"
+description: "A brief description of this project"
+pubDate: 2023-11-15
+tags: ["in classroom", "High School", "Free"]
+---
+
+# Project Title
+
+## Overview
+
+This paragraph describes the project...
+
+## Objectives
+
+- First objective
+- Second objective
+
+## Implementation
+
+### Step 1
+
+Detailed instructions...
+
+### Code Example
+
+```javascript
+// Example code
+function example() {
+  return "Hello World";
+}
+```
+
+## Results
+
+> "This project achieved its goals successfully."
+
+## Resources
+
+| Resource | Link |
+|----------|------|
+| Documentation | [Link](url) |
+```
+
+## User Instructions
+
+After this prompt, paste your project information and I'll generate the complete markdown document with proper formatting, frontmatter, and structure that you can directly use for your project documentation.

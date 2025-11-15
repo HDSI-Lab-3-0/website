@@ -5,6 +5,7 @@ import sitemap from "@astrojs/sitemap";
 import { defineConfig } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
+import heroui from "./hero.ts";
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,6 +13,10 @@ export default defineConfig({
   integrations: [mdx(), sitemap()],
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss({
+        plugins: [heroui],
+      }),
+    ],
   },
 });

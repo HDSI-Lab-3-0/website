@@ -5,10 +5,41 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import tagsData from '../data/tags.json';
 
 type Props = CollectionEntry<'projects'>['data'];
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, imageGif, links, relevance, tags, estimated_time } = Astro.props;
+
+// Categorize tags based on tags.json
+function categorizeTags(projectTags: string[] | undefined) {
+	if (!projectTags || projectTags.length === 0) return {};
+	
+	const categorized: Record<string, string[]> = {};
+	const usedTags = new Set<string>();
+	
+	// Check each tag against all categories
+	for (const [category, categoryTags] of Object.entries(tagsData.categories)) {
+		const matchingTags = projectTags.filter(tag =>
+			categoryTags.some(catTag => catTag.toLowerCase() === tag.toLowerCase())
+		);
+		
+		if (matchingTags.length > 0) {
+			categorized[category] = matchingTags;
+			matchingTags.forEach(tag => usedTags.add(tag.toLowerCase()));
+		}
+	}
+	
+	// Add remaining tags to "Other" category
+	const otherTags = projectTags.filter(tag => !usedTags.has(tag.toLowerCase()));
+	if (otherTags.length > 0) {
+		categorized['Other'] = otherTags;
+	}
+	
+	return categorized;
+}
+
+const categorizedTags = categorizeTags(tags);
 ---
 
 <html lang="en">
@@ -52,6 +83,109 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+			.gif-image {
+				width: 100%;
+				margin-top: 2em;
+			}
+			.gif-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.links {
+				margin: 1.5em 0;
+				padding: 1em;
+				background: rgba(var(--accent-light), 0.1);
+				border-radius: 8px;
+			}
+			.links h2 {
+				margin-top: 0;
+				font-size: 1.2em;
+			}
+			.links ul {
+				list-style: none;
+				padding: 0;
+				margin: 0.5em 0 0 0;
+			}
+			.links li {
+				margin: 0.5em 0;
+			}
+			.links a {
+				color: rgb(var(--accent));
+				text-decoration: none;
+			}
+			.links a:hover {
+				text-decoration: underline;
+			}
+			.relevance {
+				margin: 1.5em 0;
+				padding: 1em;
+				background: rgba(var(--gray-light), 0.1);
+				border-radius: 8px;
+				font-style: italic;
+			}
+			.relevance h2 {
+				margin-top: 0;
+				font-size: 1.2em;
+				font-style: normal;
+			}
+			.tags {
+				margin: 1.5em 0;
+				padding: 1em;
+				background: rgba(var(--accent-light), 0.05);
+				border-radius: 8px;
+			}
+			.tags h2 {
+				margin-top: 0;
+				font-size: 1.2em;
+				margin-bottom: 0.75em;
+			}
+			.tag-category {
+				margin-bottom: 1em;
+			}
+			.tag-category:last-child {
+				margin-bottom: 0;
+			}
+			.tag-category h3 {
+				margin: 0 0 0.5em 0;
+				font-size: 1em;
+				color: rgb(var(--gray-dark));
+				font-weight: 600;
+			}
+			.tag-list {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5em;
+				list-style: none;
+				padding: 0;
+				margin: 0;
+			}
+			.tag-badge {
+				display: inline-block;
+				padding: 0.25em 0.75em;
+				background: rgb(var(--accent));
+				color: white;
+				border-radius: 4px;
+				font-size: 0.9em;
+				font-weight: 500;
+			}
+			.estimated-time {
+				margin: 1.5em 0;
+				padding: 1em;
+				background: rgba(var(--gray-light), 0.05);
+				border-radius: 8px;
+				display: flex;
+				align-items: center;
+				gap: 0.5em;
+			}
+			.estimated-time .icon {
+				font-size: 1.2em;
+			}
+			.estimated-time .time-text {
+				color: rgb(var(--gray-dark));
+				font-weight: 500;
+			}
 		</style>
 	</head>
 
@@ -62,6 +196,11 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				<div class="hero-image">
 					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
 				</div>
+				{imageGif && (
+					<div class="gif-image">
+						<Image width={1020} height={510} src={imageGif} alt="" />
+					</div>
+				)}
 				<div class="prose">
 					<div class="title">
 						<div class="date">
@@ -76,6 +215,56 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 						</div>
 						<h1>{title}</h1>
 						<hr />
+						{links && (links.lessonPlan || links.materials) && (
+							<div class="links">
+								<h2>Resources</h2>
+								<ul>
+									{links.lessonPlan && (
+										<li>
+											<a href={links.lessonPlan} target="_blank" rel="noopener noreferrer">
+												📄 Lesson Plan
+											</a>
+										</li>
+									)}
+									{links.materials && (
+										<li>
+											<a href={links.materials} target="_blank" rel="noopener noreferrer">
+												📦 Materials
+											</a>
+										</li>
+									)}
+								</ul>
+							</div>
+						)}
+						{relevance && (
+							<div class="relevance">
+								<h2>Relevance</h2>
+								<p>{relevance}</p>
+							</div>
+						)}
+						{tags && tags.length > 0 && Object.keys(categorizedTags).length > 0 && (
+							<div class="tags">
+								<h2>Tags</h2>
+								{Object.entries(categorizedTags).map(([category, categoryTags]) => (
+									<div class="tag-category">
+										<h3>{category}</h3>
+										<ul class="tag-list">
+											{categoryTags.map((tag) => (
+												<li>
+													<span class="tag-badge">{tag}</span>
+												</li>
+											))}
+										</ul>
+									</div>
+								))}
+							</div>
+						)}
+						{estimated_time && (
+							<div class="estimated-time">
+								<span class="icon">🕒</span>
+								<span class="time-text">Estimated Time: {estimated_time} minutes</span>
+							</div>
+						)}
 					</div>
 					<slot />
 				</div>

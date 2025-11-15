@@ -138,6 +138,13 @@ hr {
     }
 }
 
+body.projects-page main.projects-page-main {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 0;
+}
+
 .sr-only {
     border: 0;
     padding: 0;
@@ -154,4 +161,30 @@ hr {
     clip-path: inset(50%);
     /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
     white-space: nowrap;
+}
+
+/* Ensure HeroUI modal displays properly with high z-index */
+[data-heroui-theme="light"] {
+    --heroui-z-index-modal: 1000;
+    --heroui-z-index-popover: 1050;
+    --heroui-z-index-tooltip: 1100;
+}
+
+/* Fix any potential positioning conflicts */
+body {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure modal backdrop and content are properly positioned */
+.z-\[1000\] {
+    z-index: 1000 !important;
+}
+
+.z-\[1001\] {
+    z-index: 1001 !important;
+}
+
+.z-\[1002\] {
+    z-index: 1002 !important;
 }
