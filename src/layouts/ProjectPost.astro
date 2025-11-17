@@ -5,11 +5,49 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
+import { Icon } from '../components/Icon.tsx';
 import tagsData from '../data/tags.json';
+import tableOfContentsScript from '../scripts/table-of-contents.js?url';
 
 type Props = CollectionEntry<'projects'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage, imageGif, links, relevance, tags, estimated_time } = Astro.props;
+
+// Get icon for each category
+function getCategoryIcon(category: string): string {
+	switch (category) {
+		case 'Location':
+			return 'MapPin';
+		case 'School Level':
+			return 'GraduationCap';
+		case 'Sponsor':
+			return 'Building';
+		case 'Cost':
+			return 'DollarSign';
+		case 'Type':
+			return 'Tag';
+		default:
+			return 'MoreHorizontal';
+	}
+}
+
+// Get color for each category
+function getCategoryColor(category: string): string {
+	switch (category) {
+		case 'Location':
+			return '#10b981'; // emerald-500
+		case 'School Level':
+			return '#3b82f6'; // blue-500
+		case 'Sponsor':
+			return '#8b5cf6'; // violet-500
+		case 'Cost':
+			return '#f59e0b'; // amber-500
+		case 'Type':
+			return '#ef4444'; // red-500
+		default:
+			return '#6b7280'; // gray-500
+	}
+}
 
 // Categorize tags based on tags.json
 function categorizeTags(projectTags: string[] | undefined) {
@@ -39,7 +77,48 @@ function categorizeTags(projectTags: string[] | undefined) {
 	return categorized;
 }
 
-const categorizedTags = categorizeTags(tags);
+// Flatten all tags with their categories for unified display
+function getAllTagsWithCategories(projectTags: string[] | undefined) {
+	if (!projectTags || projectTags.length === 0) return [];
+	
+	const categorized = categorizeTags(projectTags);
+	const allTags: Array<{ tag: string; category: string; icon: string; color: string }> = [];
+	
+	for (const [category, categoryTags] of Object.entries(categorized)) {
+		for (const tag of categoryTags) {
+			allTags.push({
+				tag,
+				category,
+				icon: getCategoryIcon(category),
+				color: getCategoryColor(category)
+			});
+		}
+	}
+	
+	return allTags;
+}
+
+// Get icon for heading levels
+function getHeadingIcon(level: number): string {
+	switch (level) {
+		case 1:
+			return 'Hash';
+		case 2:
+			return 'Heading1';
+		case 3:
+			return 'Heading2';
+		case 4:
+			return 'Heading3';
+		case 5:
+			return 'Heading4';
+		case 6:
+			return 'Heading5';
+		default:
+			return 'Hash';
+	}
+}
+
+const allTagsWithCategories = getAllTagsWithCategories(tags);
 ---
 
 <html lang="en">
@@ -60,12 +139,58 @@ const categorizedTags = categorizeTags(tags);
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
 			}
+			
+			/* Layout with sidebar for TOC */
+			.content-wrapper {
+				display: flex;
+				gap: 2rem;
+				max-width: 1400px;
+				margin: 0 auto;
+				position: relative;
+			}
+			
+			.toc-sidebar {
+				flex-shrink: 0;
+				width: 250px;
+			}
+			
+			.main-content {
+				flex: 1;
+				min-width: 0;
+			}
+			
 			.prose {
-				width: 720px;
+				width: 800px;
 				max-width: calc(100% - 2em);
 				margin: auto;
 				padding: 1em;
 				color: rgb(var(--gray-dark));
+			}
+			
+			/* Match responsive breakpoints with markdown-content */
+			@media (min-width: 1200px) {
+				.prose {
+					width: 900px;
+				}
+			}
+			
+			@media (min-width: 1600px) {
+				.prose {
+					width: 1000px;
+				}
+			}
+			
+			/* Responsive layout adjustments */
+			@media (max-width: 1024px) {
+				.content-wrapper {
+					flex-direction: column;
+					gap: 1rem;
+				}
+				
+				.toc-sidebar {
+					width: 100%;
+					order: -1;
+				}
 			}
 			.title {
 				margin-bottom: 1em;
@@ -130,45 +255,93 @@ const categorizedTags = categorizeTags(tags);
 				font-size: 1.2em;
 				font-style: normal;
 			}
-			.tags {
-				margin: 1.5em 0;
-				padding: 1em;
-				background: rgba(var(--accent-light), 0.05);
-				border-radius: 8px;
+			.tags-section {
+				margin: 2.5em 0;
+				padding: 1.5em 0;
+				border-top: 1px solid rgba(var(--gray-light), 0.5);
 			}
-			.tags h2 {
-				margin-top: 0;
-				font-size: 1.2em;
-				margin-bottom: 0.75em;
+			.tags-header {
+				display: flex;
+				align-items: center;
+				margin-bottom: 1.5em;
+				gap: 0.5em;
 			}
-			.tag-category {
-				margin-bottom: 1em;
-			}
-			.tag-category:last-child {
-				margin-bottom: 0;
-			}
-			.tag-category h3 {
-				margin: 0 0 0.5em 0;
-				font-size: 1em;
-				color: rgb(var(--gray-dark));
+			.tags-header h2 {
+				margin: 0;
+				font-size: 1.25em;
 				font-weight: 600;
+				color: rgb(var(--gray-dark));
 			}
-			.tag-list {
+			.tags-container {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.5em;
-				list-style: none;
-				padding: 0;
-				margin: 0;
+				gap: 0.75em;
+				margin-top: 0.5em;
 			}
-			.tag-badge {
-				display: inline-block;
-				padding: 0.25em 0.75em;
-				background: rgb(var(--accent));
-				color: white;
-				border-radius: 4px;
+			.tag-item {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4em;
+				padding: 0.4em 0.9em;
+				background: rgba(var(--gray-light), 0.15);
+				border: 1px solid rgba(var(--gray), 0.15);
+				border-radius: 9999px;
 				font-size: 0.9em;
 				font-weight: 500;
+				color: rgb(var(--gray-dark));
+				transition: all 0.2s ease;
+			}
+			.tag-item:hover {
+				background: rgba(var(--gray-light), 0.3);
+				transform: translateY(-1px);
+				box-shadow: 0 2px 4px rgba(var(--gray), 0.1);
+			}
+			.tag-icon {
+				flex-shrink: 0;
+				opacity: 0.8;
+			}
+			.tag-text {
+				white-space: nowrap;
+			}
+			.tag-divider {
+				width: 1px;
+				height: 1em;
+				background: rgba(var(--gray), 0.2);
+				margin: 0 0.25em;
+			}
+			.tag-category-label {
+				font-size: 0.75em;
+				opacity: 0.7;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+			}
+			
+			/* Responsive design for tags */
+			@media (max-width: 768px) {
+				.tags-section {
+					margin: 2em 0;
+					padding: 1em 0;
+				}
+				.tags-container {
+					gap: 0.5em;
+				}
+				.tag-item {
+					font-size: 0.85em;
+					padding: 0.35em 0.75em;
+				}
+			}
+			
+			@media (max-width: 480px) {
+				.tags-container {
+					gap: 0.4em;
+				}
+				.tag-item {
+					font-size: 0.8em;
+					padding: 0.3em 0.65em;
+				}
+				.tag-category-label {
+					display: none;
+				}
 			}
 			.estimated-time {
 				margin: 1.5em 0;
@@ -191,6 +364,9 @@ const categorizedTags = categorizeTags(tags);
 
 	<body>
 		<Header />
+		<!-- Reading Progress Bar -->
+		<div class="reading-progress" id="reading-progress"></div>
+		
 		<main>
 			<article>
 				<div class="hero-image">
@@ -201,75 +377,236 @@ const categorizedTags = categorizeTags(tags);
 						<Image width={1020} height={510} src={imageGif} alt="" />
 					</div>
 				)}
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
+				<div class="content-wrapper">
+					<aside class="toc-sidebar">
+						<div class="table-of-contents">
+							<div class="toc-header">
+								<button class="toc-toggle" aria-label="Toggle table of contents">
+									<Icon icon="ChevronDown" size={16} />
+									<span class="toc-title">Contents</span>
+								</button>
+							</div>
+							<div class="toc-content">
+								<!-- Table of contents will be generated by JavaScript -->
+							</div>
 						</div>
-						<h1>{title}</h1>
-						<hr />
-						{links && (links.lessonPlan || links.materials) && (
-							<div class="links">
-								<h2>Resources</h2>
-								<ul>
-									{links.lessonPlan && (
-										<li>
-											<a href={links.lessonPlan} target="_blank" rel="noopener noreferrer">
-												📄 Lesson Plan
-											</a>
-										</li>
-									)}
-									{links.materials && (
-										<li>
-											<a href={links.materials} target="_blank" rel="noopener noreferrer">
-												📦 Materials
-											</a>
-										</li>
-									)}
-								</ul>
-							</div>
-						)}
-						{relevance && (
-							<div class="relevance">
-								<h2>Relevance</h2>
-								<p>{relevance}</p>
-							</div>
-						)}
-						{tags && tags.length > 0 && Object.keys(categorizedTags).length > 0 && (
-							<div class="tags">
-								<h2>Tags</h2>
-								{Object.entries(categorizedTags).map(([category, categoryTags]) => (
-									<div class="tag-category">
-										<h3>{category}</h3>
-										<ul class="tag-list">
-											{categoryTags.map((tag) => (
+					</aside>
+					<div class="main-content">
+						<div class="prose">
+							<div class="title">
+								<div class="date">
+									<FormattedDate date={pubDate} />
+									{
+										updatedDate && (
+											<div class="last-updated-on">
+												Last updated on <FormattedDate date={updatedDate} />
+											</div>
+										)
+									}
+								</div>
+								<h1>{title}</h1>
+								<hr />
+								{links && (links.lessonPlan || links.materials) && (
+									<div class="links">
+										<h2>Resources</h2>
+										<ul>
+											{links.lessonPlan && (
 												<li>
-													<span class="tag-badge">{tag}</span>
+													<a href={links.lessonPlan} target="_blank" rel="noopener noreferrer">
+														📄 Lesson Plan
+													</a>
 												</li>
-											))}
+											)}
+											{links.materials && (
+												<li>
+													<a href={links.materials} target="_blank" rel="noopener noreferrer">
+														📦 Materials
+													</a>
+												</li>
+											)}
 										</ul>
 									</div>
-								))}
+								)}
+								{relevance && (
+									<div class="relevance">
+										<h2>Relevance</h2>
+										<p>{relevance}</p>
+									</div>
+								)}
+								{allTagsWithCategories && allTagsWithCategories.length > 0 && (
+									<div class="tags-section">
+										<div class="tags-header">
+											<Icon icon="Tag" size={20} className="tag-icon" style={{ color: 'rgb(var(--gray))' }} />
+											<h2>Tags</h2>
+										</div>
+										<div class="tags-container">
+											{allTagsWithCategories.map((tagInfo) => (
+												<div class="tag-item" style={{ borderColor: tagInfo.color + '40', background: tagInfo.color + '10' }}>
+													<Icon icon={tagInfo.icon} size={14} className="tag-icon" style={{ color: tagInfo.color }} />
+													<span class="tag-text">{tagInfo.tag}</span>
+													<span class="tag-divider"></span>
+													<span class="tag-category-label" style={{ color: tagInfo.color }}>{tagInfo.category}</span>
+												</div>
+											))}
+										</div>
+									</div>
+								)}
+								{estimated_time && (
+									<div class="estimated-time">
+										<span class="icon">🕒</span>
+										<span class="time-text">Estimated Time: {estimated_time} minutes</span>
+									</div>
+								)}
 							</div>
-						)}
-						{estimated_time && (
-							<div class="estimated-time">
-								<span class="icon">🕒</span>
-								<span class="time-text">Estimated Time: {estimated_time} minutes</span>
+							<div class="markdown-content">
+								<slot />
 							</div>
-						)}
+						</div>
 					</div>
-					<slot />
 				</div>
 			</article>
 		</main>
 		<Footer />
+		<script type="module" src={tableOfContentsScript}></script>
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', () => {
+			  // Reading progress bar
+			  const progressBar = document.getElementById('reading-progress');
+			  
+			  function updateReadingProgress() {
+				  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+				  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				  const progress = (scrollTop / scrollHeight) * 100;
+				  progressBar.style.width = progress + '%';
+			  }
+			  
+			  window.addEventListener('scroll', updateReadingProgress);
+			  updateReadingProgress();
+			  
+			  // Find all code blocks
+			  const codeBlocks = document.querySelectorAll('pre code');
+			  
+			  codeBlocks.forEach((codeBlock) => {
+				  // Create container for code block with relative positioning
+				  const preElement = codeBlock.parentElement;
+				  preElement.style.position = 'relative';
+				  
+				  // Create copy button
+				  const copyButton = document.createElement('button');
+				  copyButton.className = 'code-copy-button';
+				  copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+				  
+				  // Create icon container
+				  const iconContainer = document.createElement('span');
+				  iconContainer.className = 'copy-icon';
+				  
+				  // Add copy icon (using SVG since we can't use React components in plain JS)
+				  iconContainer.innerHTML = `
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+					  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+					</svg>
+				  `;
+				  
+				  // Create check icon for success state
+				  const checkIcon = document.createElement('span');
+				  checkIcon.className = 'check-icon';
+				  checkIcon.innerHTML = `
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					  <polyline points="20 6 9 17 4 12"></polyline>
+					</svg>
+				  `;
+				  
+				  copyButton.appendChild(iconContainer);
+				  copyButton.appendChild(checkIcon);
+				  
+				  // Add click event listener
+				  copyButton.addEventListener('click', async () => {
+					  const code = codeBlock.textContent || codeBlock.innerText;
+					  
+					  try {
+						  // Use modern clipboard API
+						  await navigator.clipboard.writeText(code);
+						  
+						  // Show success state
+						  copyButton.classList.add('copied');
+						  
+						  // Reset after 2 seconds
+						  setTimeout(() => {
+							  copyButton.classList.remove('copied');
+						  }, 2000);
+					  } catch (err) {
+						  // Fallback for older browsers
+						  const textArea = document.createElement('textarea');
+						  textArea.value = code;
+						  textArea.style.position = 'fixed';
+						  textArea.style.left = '-999999px';
+						  textArea.style.top = '-999999px';
+						  document.body.appendChild(textArea);
+						  textArea.focus();
+						  textArea.select();
+						  
+						  try {
+							  document.execCommand('copy');
+							  copyButton.classList.add('copied');
+							  
+							  setTimeout(() => {
+								  copyButton.classList.remove('copied');
+							  }, 2000);
+						  } catch (fallbackErr) {
+							  console.error('Failed to copy code:', fallbackErr);
+						  }
+						  
+						  document.body.removeChild(textArea);
+					  }
+				  });
+				  
+				  // Add button to the code block
+				  preElement.appendChild(copyButton);
+			  });
+			  
+			  // Add icons to headings
+			  const headings = document.querySelectorAll('.markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4, .markdown-content h5, .markdown-content h6');
+			  
+			  const headingIcons = {
+				  1: 'Hash',
+				  2: 'Heading1',
+				  3: 'Heading2',
+				  4: 'Heading3',
+				  5: 'Heading4',
+				  6: 'Heading5'
+			  };
+			  
+			  headings.forEach((heading) => {
+				  const level = parseInt(heading.tagName.substring(1));
+				  const iconName = headingIcons[level];
+				  
+				  // Create icon element
+				  const iconElement = document.createElement('span');
+				  iconElement.className = 'heading-icon';
+				  iconElement.innerHTML = `
+					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+					  ${getIconSvg(iconName)}
+					</svg>
+				  `;
+				  
+				  // Prepend icon to heading
+				  heading.insertBefore(iconElement, heading.firstChild);
+			  });
+			  
+			  // Helper function to get SVG path for icons
+			  function getIconSvg(iconName) {
+				  const icons = {
+					  'Hash': '<path d="M4 9h16M4 15h16M10 3v18M14 3v18"></path>',
+					  'Heading1': '<path d="M4 12h8M4 18h8M4 6h4l2 2 2-2h4"></path>',
+					  'Heading2': '<path d="M4 12h8M4 18h8M8 6v12"></path>',
+					  'Heading3': '<path d="M4 12h8M4 18h8M6 6v12M10 6v6"></path>',
+					  'Heading4': '<path d="M4 12h8M4 18h8M6 6v12M10 6v4"></path>',
+					  'Heading5': '<path d="M4 12h8M4 18h8M6 6v12M10 6v2"></path>'
+				  };
+				  return icons[iconName] || icons['Hash'];
+			  }
+			});
+		</script>
 	</body>
 </html>
