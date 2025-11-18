@@ -1,0 +1,83 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={`Opportunities | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+
+    <main class="container mx-auto px-4 py-8 space-y-12">
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Opportunities for K-12 Kids</h2>
+        <article>
+          <h3 class="text-xl font-semibold">Elementary</h3>
+          <ul class="list-disc ml-6">
+            <li>Robotic Arts and Crafts Workshop</li>
+          </ul>
+        </article>
+        <article>
+          <h3 class="text-xl font-semibold mt-4">Middle School</h3>
+          <ul class="list-disc ml-6">
+            <li>Robotic Arts and Crafts Workshop</li>
+          </ul>
+        </article>
+        <article>
+          <h3 class="text-xl font-semibold mt-4">High School</h3>
+          <ul class="list-disc ml-6">
+            <li>Summer Day Camp</li>
+            <li>Girl Scouts Robotics Workshop</li>
+          </ul>
+        </article>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Opportunities for K-12 Parents</h2>
+        <p>Projects requiring parent registration:</p>
+        <ul class="list-disc ml-6">
+          <li>Robotic Arts and Crafts Workshop</li>
+          <li>Summer Day Camp</li>
+          <li>Girl Scouts Robotics Workshop</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Opportunities for K-12 Teachers</h2>
+        <ul class="list-disc ml-6">
+          <li>Classroom-ready robotics projects</li>
+          <li>Professional development opportunities</li>
+          <li>Pilot new research-backed activities</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Opportunities for UCSD Faculty</h2>
+        <p>The lab supports grant initiatives through:</p>
+        <ul class="list-disc ml-6">
+          <li>TILOS</li>
+          <li>EnCORE</li>
+          <li>CAREER Grant Support</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold mb-4">Opportunities for UCSD Students</h2>
+        <ul class="list-disc ml-6">
+          <li>Lab Fellowship Opportunities</li>
+          <li>Robot Teddy Bear Army Scavenger Hunt</li>
+          <li>Volunteer Positions in Research and Outreach</li>
+        </ul>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+
