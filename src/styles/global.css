@@ -5,6 +5,10 @@
  */
 
 @import "tailwindcss";
+@plugin '../../hero.ts';
+/* Note: You may need to change the path to fit your project structure */
+@source '../../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
 
 :root {
     --accent: #2337ff;
@@ -14,8 +18,9 @@
     --gray-light: 229, 233, 240;
     --gray-dark: 34, 41, 57;
     --gray-gradient: rgba(var(--gray-light), 50%), #fff;
-    --box-shadow: 0 2px 6px rgba(var(--gray), 25%),
-        0 8px 24px rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
+    --box-shadow:
+        0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
+        0 16px 32px rgba(var(--gray), 33%);
 }
 @font-face {
     font-family: "Atkinson";
@@ -41,10 +46,12 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     color: rgb(var(--gray-dark));
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.7;
 }
-main {
+
+/* Constrained main layout - opt-in via .constrained-main class */
+main.constrained-main {
     width: 720px;
     max-width: calc(100% - 2em);
     margin: auto;
@@ -130,9 +137,9 @@ hr {
 }
 @media (max-width: 720px) {
     body {
-        font-size: 18px;
+        font-size: 16px;
     }
-    main {
+    main.constrained-main {
         padding: 1em;
     }
 }
@@ -153,4 +160,11 @@ hr {
     clip-path: inset(50%);
     /* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
     white-space: nowrap;
+}
+
+/* Ensure HeroUI modal displays properly with high z-index */
+[data-heroui-theme="light"] {
+    --heroui-z-index-modal: 1000;
+    --heroui-z-index-popover: 1050;
+    --heroui-z-index-tooltip: 1100;
 }

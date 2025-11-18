@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '@/components/layout/BaseHead.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import ProjectsApp from '@/components/projects/ProjectsApp';
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts';
+import tagsData from '@/data/tags.json';
+
+const posts = (await getCollection('projects')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const schoolLevelsCount = tagsData.categories['School Level'].length;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@heroui/theme@latest/dist/index.min.css" />
+	</head>
+	<body class="projects-page">
+		<Header />
+		
+		<!-- Hero Section -->
+		<header class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
+			<div class="mx-auto w-full max-w-[1400px] px-6 py-12">
+				<div class="text-center mb-8">
+					<h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+						Educational Projects
+					</h1>
+					<p class="text-lg text-slate-600 max-w-3xl mx-auto">
+						Discover innovative educational resources designed for various learning environments and academic levels
+					</p>
+				</div>
+				
+				<!-- Quick stats bar -->
+				<div class="flex flex-wrap justify-center gap-8 text-center">
+					<div class="flex flex-col">
+						<span class="text-2xl font-bold text-blue-600">{posts.length}</span>
+						<span class="text-sm text-slate-500">Total Projects</span>
+					</div>
+					<div class="flex flex-col">
+						<span class="text-2xl font-bold text-blue-600" id="active-filters">0</span>
+						<span class="text-sm text-slate-500">Active Filters</span>
+					</div>
+					<div class="flex flex-col">
+						<span class="text-2xl font-bold text-blue-600">{schoolLevelsCount}</span>
+						<span class="text-sm text-slate-500">School Levels</span>
+					</div>
+				</div>
+			</div>
+		</header>
+
+		<main class="projects-page-main">
+			<div class="mx-auto w-full max-w-[1400px] px-4 py-12">
+				<ProjectsApp client:load projects={posts} />
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

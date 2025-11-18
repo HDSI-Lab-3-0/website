@@ -1,0 +1,878 @@
+/*
+  Markdown Documentation Styling
+  Medium-inspired design for markdown content
+  Uses the existing Atkinson font from global.css
+*/
+
+/* ==========================================================================
+   Base Typography & Layout
+   ========================================================================== */
+
+.markdown-content {
+  font-family: "Atkinson", sans-serif;
+  font-size: 20px;
+  line-height: 1.7;
+  color: rgb(var(--gray-dark));
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  overflow: hidden;
+}
+
+/* Optimal line length for readability (60-80 characters) */
+@media (min-width: 768px) {
+  .markdown-content {
+    padding: 0;
+  }
+}
+
+/* For larger screens, increase max-width while maintaining readability */
+@media (min-width: 1200px) {
+  .markdown-content {
+    max-width: 900px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .markdown-content {
+    max-width: 1000px;
+  }
+}
+
+/* ==========================================================================
+   Headings with Icons
+   ========================================================================== */
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  margin: 2.5rem 0 1rem 0;
+  color: rgb(var(--black));
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.markdown-content h1:hover,
+.markdown-content h2:hover,
+.markdown-content h3:hover,
+.markdown-content h4:hover,
+.markdown-content h5:hover,
+.markdown-content h6:hover {
+  color: var(--accent);
+}
+
+
+/* Tooltip for copy feedback */
+.markdown-content .anchor-tooltip {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(var(--accent), 0.3);
+  z-index: 100;
+}
+
+.markdown-content .anchor-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--accent);
+}
+
+.markdown-content .anchor-tooltip.show {
+  opacity: 1;
+  visibility: visible;
+  top: -40px;
+}
+
+/* Link copied state for heading */
+.markdown-content h1.link-copied,
+.markdown-content h2.link-copied,
+.markdown-content h3.link-copied,
+.markdown-content h4.link-copied,
+.markdown-content h5.link-copied,
+.markdown-content h6.link-copied {
+  color: var(--accent);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Focus styles for accessibility */
+.markdown-content h1:focus,
+.markdown-content h2:focus,
+.markdown-content h3:focus,
+.markdown-content h4:focus,
+.markdown-content h5:focus,
+.markdown-content h6:focus {
+  outline: none;
+}
+
+.markdown-content h1:focus-visible,
+.markdown-content h2:focus-visible,
+.markdown-content h3:focus-visible,
+.markdown-content h4:focus-visible,
+.markdown-content h5:focus-visible,
+.markdown-content h6:focus-visible {
+  outline: none;
+}
+
+.markdown-content h1 {
+  font-size: 2.25rem; /* 36px */
+  margin-top: 0;
+}
+
+.markdown-content h2 {
+  font-size: 1.75rem; /* 28px */
+  margin-top: 2.5rem;
+}
+
+.markdown-content h3 {
+  font-size: 1.375rem; /* 22px */
+  margin-top: 2rem;
+}
+
+.markdown-content h4 {
+  font-size: 1.125rem; /* 18px */
+  margin-top: 1.5rem;
+}
+
+.markdown-content h5 {
+  font-size: 1rem; /* 16px */
+  margin-top: 1.5rem;
+}
+
+.markdown-content h6 {
+  font-size: 0.875rem; /* 14px */
+  margin-top: 1.5rem;
+}
+
+
+/* ==========================================================================
+   Paragraphs & Text with Drop Caps
+   ========================================================================== */
+
+.markdown-content p {
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+}
+
+
+.markdown-content .lead {
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: rgb(var(--gray));
+  margin-bottom: 2rem;
+}
+
+/* ==========================================================================
+   Links
+   ========================================================================== */
+
+.markdown-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.markdown-content a:hover {
+  border-bottom-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.markdown-content a::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.markdown-content a:hover::after {
+  width: 100%;
+}
+
+/* ==========================================================================
+   Lists with Enhanced Styling
+   ========================================================================== */
+
+.markdown-content ul,
+.markdown-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.markdown-content li {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.markdown-content li:hover {
+  transform: translateX(4px);
+}
+
+.markdown-content li:last-child {
+  margin-bottom: 0;
+}
+
+/* Custom bullet points for ul */
+.markdown-content ul li::before {
+  content: '•';
+  position: absolute;
+  left: -1.25rem;
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+
+.markdown-content ul li:hover::before {
+  transform: translateY(-50%) scale(1.2);
+}
+
+/* Enhanced styling for ol */
+.markdown-content ol {
+  counter-reset: list-counter;
+}
+
+.markdown-content ol li {
+  counter-increment: list-counter;
+  list-style: none;
+  position: relative;
+}
+
+.markdown-content ol li::before {
+  content: counter(list-counter);
+  position: absolute;
+  left: -2rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.markdown-content ol li:hover::before {
+  color: var(--accent);
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* ==========================================================================
+   Enhanced Blockquotes
+   ========================================================================== */
+
+.markdown-content blockquote {
+  margin: 2rem 0;
+  padding: 1.5rem 2rem;
+  border-left: 4px solid var(--accent);
+  background: linear-gradient(135deg, rgba(var(--gray-light), 0.3) 0%, rgba(var(--gray-light), 0.1) 100%);
+  border-radius: 0 8px 8px 0;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(var(--gray), 0.1);
+}
+
+.markdown-content blockquote:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(var(--gray), 0.15);
+}
+
+
+.markdown-content blockquote p {
+  margin-bottom: 0;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgb(var(--gray-dark));
+  position: relative;
+  z-index: 1;
+}
+
+.markdown-content blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Code with Enhanced Styling
+   ========================================================================== */
+
+.markdown-content code {
+  font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  background-color: rgba(var(--gray-light), 0.5);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: rgb(var(--gray-dark));
+  border: 1px solid rgba(var(--gray), 0.1);
+  transition: all 0.2s ease;
+}
+
+.markdown-content code:hover {
+  background-color: rgba(var(--gray-light), 0.7);
+  transform: translateY(-1px);
+}
+
+.markdown-content pre {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #1e1e1e;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.markdown-content pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: #d4d4d4;
+  border: none;
+  transition: none;
+}
+
+.markdown-content pre code:hover {
+  transform: none;
+}
+
+/* Code Copy Button */
+.markdown-content .code-copy-button {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #d4d4d4;
+  opacity: 0.8;
+  width: 32px;
+  height: 32px;
+}
+
+.markdown-content .code-copy-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.markdown-content .code-copy-button.copied {
+  background-color: rgba(34, 197, 94, 0.2);
+  border-color: rgb(34, 197, 94);
+  color: rgb(34, 197, 94);
+}
+
+.markdown-content .code-copy-button svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.2s ease;
+  display: block;
+  flex-shrink: 0;
+}
+
+.markdown-content .code-copy-button:hover svg {
+  transform: scale(1.1);
+}
+
+.markdown-content .copy-icon,
+.markdown-content .check-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.markdown-content .copy-icon {
+  display: flex;
+}
+
+.markdown-content .check-icon {
+  display: none;
+}
+
+.markdown-content .code-copy-button.copied .copy-icon {
+  display: none;
+}
+
+.markdown-content .code-copy-button.copied .check-icon {
+  display: flex;
+}
+
+/* Responsive adjustments for code blocks */
+@media (max-width: 768px) {
+  .markdown-content pre {
+    padding: 0.875rem;
+    font-size: 0.8125rem;
+  }
+  
+  .markdown-content .code-copy-button {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .markdown-content .code-copy-button svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/* ==========================================================================
+   Enhanced Tables
+   ========================================================================== */
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
+  border: 1px solid rgba(var(--gray), 0.1);
+  transition: all 0.3s ease;
+}
+
+.markdown-content table:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(var(--gray), 0.15);
+}
+
+.markdown-content th,
+.markdown-content td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(var(--gray), 0.1);
+  transition: all 0.2s ease;
+}
+
+.markdown-content th {
+  background: linear-gradient(135deg, rgba(var(--gray-light), 0.7) 0%, rgba(var(--gray-light), 0.5) 100%);
+  font-weight: 700;
+  color: rgb(var(--black));
+  position: relative;
+}
+
+.markdown-content th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+}
+
+.markdown-content tr:hover td {
+  background-color: rgba(var(--gray-light), 0.3);
+}
+
+.markdown-content tr:nth-child(even) {
+  background-color: rgba(var(--gray-light), 0.1);
+}
+
+.markdown-content tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   Enhanced Images & Media
+   ========================================================================== */
+
+.markdown-content img {
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(var(--gray), 0.15);
+  transition: all 0.3s ease;
+  cursor: zoom-in;
+  display: block;
+  position: relative;
+}
+
+.markdown-content img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 24px rgba(var(--gray), 0.2);
+}
+
+.markdown-content figure {
+  margin: 2rem 0;
+  text-align: center;
+  position: relative;
+}
+
+.markdown-content figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: rgb(var(--gray));
+  font-style: italic;
+  padding: 0.5rem;
+  background-color: rgba(var(--gray-light), 0.2);
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.markdown-content figcaption:hover {
+  background-color: rgba(var(--gray-light), 0.3);
+}
+
+/* ==========================================================================
+   Enhanced Horizontal Rules
+   ========================================================================== */
+
+.markdown-content hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(var(--gray), 0.3), transparent);
+  margin: 3rem 0;
+  position: relative;
+}
+
+.markdown-content hr::before {
+  content: '⋅';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: rgba(var(--gray), 0.5);
+  padding: 0 1rem;
+  font-size: 1.2rem;
+}
+
+/* ==========================================================================
+   Additional Elements
+   ========================================================================== */
+
+.markdown-content strong,
+.markdown-content b {
+  font-weight: 700;
+  color: rgb(var(--black));
+}
+
+.markdown-content em,
+.markdown-content i {
+  font-style: italic;
+  color: rgba(var(--gray-dark), 0.9);
+}
+
+.markdown-content .footnote-ref {
+  font-size: 0.8em;
+  vertical-align: super;
+  color: var(--accent);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.markdown-content .footnote-ref:hover {
+  color: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Reading Progress Bar
+   ========================================================================== */
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-dark) 100%);
+  z-index: 1000;
+  transition: width 0.1s ease;
+  box-shadow: 0 0 8px rgba(var(--accent), 0.5);
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .markdown-content {
+    font-size: 18px;
+  }
+  
+  .markdown-content h1 {
+    font-size: 2rem; /* 32px */
+  }
+  
+  .markdown-content h2 {
+    font-size: 1.5rem; /* 24px */
+  }
+  
+  .markdown-content h3 {
+    font-size: 1.25rem; /* 20px */
+  }
+  
+  .markdown-content pre {
+    padding: 0.875rem;
+    font-size: 0.8125rem;
+  }
+  
+  .markdown-content table {
+    font-size: 0.9rem;
+  }
+  
+  .markdown-content th,
+  .markdown-content td {
+    padding: 0.5rem 0.75rem;
+  }
+  .markdown-content .anchor-tooltip {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .markdown-content {
+    font-size: 16px;
+  }
+  
+  .markdown-content h1 {
+    font-size: 1.75rem; /* 28px */
+  }
+  
+  .markdown-content .anchor-tooltip {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.5rem;
+  }
+  
+  .markdown-content h2 {
+    font-size: 1.375rem; /* 22px */
+  }
+  
+  .markdown-content h3 {
+    font-size: 1.125rem; /* 18px */
+  }
+  
+}
+
+/* ==========================================================================
+   Print Styles
+   ========================================================================== */
+
+@media print {
+  .markdown-content {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: none;
+  }
+  
+  .markdown-content a {
+    color: #000;
+    text-decoration: underline;
+  }
+  
+  .markdown-content pre,
+  .markdown-content blockquote {
+    border: 1px solid #ccc;
+    page-break-inside: avoid;
+  }
+  
+  .markdown-content img {
+    max-width: 100% !important;
+  }
+  
+  .markdown-content h2,
+  .markdown-content h3 {
+    page-break-after: avoid;
+  }
+  
+  .table-of-contents {
+    display: none;
+  }
+  
+  .reading-progress {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Table of Contents - Bar-Based Design
+   ========================================================================== */
+
+.table-of-contents {
+  position: sticky;
+  top: 2rem;
+  width: 250px;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  background: rgba(var(--gray-light), 0.05);
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.toc-header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(var(--gray), 0.1);
+}
+
+.toc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(var(--gray-dark));
+}
+
+.toc-content {
+  overflow: visible;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  margin-bottom: 0.5rem;
+}
+
+/* Text-based TOC links */
+.toc-link {
+  display: block;
+  padding: 0.4rem 0;
+  text-decoration: none;
+  color: black;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Remove default link styling */
+.toc-link:hover {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Active state - blue color */
+.toc-link.toc-active {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Responsive adjustments for TOC */
+@media (max-width: 1200px) {
+  .table-of-contents {
+    width: 220px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .table-of-contents {
+    position: static;
+    width: 100%;
+    max-height: none;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-of-contents {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .toc-item {
+    margin-bottom: 0.4rem;
+  }
+  
+  .toc-link {
+    font-size: 0.85rem;
+    padding: 0.35rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-of-contents {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .toc-header {
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+  }
+  
+  .toc-title {
+    font-size: 0.9rem;
+  }
+  
+  .toc-item {
+    margin-bottom: 0.3rem;
+  }
+  
+  .toc-link {
+    font-size: 0.8rem;
+    padding: 0.3rem 0;
+  }
+}
