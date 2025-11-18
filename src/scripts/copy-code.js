@@ -3,8 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const codeBlocks = document.querySelectorAll('pre code');
   
   codeBlocks.forEach((codeBlock) => {
-    // Create container for code block with relative positioning
+    // Skip if already has a copy button
     const preElement = codeBlock.parentElement;
+    if (preElement.querySelector('.code-copy-button')) {
+      return;
+    }
+    
+    // Create container for code block with relative positioning
     preElement.style.position = 'relative';
     
     // Create copy button
