@@ -1,9 +1,9 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { IconExamples } from '../components/IconExamples';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from '@/components/layout/BaseHead.astro';
+import Footer from '@/components/layout/Footer.astro';
+import Header from '@/components/layout/Header.astro';
+import { IconExamples } from '@/components/pages/IconExamples';
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts';
 ---
 
 <!doctype html>
@@ -13,7 +13,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main class="constrained-main">
 			<h1>🧑‍🚀 Hello, Astronaut!</h1>
 			<p>
 				Welcome to the official <a href="https://astro.build/">Astro</a> projects starter template. This

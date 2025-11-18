@@ -1,4 +1,3 @@
-import React from "react";
 import {
 	Modal,
 	ModalContent,
@@ -11,7 +10,7 @@ import {
 	getCostFromTags,
 	getImageSrc,
 	getProjectType,
-} from "../utils/projectHelpers";
+} from "../../utils/projectHelpers";
 
 interface ProjectModalProps {
 	isOpen: boolean;

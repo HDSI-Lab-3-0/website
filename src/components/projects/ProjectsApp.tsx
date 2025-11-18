@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { HeroUIProvider } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
-import ProjectFilters from "./ProjectFilters";
-import ProjectGrid from "./ProjectGrid";
-import ProjectModal from "./ProjectModal";
+import ProjectFilters from "@/components/projects/ProjectFilters";
+import ProjectGrid from "@/components/projects/ProjectGrid";
+import ProjectModal from "@/components/projects/ProjectModal";
 
 interface ProjectsAppProps {
 	projects: CollectionEntry<"projects">[];
@@ -47,20 +47,7 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 	}, []);
 
 	return (
-		<HeroUIProvider
-			theme={{
-				light: {
-					colors: {
-						background: "#FFFFFF",
-						foreground: "#000000",
-						primary: {
-							DEFAULT: "#2337ff",
-							foreground: "#FFFFFF",
-						},
-					},
-				},
-			}}
-		>
+		<HeroUIProvider>
 			<div className="flex flex-col lg:flex-row gap-10 items-start">
 				<aside className="w-full lg:w-64 lg:flex-none lg:sticky lg:top-10">
 					<ProjectFilters

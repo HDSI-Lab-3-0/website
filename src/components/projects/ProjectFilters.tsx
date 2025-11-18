@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { CollectionEntry } from "astro:content";
-import tagsData from "../data/tags.json";
+import tagsData from "@/data/tags.json";
 
 interface ProjectFiltersProps {
 	onFiltersChange: (selectedTags: string[]) => void;

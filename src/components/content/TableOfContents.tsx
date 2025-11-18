@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Icon } from './Icon.tsx';
+import { useState, useEffect, useRef } from 'react';
 
 interface TocItem {
   id: string;
@@ -13,13 +12,12 @@ interface TableOfContentsProps {
   className?: string;
 }
 
-export function TableOfContents({ 
-  contentSelector = '.markdown-content', 
-  className = '' 
+export function TableOfContents({
+  contentSelector = '.markdown-content',
+  className = ''
 }: TableOfContentsProps) {
   const [headings, setHeadings] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string>('');
-  const [isCollapsed, setIsCollapsed] = useState(false);
   const contentRef = useRef<HTMLElement | null>(null);
 
   // Extract headings from the content
@@ -120,14 +118,16 @@ export function TableOfContents({
           <li key={item.id} className="toc-item">
             <a
               href={`#${item.id}`}
-              className={`toc-link ${activeId === item.id ? 'toc-active' : ''}`}
+              className={`toc-bar ${activeId === item.id ? 'toc-active' : ''} toc-bar-level-${item.level}`}
               onClick={(e) => {
                 e.preventDefault();
                 scrollToHeading(item.id);
               }}
-              style={{ paddingLeft: `${level * 16}px` }}
+              data-heading={item.title}
+              style={{ paddingLeft: `${level * 12}px` }}
             >
-              {item.title}
+              <span className="bar-indicator"></span>
+              <span className="bar-tooltip">{item.title}</span>
             </a>
             {item.children && renderTocItems(item.children, level + 1)}
           </li>
@@ -139,16 +139,9 @@ export function TableOfContents({
   if (headings.length === 0) return null;
 
   return (
-    <div className={`table-of-contents ${isCollapsed ? 'toc-collapsed' : ''} ${className}`}>
+    <div className={`table-of-contents ${className}`}>
       <div className="toc-header">
-        <button
-          className="toc-toggle"
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          aria-label={isCollapsed ? 'Expand table of contents' : 'Collapse table of contents'}
-        >
-          <Icon icon={isCollapsed ? 'ChevronRight' : 'ChevronDown'} size={16} />
-          <span className="toc-title">Contents</span>
-        </button>
+        <span className="toc-title">Contents</span>
       </div>
       <div className="toc-content">
         {renderTocItems(headings)}

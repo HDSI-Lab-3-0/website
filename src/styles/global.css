@@ -46,28 +46,12 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     color: rgb(var(--gray-dark));
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.7;
 }
 
-/* Reset font sizes for modal content to prevent conflicts */
-.modal-content {
-    font-family: inherit;
-}
-
-/* Ensure Tailwind utilities work properly in modals without overriding them */
-.modal-content .text-lg {
-    font-size: 1.125rem;
-}
-
-.modal-content .text-3xl {
-    font-size: 1.875rem;
-}
-
-.modal-content .text-4xl {
-    font-size: 2.25rem;
-}
-main {
+/* Constrained main layout - opt-in via .constrained-main class */
+main.constrained-main {
     width: 720px;
     max-width: calc(100% - 2em);
     margin: auto;
@@ -153,18 +137,11 @@ hr {
 }
 @media (max-width: 720px) {
     body {
-        font-size: 18px;
+        font-size: 16px;
     }
-    main {
+    main.constrained-main {
         padding: 1em;
     }
-}
-
-body.projects-page main.projects-page-main {
-    width: 100%;
-    max-width: none;
-    margin: 0 auto;
-    padding: 0;
 }
 
 .sr-only {
@@ -190,23 +167,4 @@ body.projects-page main.projects-page-main {
     --heroui-z-index-modal: 1000;
     --heroui-z-index-popover: 1050;
     --heroui-z-index-tooltip: 1100;
-}
-
-/* Fix any potential positioning conflicts */
-body {
-    position: relative;
-    z-index: 1;
-}
-
-/* Ensure modal backdrop and content are properly positioned */
-.z-\[1000\] {
-    z-index: 1000 !important;
-}
-
-.z-\[1001\] {
-    z-index: 1001 !important;
-}
-
-.z-\[1002\] {
-    z-index: 1002 !important;
 }

@@ -65,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   
   function renderTOC(container, items) {
-    const tocHeader = container.querySelector('.toc-header');
     const tocContent = container.querySelector('.toc-content');
     
     if (!tocContent) return;
@@ -161,30 +160,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
-  // Setup TOC toggle functionality
-  const tocToggle = document.querySelector('.toc-toggle');
-  if (tocToggle) {
-    tocToggle.addEventListener('click', () => {
-      const tocContainer = tocToggle.closest('.table-of-contents');
-      if (tocContainer) {
-        tocContainer.classList.toggle('toc-collapsed');
-        
-        // Update chevron icon
-        const icon = tocToggle.querySelector('svg');
-        if (icon) {
-          if (tocContainer.classList.contains('toc-collapsed')) {
-            // Change to ChevronRight
-            icon.innerHTML = `
-              <polyline points="9 18 15 12 9 6"></polyline>
-            `;
-          } else {
-            // Change to ChevronDown
-            icon.innerHTML = `
-              <polyline points="6 9 12 15 18 9"></polyline>
-            `;
-          }
-        }
-      }
-    });
-  }
 });

@@ -62,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
         textArea.focus();
         textArea.select();
         
+        // execCommand is deprecated, but keeping this as a last resort
+        // for very old browsers that don't support clipboard API
+        console.warn('Using deprecated execCommand as fallback');
         try {
           document.execCommand('copy');
           copyButton.classList.add('copied');
