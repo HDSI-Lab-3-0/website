@@ -145,7 +145,7 @@ export default function ProjectModal({
 											Relevance
 										</h3>
 										<div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-											<p className="text-slate-700 leading-relaxed text-sm">
+											<p className="text-slate-700 leading-relaxed text-sm mb-0">
 												{data.relevance}
 											</p>
 										</div>
