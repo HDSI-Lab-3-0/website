@@ -13,7 +13,7 @@ export default function ProjectGrid({
 	onProjectClick,
 }: ProjectGridProps) {
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+		<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
 			{projects.map((project) => {
 				const displayImage =
 					getImageSrc(project.data.imageGif) ||
