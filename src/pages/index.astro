@@ -2,8 +2,10 @@
 import BaseHead from '@/components/layout/BaseHead.astro';
 import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
-import { IconExamples } from '@/components/pages/IconExamples.tsx';
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts.ts';
+import { Image } from 'astro:assets';
+import heroImage from '@/assets/project-placeholder-1.jpg';
+import aboutImage from '@/assets/project-placeholder-about.jpg';
 ---
 
 <!doctype html>
@@ -13,39 +15,317 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts.ts';
 	</head>
 	<body>
 		<Header />
-		<main class="constrained-main">
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> projects starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, projects, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included projects in <code>src/content/projects/</code></li>
-				<li>Customize the project post page layout in <code>src/layouts/ProjectPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a projects template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-			<IconExamples client:load />
+		<main>
+			<!-- Hero Section -->
+			<section class="hero">
+				<Image src={heroImage} alt="Hero background" class="hero-background" />
+				<div class="hero-overlay"></div>
+				<div class="hero-content">
+					<h1 class="hero-title">Innovating Education Through Technology</h1>
+					<p class="hero-subtitle">
+						We are a multidisciplinary research lab dedicated to transforming education through cutting-edge technology,
+						innovative research, and collaborative partnerships with industry leaders.
+					</p>
+					<a href="/projects" class="cta-button">View Projects</a>
+				</div>
+			</section>
+
+			<!-- About Us Section -->
+			<section class="about-section">
+				<div class="container">
+					<div class="about-grid">
+						<div class="about-image">
+							<Image src={aboutImage} alt="About HDSI Lab" />
+						</div>
+						<div class="about-content">
+							<h2>About Us</h2>
+							<p>
+								HDSI Lab 3.0 is at the forefront of educational innovation, combining advanced research methodologies
+								with practical applications to solve real-world challenges in education. Our team of researchers,
+								developers, and educators work collaboratively to create solutions that make learning more accessible,
+								engaging, and effective for students worldwide.
+							</p>
+							<h3>Our Mission</h3>
+							<p>
+								To bridge the gap between technology and education by developing innovative tools and methodologies
+								that enhance learning experiences, improve educational outcomes, and prepare students for the challenges
+								of tomorrow's digital world.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Services/Sponsors Section -->
+			<section class="services-section">
+				<div class="container">
+					<h2 class="section-title">Our Sponsors</h2>
+					<div class="sponsors-grid">
+						<div class="sponsor-card">
+							<div class="card-content">
+								<h3>Technology Partner</h3>
+								<p>Leading provider of cutting-edge educational technology solutions</p>
+							</div>
+						</div>
+						<div class="sponsor-card">
+							<div class="card-content">
+								<h3>Research Foundation</h3>
+								<p>Supporting innovative educational research initiatives</p>
+							</div>
+						</div>
+						<div class="sponsor-card">
+							<div class="card-content">
+								<h3>Industry Collaborator</h3>
+								<p>Bridging academic research with practical industry applications</p>
+							</div>
+						</div>
+						<div class="sponsor-card">
+							<div class="card-content">
+								<h3>Education Grant</h3>
+								<p>Funding transformative educational programs and initiatives</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
 		</main>
 		<Footer />
 	</body>
 </html>
+
+<style>
+	/* Hero Section */
+	.hero {
+		position: relative;
+		height: 100vh;
+		min-height: 600px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+	}
+
+	.hero-background {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		z-index: 0;
+	}
+
+	.hero-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+		z-index: 1;
+	}
+
+	.hero-content {
+		position: relative;
+		z-index: 2;
+		text-align: center;
+		max-width: 800px;
+		padding: 2rem;
+	}
+
+	.hero-title {
+		font-size: clamp(2rem, 5vw + 1rem, 4rem);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: 1.5rem;
+		line-height: 1.2;
+	}
+
+	.hero-subtitle {
+		font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
+		color: rgb(var(--gray));
+		margin-bottom: 2.5rem;
+		line-height: 1.6;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.cta-button {
+		display: inline-block;
+		padding: 1rem 2.5rem;
+		border: 2px solid var(--accent);
+		color: var(--accent);
+		text-decoration: none;
+		font-weight: 600;
+		border-radius: 12px;
+		transition: all 0.3s ease;
+		background-color: transparent;
+	}
+
+	.cta-button:hover {
+		background-color: var(--accent);
+		color: white;
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(35, 55, 255, 0.3);
+	}
+
+	/* About Section */
+	.about-section {
+		padding: 4rem 1.5rem;
+		background-color: white;
+	}
+
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3rem;
+		align-items: center;
+	}
+
+	.about-image {
+		position: relative;
+		border-radius: 12px;
+		overflow: hidden;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+	}
+
+	.about-image:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+	}
+
+	.about-image img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.about-content h2 {
+		font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: 1.5rem;
+		line-height: 1.3;
+	}
+
+	.about-content h3 {
+		font-size: clamp(1.25rem, 2vw + 0.5rem, 1.5rem);
+		font-weight: 600;
+		color: rgb(var(--black));
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		line-height: 1.3;
+	}
+
+	.about-content p {
+		font-size: 1.125rem;
+		line-height: 1.8;
+		color: rgb(var(--gray));
+		margin-bottom: 1.5rem;
+	}
+
+	/* Services/Sponsors Section */
+	.services-section {
+		padding: 4rem 1.5rem;
+		background: linear-gradient(var(--gray-gradient)) no-repeat;
+	}
+
+	.section-title {
+		text-align: center;
+		font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: 3rem;
+		line-height: 1.3;
+	}
+
+	.sponsors-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+	}
+
+	.sponsor-card {
+		background: white;
+		border-radius: 12px;
+		padding: 2rem;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s ease;
+	}
+
+	.sponsor-card:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+	}
+
+	.card-content h3 {
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: rgb(var(--black));
+		margin-bottom: 1rem;
+		line-height: 1.3;
+	}
+
+	.card-content p {
+		font-size: 1rem;
+		line-height: 1.8;
+		color: rgb(var(--gray));
+		margin: 0;
+	}
+
+	/* Responsive Design */
+	@media (min-width: 1024px) {
+		.about-section,
+		.services-section {
+			padding: 6rem 2rem;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.hero {
+			height: 80vh;
+			min-height: 500px;
+		}
+
+		.about-grid {
+			grid-template-columns: 1fr;
+			gap: 2.5rem;
+		}
+
+		.sponsors-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.about-section,
+		.services-section {
+			padding: 3rem 1.5rem;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.hero-content {
+			padding: 1.5rem;
+		}
+
+		.cta-button {
+			padding: 0.875rem 2rem;
+			font-size: 0.95rem;
+		}
+
+		.sponsor-card {
+			padding: 1.5rem;
+		}
+
+		.about-section,
+		.services-section {
+			padding: 2.5rem 1rem;
+		}
+	}
+</style>

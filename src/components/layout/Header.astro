@@ -4,34 +4,28 @@ import HeaderLink from './HeaderLink.astro';
 import { Icon } from '../ui/Icon';
 ---
 
-<header>
+<header class="sticky-header">
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/">
-				<Icon icon="Home" size={16} className="inline mr-1" />
-				Home
-			</HeaderLink>
-			<HeaderLink href="/projects">Projects</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
+			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/members">Members</HeaderLink>
+			<HeaderLink href="/projects">Projects</HeaderLink>
 			<HeaderLink href="/contact">Contact</HeaderLink>
-			<HeaderLink href="/donate">Donate</HeaderLink>
 		</div>
 		<div class="social-links">
-			<a href="https://twitter.com/astrodotbuild" target="_blank">
-				<span class="sr-only">Follow Astro on Twitter</span>
-				<Icon icon="Twitter" size={20} className="text-gray-600 hover:text-gray-900" />
-			</a>
-			<a href="https://github.com/withastro/astro" target="_blank">
-				<span class="sr-only">Go to Astro's GitHub repo</span>
+			<a href="https://github.com/HDSI-Lab-3-0/website" target="_blank">
+				<span class="sr-only">Go to HDSI Lab GitHub repo</span>
 				<Icon icon="Github" size={20} className="text-gray-600 hover:text-gray-900" />
 			</a>
 		</div>
 	</nav>
 </header>
 <style>
-	header {
+	.sticky-header {
+		position: sticky;
+		top: 0;
+		z-index: 100;
 		margin: 0;
 		padding: 0 1em;
 		background: white;
@@ -40,32 +34,71 @@ import { Icon } from '../ui/Icon';
 	h2 {
 		margin: 0;
 		font-size: 1em;
+		font-weight: 700;
 	}
 
 	h2 a,
 	h2 a.active {
 		text-decoration: none;
+		color: rgb(var(--black));
 	}
 	nav {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	.internal-links {
+		display: flex;
+		gap: 2rem;
 	}
 	nav a {
-		padding: 1em 0.5em;
-		color: var(--black);
-		border-bottom: 4px solid transparent;
+		padding: 1.5rem 0.5rem 0 0.5rem;
+		color: rgb(var(--black));
 		text-decoration: none;
+		font-weight: 400;
+		transition: all 0.2s ease;
+		position: relative;
+		padding-bottom: 1.5rem;
+	}
+	nav a::after {
+		content: "";
+		position: absolute;
+		bottom: 1.4rem;
+		left: 0.5rem;
+		right: 0.5rem;
+		height: 2px;
+		background-color: transparent;
+		transition: all 0.2s ease;
+	}
+	nav a:hover::after {
+		background-color: var(--accent);
+	}
+	nav a.active::after {
+		background-color: var(--accent);
 	}
 	nav a.active {
-		text-decoration: none;
-		border-bottom-color: var(--accent);
+		font-weight: 700;
 	}
 	.social-links,
 	.social-links a {
 		display: flex;
 	}
 	@media (max-width: 720px) {
+		.internal-links {
+			gap: 1rem;
+		}
+		nav a {
+			padding: 1rem 0.25rem 0 0.25rem;
+			padding-bottom: 1rem;
+			font-size: 0.9rem;
+		}
+		nav a::after {
+			bottom: 0.9rem;
+			left: 0.25rem;
+			right: 0.25rem;
+		}
 		.social-links {
 			display: none;
 		}

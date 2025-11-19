@@ -47,7 +47,7 @@ body {
     overflow-wrap: break-word;
     color: rgb(var(--gray-dark));
     font-size: 16px;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
 /* Constrained main layout - opt-in via .constrained-main class */
@@ -55,7 +55,7 @@ main.constrained-main {
     width: 720px;
     max-width: calc(100% - 2em);
     margin: auto;
-    padding: 3em 1em;
+    padding: 4em 2em;
 }
 h1,
 h2,
@@ -63,9 +63,10 @@ h3,
 h4,
 h5,
 h6 {
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 1rem 0;
     color: rgb(var(--black));
-    line-height: 1.2;
+    line-height: 1.3;
+    font-weight: 700;
 }
 h1 {
     font-size: 3.052em;
@@ -93,10 +94,12 @@ a:hover {
     color: var(--accent);
 }
 p {
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
+    line-height: 1.8;
 }
 .prose p {
     margin-bottom: 2em;
+    line-height: 1.8;
 }
 textarea {
     width: 100%;
@@ -138,9 +141,16 @@ hr {
 @media (max-width: 720px) {
     body {
         font-size: 16px;
+        line-height: 1.75;
     }
     main.constrained-main {
-        padding: 1em;
+        padding: 2em 1.5em;
+    }
+}
+
+@media (max-width: 480px) {
+    main.constrained-main {
+        padding: 1.5em 1em;
     }
 }
 
@@ -167,4 +177,188 @@ hr {
     --heroui-z-index-modal: 1000;
     --heroui-z-index-popover: 1050;
     --heroui-z-index-tooltip: 1100;
+}
+
+/* ==========================================================================
+   Content Page Styling
+   ========================================================================== */
+
+.content-page {
+    max-width: 100%;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid rgba(var(--gray-light), 0.5);
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: rgb(var(--black));
+    line-height: 1.1;
+}
+
+.page-description {
+    font-size: 1.25rem;
+    color: rgb(var(--gray));
+    line-height: 1.6;
+    margin: 0;
+}
+
+.content-section {
+    margin: 2.5rem 0;
+    line-height: 1.8;
+}
+
+.content-section h2 {
+    font-size: 1.75rem;
+    margin-top: 2rem;
+    margin-bottom: 1.25rem;
+    color: rgb(var(--black));
+}
+
+.content-section p {
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.8;
+}
+
+.lead-text {
+    font-size: 1.3rem !important;
+    line-height: 1.7 !important;
+    color: rgb(var(--gray-dark)) !important;
+    margin-bottom: 2.5rem !important;
+    font-weight: 400;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.contact-item {
+    padding: 2rem;
+    background: rgba(var(--gray-light), 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(var(--gray), 0.1);
+    transition: all 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--gray), 0.15);
+    background: rgba(var(--gray-light), 0.15);
+}
+
+.contact-item h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: rgb(var(--black));
+}
+
+.contact-item p {
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+.contact-item a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.contact-item a:hover {
+    border-bottom-color: var(--accent);
+}
+
+.donation-info {
+    padding: 2rem;
+    background: rgba(var(--accent-light), 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(var(--accent), 0.1);
+    margin-top: 2rem;
+}
+
+.donation-info h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: rgb(var(--black));
+}
+
+.donation-info p {
+    margin-bottom: 0;
+    font-size: 1.125rem;
+    line-height: 1.7;
+}
+
+/* Responsive adjustments for content pages */
+@media (max-width: 768px) {
+    .page-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+    }
+    
+    .page-header h1 {
+        font-size: 2.25rem;
+    }
+    
+    .page-description {
+        font-size: 1.125rem;
+    }
+    
+    .lead-text {
+        font-size: 1.15rem !important;
+    }
+    
+    .content-section {
+        margin: 2rem 0;
+    }
+    
+    .content-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .content-section p {
+        font-size: 1.05rem;
+    }
+    
+    .contact-item,
+    .donation-info {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header h1 {
+        font-size: 1.875rem;
+    }
+    
+    .page-description {
+        font-size: 1rem;
+    }
+    
+    .lead-text {
+        font-size: 1.05rem !important;
+    }
+    
+    .content-section h2 {
+        font-size: 1.375rem;
+    }
+    
+    .content-section p {
+        font-size: 1rem;
+    }
+    
+    .contact-item,
+    .donation-info {
+        padding: 1.25rem;
+    }
 }

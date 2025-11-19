@@ -4,50 +4,266 @@ import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import "../styles/global.css";
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts.ts';
+import membersData from '../data/members.json';
 
-const director = {
-  name: "Saura Naderi",
-  role: "Director",
-};
-
-const labFellows = [
-  { name: "Name", major: "Data Science", graduation: "2026", photo: "/images/placeholder.png" },
-  { name: "Name", major: "Statistics", graduation: "2025", photo: "/images/placeholder.png" },
-  { name: "Name", major: "Computer Science", graduation: "2027", photo: "/images/placeholder.png" },
-];
+// Group members by category
+const director = membersData.members.find(m => m.category === 'director');
+const labFellows = membersData.members.filter(m => m.category === 'lab-fellow').sort((a, b) => a.order - b.order);
+const graduateResearchers = membersData.members.filter(m => m.category === 'graduate-researcher').sort((a, b) => a.order - b.order);
 ---
 
 <html lang="en">
   <head>
     <BaseHead title="Members" description={SITE_DESCRIPTION} />
+    <style>
+      .member-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+
+      .member-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      .member-image-wrapper {
+        position: relative;
+        width: 100%;
+        padding-top: 100%; /* 1:1 aspect ratio */
+        overflow: hidden;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .member-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .member-content {
+        padding: 1.5rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .member-name {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1a202c;
+        margin-bottom: 0.25rem;
+      }
+
+      .member-role {
+        font-size: 0.875rem;
+        color: #667eea;
+        font-weight: 500;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .member-bio {
+        font-size: 0.95rem;
+        color: #4a5568;
+        line-height: 1.6;
+        flex-grow: 1;
+      }
+
+      .director-card {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .director-card .member-image-wrapper {
+        padding-top: 100%;
+      }
+
+      .director-card .member-content {
+        padding: 2rem;
+      }
+
+      .director-card .member-name {
+        font-size: 1.75rem;
+      }
+
+      .director-card .member-role {
+        font-size: 1rem;
+      }
+
+      .director-card .member-bio {
+        font-size: 1.05rem;
+      }
+
+      .members-grid {
+        display: grid;
+        gap: 2rem;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+
+      @media (min-width: 768px) {
+        .members-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .members-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (min-width: 1280px) {
+        .members-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1a202c;
+        margin-bottom: 2rem;
+        text-align: center;
+        position: relative;
+        padding-bottom: 1rem;
+      }
+
+      .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        border-radius: 2px;
+      }
+
+      .page-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #1a202c;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .page-subtitle {
+        font-size: 1.125rem;
+        color: #4a5568;
+        text-align: center;
+        margin-bottom: 3rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .section-spacer {
+        margin-bottom: 4rem;
+      }
+
+      @media (max-width: 640px) {
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .members-grid {
+          gap: 1.5rem;
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
   </head>
   <body>
     <Header />
 
-    <main class="container mx-auto py-10 px-4">
-      <h1 class="text-4xl font-bold mb-8 text-center">Lab Members</h1>
+    <main class="container mx-auto py-10 px-4 max-w-7xl">
+      <h1 class="page-title">Lab Members</h1>
+      <p class="page-subtitle">
+        Meet our dedicated team of researchers and innovators pushing the boundaries of robotics and technology.
+      </p>
 
-      <!-- Director Card -->
-      <section class="mb-12 flex justify-center">
-        <div class="bg-white shadow-md rounded-lg p-6 w-full max-w-sm text-center">
-          <p class="text-xl font-semibold">{director.name}</p>
-          <p class="text-gray-500">{director.role}</p>
-        </div>
-      </section>
-
-      <!-- Lab Fellows Cards -->
-      <section>
-        <h2 class="text-2xl font-semibold mb-6 text-center">Lab Fellows</h2>
-        <div class="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-          {labFellows.map(fellow => (
-            <div class="bg-white shadow-md rounded-lg p-6 text-center">
-              <p class="text-lg font-semibold">{fellow.name}</p>
-              <p class="text-gray-500">{fellow.major}</p>
-              <p class="text-gray-400">Expected Graduation: {fellow.graduation}</p>
+      {director && (
+        <section class="section-spacer">
+          <h2 class="section-title">Director</h2>
+          <div class="director-card member-card">
+            <div class="member-image-wrapper">
+              <img 
+                src={director.image} 
+                alt={director.name}
+                class="member-image"
+              />
             </div>
-          ))}
-        </div>
-      </section>
+            <div class="member-content">
+              <h3 class="member-name">{director.name}</h3>
+              <p class="member-role">{director.role}</p>
+              <p class="member-bio">{director.bio}</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {labFellows.length > 0 && (
+        <section class="section-spacer">
+          <h2 class="section-title">Lab Fellows</h2>
+          <div class="members-grid">
+            {labFellows.map(fellow => (
+              <div class="member-card">
+                <div class="member-image-wrapper">
+                  <img 
+                    src={fellow.image} 
+                    alt={fellow.name}
+                    class="member-image"
+                  />
+                </div>
+                <div class="member-content">
+                  <h3 class="member-name">{fellow.name}</h3>
+                  <p class="member-role">{fellow.role}</p>
+                  <p class="member-bio">{fellow.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {graduateResearchers.length > 0 && (
+        <section>
+          <h2 class="section-title">Graduate Researchers</h2>
+          <div class="members-grid">
+            {graduateResearchers.map(researcher => (
+              <div class="member-card">
+                <div class="member-image-wrapper">
+                  <img 
+                    src={researcher.image} 
+                    alt={researcher.name}
+                    class="member-image"
+                  />
+                </div>
+                <div class="member-content">
+                  <h3 class="member-name">{researcher.name}</h3>
+                  <p class="member-role">{researcher.role}</p>
+                  <p class="member-bio">{researcher.bio}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
 
     <Footer />

@@ -1,0 +1,142 @@
+{
+  "sponsors": [
+    {
+      "id": "robotics-tech-corp",
+      "name": "Robotics Tech Corp",
+      "description": "Leading provider of advanced robotics hardware and sensors for research institutions worldwide.",
+      "tier": "platinum",
+      "logo": "/images/sponsors/robotics-tech-corp.svg",
+      "website": "https://roboticstech.example.com",
+      "category": "hardware",
+      "order": 1
+    },
+    {
+      "id": "ai-research-foundation",
+      "name": "AI Research Foundation",
+      "description": "Non-profit organization dedicated to advancing artificial intelligence and machine learning research.",
+      "tier": "platinum",
+      "logo": "/images/sponsors/ai-research-foundation.svg",
+      "website": "https://airf.example.org",
+      "category": "research",
+      "order": 2
+    },
+    {
+      "id": "automation-systems-inc",
+      "name": "Automation Systems Inc",
+      "description": "Innovative automation solutions for industrial robotics and smart manufacturing.",
+      "tier": "gold",
+      "logo": "/images/sponsors/automation-systems-inc.svg",
+      "website": "https://automationsystems.example.com",
+      "category": "industry",
+      "order": 3
+    },
+    {
+      "id": "vision-ai-labs",
+      "name": "Vision AI Labs",
+      "description": "Cutting-edge computer vision and image processing software for robotic applications.",
+      "tier": "gold",
+      "logo": "/images/sponsors/vision-ai-labs.svg",
+      "website": "https://visionai.example.com",
+      "category": "software",
+      "order": 4
+    },
+    {
+      "id": "quantum-computing-solutions",
+      "name": "Quantum Computing Solutions",
+      "description": "Providing quantum computing resources for complex robotics simulations and optimization.",
+      "tier": "gold",
+      "logo": "/images/sponsors/quantum-computing-solutions.svg",
+      "website": "https://quantumcs.example.com",
+      "category": "computing",
+      "order": 5
+    },
+    {
+      "id": "maker-space-collective",
+      "name": "Maker Space Collective",
+      "description": "Community-driven fabrication tools and 3D printing resources for prototyping.",
+      "tier": "silver",
+      "logo": "/images/sponsors/maker-space-collective.svg",
+      "website": "https://makerspace.example.org",
+      "category": "community",
+      "order": 6
+    },
+    {
+      "id": "cloud-robotics-platform",
+      "name": "Cloud Robotics Platform",
+      "description": "Cloud infrastructure and distributed computing services for robotics research.",
+      "tier": "silver",
+      "logo": "/images/sponsors/cloud-robotics-platform.svg",
+      "website": "https://cloudrobotics.example.com",
+      "category": "infrastructure",
+      "order": 7
+    },
+    {
+      "id": "embedded-systems-pro",
+      "name": "Embedded Systems Pro",
+      "description": "Microcontrollers and embedded development boards for robotics projects.",
+      "tier": "bronze",
+      "logo": "/images/sponsors/embedded-systems-pro.svg",
+      "website": "https://embeddedsystems.example.com",
+      "category": "hardware",
+      "order": 8
+    },
+    {
+      "id": "open-source-robotics",
+      "name": "Open Source Robotics Alliance",
+      "description": "Supporting open-source robotics software and collaborative development initiatives.",
+      "tier": "bronze",
+      "logo": "/images/sponsors/open-source-robotics.svg",
+      "website": "https://osrobotics.example.org",
+      "category": "community",
+      "order": 9
+    }
+  ],
+  "tiers": {
+    "platinum": {
+      "name": "Platinum",
+      "description": "Premium sponsors with highest visibility",
+      "benefits": [
+        "Logo placement on homepage",
+        "Featured in all major events",
+        "Dedicated sponsor spotlight page",
+        "Social media recognition",
+        "Annual report acknowledgment"
+      ],
+      "color": "#E5E4E2",
+      "order": 1
+    },
+    "gold": {
+      "name": "Gold",
+      "description": "Major sponsors with prominent display",
+      "benefits": [
+        "Logo on sponsor page",
+        "Featured in quarterly newsletters",
+        "Event recognition",
+        "Social media mentions"
+      ],
+      "color": "#FFD700",
+      "order": 2
+    },
+    "silver": {
+      "name": "Silver",
+      "description": "Standard sponsors with regular display",
+      "benefits": [
+        "Logo on sponsor page",
+        "Newsletter mentions",
+        "Annual report listing"
+      ],
+      "color": "#C0C0C0",
+      "order": 3
+    },
+    "bronze": {
+      "name": "Bronze",
+      "description": "Basic supporters",
+      "benefits": [
+        "Logo on sponsor page",
+        "Annual report listing"
+      ],
+      "color": "#CD7F32",
+      "order": 4
+    }
+  }
+}
