@@ -356,13 +356,9 @@
   font-size: 0.9em;
   color: rgb(var(--gray-dark));
   border: 1px solid rgba(var(--gray), 0.1);
-  transition: all 0.2s ease;
 }
 
-.markdown-content code:hover {
-  background-color: rgba(var(--gray-light), 0.7);
-  transform: translateY(-1px);
-}
+/* Removed hover effect on inline code */
 
 .markdown-content pre {
   margin: 2.5rem 0;
@@ -377,6 +373,13 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Create a wrapper for code content to handle scrolling separately */
+.markdown-content pre > code {
+  display: block;
+  overflow-x: auto;
+  padding-right: 50px; /* Add space to prevent code from going under the copy button */
+}
+
 .markdown-content pre code {
   background-color: transparent;
   padding: 0;
@@ -384,12 +387,9 @@
   font-size: inherit;
   color: #d4d4d4;
   border: none;
-  transition: none;
 }
 
-.markdown-content pre code:hover {
-  transform: none;
-}
+/* Removed hover override - no longer needed */
 
 /* Code Copy Button */
 .markdown-content .code-copy-button {
@@ -409,6 +409,7 @@
   opacity: 0.8;
   width: 32px;
   height: 32px;
+  z-index: 10;
 }
 
 .markdown-content .code-copy-button:hover {
@@ -468,7 +469,12 @@
     font-size: 0.8125rem;
   }
   
+  .markdown-content pre > code {
+    padding-right: 45px; /* Adjusted for smaller button on mobile */
+  }
+  
   .markdown-content .code-copy-button {
+    position: absolute;
     top: 0.5rem;
     right: 0.5rem;
     width: 28px;
