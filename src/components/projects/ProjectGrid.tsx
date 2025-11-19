@@ -1,6 +1,6 @@
 import { Card, CardBody, Chip, Image } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
-import { getImageSrc, getLocationFromTags } from "@/utils/projectHelpers";
+import { getImageSrc, getLocationFromTags } from "@/utils/projectHelpers.ts";
 
 interface ProjectGridProps {
 	projects: CollectionEntry<"projects">[];

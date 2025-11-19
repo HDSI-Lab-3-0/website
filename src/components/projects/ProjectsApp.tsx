@@ -1,9 +1,9 @@
 import { useState, useMemo, useCallback, useEffect } from "react";
 import { HeroUIProvider } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
-import ProjectFilters from "@/components/projects/ProjectFilters";
-import ProjectGrid from "@/components/projects/ProjectGrid";
-import ProjectModal from "@/components/projects/ProjectModal";
+import ProjectFilters from "@/components/projects/ProjectFilters.tsx";
+import ProjectGrid from "@/components/projects/ProjectGrid.tsx";
+import ProjectModal from "@/components/projects/ProjectModal.tsx";
 
 interface ProjectsAppProps {
 	projects: CollectionEntry<"projects">[];
