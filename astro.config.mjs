@@ -7,8 +7,6 @@ import { defineConfig } from "astro/config";
 
 import tailwindcss from "@tailwindcss/vite";
 
-import react from "@astrojs/react";
-
 // https://astro.build/config
 export default defineConfig({
     site: "https://hdsi-lab-3-0.github.io",
@@ -18,7 +16,7 @@ export default defineConfig({
         plugins: [tailwindcss()],
         resolve: {
             alias: {
-                "@": "./src",
+                "@": new URL("./src", import.meta.url).pathname,
             },
         },
     },
