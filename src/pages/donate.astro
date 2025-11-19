@@ -1,0 +1,23 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Donate" description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <h1>Donate</h1>
+      <p>Mechanism to donate funds to the lab.</p>
+    </main>
+
+    <Footer />
+  </body>
+</html>

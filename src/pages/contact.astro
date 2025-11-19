@@ -1,0 +1,25 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import "../styles/global.css";
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title="Contact" description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+
+    <main>
+      <h1>Contact</h1>
+      <p><strong>Email:</strong> your@email.com</p>
+    </main>
+
+    <Footer />
+  </body>
+</html>
+
+
