@@ -49,7 +49,7 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 	return (
 		<HeroUIProvider>
 			<div className="flex flex-col lg:flex-row gap-10 items-start">
-				<aside className="w-full lg:w-64 lg:flex-none lg:sticky lg:top-10">
+				<aside className="w-full lg:w-64 lg:flex-none lg:sticky lg:top-24 lg:h-fit lg:z-10">
 					<ProjectFilters
 						onFiltersChange={setSelectedTags}
 						availableProjects={projects}

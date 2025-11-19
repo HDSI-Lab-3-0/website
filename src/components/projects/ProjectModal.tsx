@@ -46,54 +46,47 @@ export default function ProjectModal({
 			hideCloseButton={false}
 			classNames={{
 				backdrop: "bg-black/70 backdrop-blur-sm z-[1000]",
-				base: "z-[1001] max-h-[90vh] bg-white shadow-2xl rounded-3xl modal-content flex flex-col border border-slate-200/50",
+				base: "z-[1001] max-h-[90vh] bg-white shadow-2xl rounded-3xl modal-content border border-slate-200/50",
 				wrapper: "z-[1002] overflow-y-auto",
-				header: "border-b border-slate-200 bg-white p-0 rounded-t-3xl",
-				body: "py-0 px-6 bg-white flex-1 overflow-y-auto",
+				header: "border-b-0 bg-transparent p-0 rounded-t-3xl",
+				body: "py-0 px-0 bg-white flex-1 overflow-y-auto",
 				footer: "border-t border-slate-200 bg-white px-6 py-4 sticky bottom-0 rounded-b-3xl",
-				closeButton: "hover:bg-slate-100 active:bg-slate-200 rounded-full absolute top-4 right-4 z-10 transition-all duration-200",
+				closeButton: "hover:bg-white/80 active:bg-white/90 rounded-full absolute top-4 right-4 z-10 transition-all duration-200 backdrop-blur-sm",
 			}}
 		>
 			<ModalContent>
 				{(onClose) => (
 					<div className="flex flex-col h-full max-h-[90vh]">
-						{/* Header with Hero Image */}
-						<div className="flex-shrink-0">
+						{/* Top Section - Background Image with Overlay Content */}
+						<div className="relative h-80 lg:h-96 rounded-t-3xl overflow-hidden">
+							{/* Background Image with Shadow */}
 							{displayImage && (
-								<div className="relative h-64 sm:h-80 w-full bg-gray-100 flex items-center justify-center overflow-hidden rounded-t-3xl">
+								<div className="absolute inset-0 z-0">
+									<div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/60 z-[1]"></div>
 									<Image
 										src={displayImage}
 										alt={data.title}
-										className="max-w-full max-h-full object-contain"
 										classNames={{
-											wrapper: "flex items-center justify-center w-full h-full",
+											wrapper: "w-full h-full z-0",
 										}}
+										className="w-full h-full object-cover shadow-2xl z-0"
 									/>
 								</div>
 							)}
-						</div>
 
-						{/* Scrollable Content */}
-						<div className="flex-1 overflow-y-auto">
-							<div className="p-6 sm:p-8">
+							{/* Content Overlay */}
+							<div className="absolute z-[10] inset-0 h-full flex flex-col justify-center items-center p-6 sm:p-8 text-center text-white" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }}>
 								{/* Title Section */}
-								<div className="mb-6">
-									<h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-3 leading-tight">
+								<div className="mb-4">
+									<h2 className="text-3xl sm:text-4xl font-bold !text-white mb-3 mt-3 leading-tight" style={{ textShadow: '2px 2px 8px rgba(0,0,0,0.9)' }}>
 										{data.title}
 									</h2>
 								</div>
 
-								{/* Description */}
-								<div className="mb-6">
-									<p className="text-lg text-slate-700 leading-relaxed">
-										{data.description}
-									</p>
-								</div>
-
 								{/* Compact Inline Stats Row */}
-								<div className="flex flex-wrap gap-4 mb-6 text-sm">
+								<div className="flex flex-wrap justify-center gap-4 mb-4 text-sm">
 									{data.estimated_time && (
-										<div className="flex items-center gap-1.5 text-blue-700">
+										<div className="flex items-center gap-1.5 text-blue-200 bg-blue-900/60 backdrop-blur-sm rounded-lg px-3 py-2" style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
 											<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 											</svg>
@@ -102,7 +95,7 @@ export default function ProjectModal({
 										</div>
 									)}
 
-									<div className="flex items-center gap-1.5 text-green-700">
+									<div className="flex items-center gap-1.5 text-green-200 bg-green-900/60 backdrop-blur-sm rounded-lg px-3 py-2" style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
 										<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
 										</svg>
@@ -110,7 +103,7 @@ export default function ProjectModal({
 										<span className="font-semibold">{getLocationFromTags(data.tags)}</span>
 									</div>
 
-									<div className="flex items-center gap-1.5 text-purple-700">
+									<div className="flex items-center gap-1.5 text-purple-200 bg-purple-900/60 backdrop-blur-sm rounded-lg px-3 py-2" style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
 										<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
 										</svg>
@@ -118,7 +111,7 @@ export default function ProjectModal({
 										<span className="font-semibold">{getCostFromTags(data.tags)}</span>
 									</div>
 
-									<div className="flex items-center gap-1.5 text-teal-700">
+									<div className="flex items-center gap-1.5 text-teal-200 bg-teal-900/60 backdrop-blur-sm rounded-lg px-3 py-2" style={{ boxShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
 										<svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8V4m0 4c-2.21 0-4 1.79-4 4H5l7 7 7-7h-3c0-2.21-1.79-4-4-4z" />
 										</svg>
@@ -126,26 +119,38 @@ export default function ProjectModal({
 										<span className="font-semibold">{getProjectType(data.tags)}</span>
 									</div>
 								</div>
-					
-								<p className="text-sm text-slate-500 mb-6">
+
+								<p className="text-sm text-white/90 text-center" style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}>
 									Published on {new Date(data.pubDate).toLocaleDateString(undefined, {
 										month: "long",
 										day: "numeric",
 										year: "numeric",
 									})}
 								</p>
-					
+							</div>
+						</div>
+
+						{/* Bottom Section - All other content */}
+						<div className="flex-1 overflow-y-auto bg-white">
+							<div className="p-6 sm:p-8">
+								{/* Description */}
+								<div className="mb-6">
+									<p className="!text-md text-slate-700 leading-relaxed">
+										{data.description}
+									</p>
+								</div>
+
 								{/* Relevance Section */}
 								{data.relevance && (
-									<div className="mb-2">
-										<h3 className="text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
+									<div className="mb-6">
+										<h3 className="!text-lg font-bold text-slate-900 mb-2 flex items-center gap-2">
 											<svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
 											</svg>
 											Relevance
 										</h3>
 										<div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-											<p className="text-slate-700 leading-relaxed text-sm mb-0" style={{marginBottom: '0'}}>
+											<p className="text-slate-700 leading-relaxed text-sm mb-0" style={{ marginBottom: '0' }}>
 												{data.relevance}
 											</p>
 										</div>
@@ -155,7 +160,7 @@ export default function ProjectModal({
 								{/* Resources Section */}
 								{data.links && (
 									<div className="mb-6">
-										<h3 className="text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+										<h3 className="!text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
 											<svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
 											</svg>
@@ -218,7 +223,6 @@ export default function ProjectModal({
 										</div>
 									</div>
 								)}
-
 							</div>
 						</div>
 

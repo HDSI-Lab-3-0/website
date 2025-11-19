@@ -362,3 +362,58 @@ hr {
         padding: 1.25rem;
     }
 }
+
+/* ==========================================================================
+   Projects Page Sticky Filters
+   ========================================================================== */
+
+.projects-page .projects-page-main {
+  position: relative;
+}
+
+.projects-page .lg\:sticky {
+  position: sticky;
+  top: 6rem; /* 24px = 1.5rem, adjusted for header height */
+}
+
+/* Ensure proper spacing on mobile */
+@media (max-width: 1024px) {
+  .projects-page .projects-page-main {
+    padding-top: 1rem;
+  }
+  
+  /* Mobile filter improvements */
+  .projects-page .lg\\:sticky {
+    position: relative;
+  }
+  
+  /* Ensure mobile filter dropdown doesn't interfere with content */
+  .projects-page .bg-gradient-to-br {
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 640px) {
+  .projects-page .projects-page-main {
+    padding-top: 0.5rem;
+  }
+  
+  /* Adjust filter container for small screens */
+  .projects-page .bg-gradient-to-br {
+    max-height: 50vh;
+    padding: 1rem;
+  }
+}
+
+/* Add smooth scrolling behavior */
+.projects-page {
+  scroll-behavior: smooth;
+}
+
+/* Ensure filter container has proper background when sticky */
+.projects-page .lg\:sticky .bg-gradient-to-br {
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}

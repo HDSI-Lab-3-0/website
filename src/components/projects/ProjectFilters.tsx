@@ -102,7 +102,7 @@ export default function ProjectFilters({
 
 	return (
 		<div className="w-full">
-			<div className="lg:hidden mb-4">
+			<div className="lg:hidden mb-4 sticky top-20 z-20 bg-white/95 backdrop-blur-sm py-2">
 				<button
 					onClick={() => setIsOpen(!isOpen)}
 					className="w-full flex items-center justify-between bg-gradient-to-r from-slate-50 to-white border border-slate-200/60 backdrop-blur-sm rounded-xl px-4 py-3 hover:shadow-md transition-all duration-300 shadow-sm"
@@ -125,7 +125,7 @@ export default function ProjectFilters({
 			</div>
 
 			<div
-				className={`${isOpen ? "block" : "hidden"} lg:block bg-gradient-to-br from-white to-slate-50/30 border border-slate-200/60 backdrop-blur-sm rounded-xl shadow-lg p-5`}
+				className={`${isOpen ? "block" : "hidden"} lg:block bg-gradient-to-br from-white to-slate-50/30 border border-slate-200/60 backdrop-blur-sm rounded-xl shadow-lg p-5 lg:relative lg:top-0`}
 			>
 				<div className="space-y-5">
 					{orderedCategories.map(([category, tags]) => (
