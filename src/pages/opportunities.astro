@@ -1,0 +1,214 @@
+---
+import Layout from '@/layouts/ProjectPost.astro';
+---
+
+<Layout
+	title="Opportunities"
+	description="Explore various opportunities for K-12 students, parents, teachers, UCSD faculty, and students at our lab."
+	pubDate={new Date('January 01 2023')}
+	heroImage={undefined}
+>
+	<div class="content-page">
+		<header class="page-header">
+			<h1>Opportunities</h1>
+			<p class="page-description">
+				Discover how you can get involved with our lab through various programs and initiatives tailored for different audiences.
+			</p>
+		</header>
+
+		<section id="k12-students" class="content-section">
+			<h2>For K-12 Kids</h2>
+			<p>We offer engaging programs designed to spark curiosity and develop skills in robotics and technology for students at all levels.</p>
+			
+			<div class="opportunity-cards">
+				<div class="opportunity-card">
+					<h3>Elementary</h3>
+					<p>Introduction to robotics through fun, hands-on activities designed for young learners. Our elementary programs focus on creativity and basic engineering concepts.</p>
+				</div>
+				
+				<div class="opportunity-card">
+					<h3>Middle</h3>
+					<p>Intermediate robotics projects that build on foundational knowledge. Middle school students engage with more complex challenges and begin coding their own robots.</p>
+				</div>
+				
+				<div class="opportunity-card">
+					<h3>High School</h3>
+					<p>Advanced robotics and engineering opportunities for high school students. Participants work on sophisticated projects and may prepare for competitions or college-level studies.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="k12-parents" class="content-section">
+			<h2>For K-12 Parents</h2>
+			<p>Parents can enroll their children in these specialized programs that require parental consent and support.</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Robotic Arts and Crafts workshop</h3>
+					<p>A creative program that combines artistic expression with robotics fundamentals. Students build functional artistic robots while learning engineering principles.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Summer Day Camp</h3>
+					<p>Immersive week-long summer experience where students dive deep into robotics projects, make new friends with similar interests, and showcase their creations.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Girl Scouts</h3>
+					<p>Specialized robotics programs aligned with Girl Scout badges and achievements. These workshops help scouts earn technology and engineering badges while having fun.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="k12-teachers" class="content-section">
+			<h2>For K-12 Teachers</h2>
+			<p>We support educators with resources and opportunities to bring robotics education to their classrooms.</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Classroom Projects</h3>
+					<p>Ready-to-implement robotics projects designed for classroom settings with curriculum alignment, lesson plans, and materials lists for various grade levels.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Professional Development</h3>
+					<p>Workshops and training sessions to help teachers build confidence in teaching robotics and technology, including both pedagogical approaches and technical skills.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Pilot New Projects</h3>
+					<p>Opportunity to test and provide feedback on our latest educational robotics projects before they're widely released, helping shape future curriculum development.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="ucsd-faculty" class="content-section">
+			<h2>For UCSD Faculty</h2>
+			<p>Our lab can serve as a valuable resource for your grant proposals and research initiatives.</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Grant Support</h3>
+					<p>We provide infrastructure, expertise, and educational context for grant proposals requiring broader impacts components or educational outreach elements.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>TILOS</h3>
+					<p>Collaborative projects that integrate research with educational outreach, creating pathways for your research to impact K-12 education and inspire future scientists.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>EnCORE</h3>
+					<p>Engineering education research opportunities where faculty can study learning outcomes and develop innovative approaches to teaching engineering concepts.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>CAREER Grant</h3>
+					<p>Support for NSF CAREER award proposals through our established educational programs and expertise in integrating research with educational activities.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="ucsd-students" class="content-section">
+			<h2>For UCSD Students</h2>
+			<p>Get involved with our lab through fellowships, events, and volunteer opportunities that complement your academic experience.</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Lab Fellows</h3>
+					<p>Paid positions for students to contribute to our educational mission while developing technical skills, teaching experience, and leadership abilities. Fellows help design and deliver our programs.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Robot Teddy Bear Army Scavenger Hunt</h3>
+					<p>Join our flagship annual event where teams navigate campus solving challenges with custom-built robot teddy bears. This fun competition showcases robotics skills and creative problem-solving.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Volunteer Opportunities</h3>
+					<p>Contribute your time and skills to support our workshops, events, and outreach programs. Volunteers gain valuable experience while helping inspire the next generation of engineers.</p>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<style>
+		.content-page {
+			max-width: 1000px;
+			margin: 0 auto;
+			padding: 0 1rem;
+		}
+
+		.opportunity-cards {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+			gap: 1.5rem;
+			margin-top: 2rem;
+		}
+
+		.opportunity-card {
+			padding: 1.5rem;
+			background: rgba(var(--gray-light), 0.1);
+			border-radius: 12px;
+			border: 1px solid rgba(var(--gray), 0.1);
+			transition: all 0.3s ease;
+		}
+
+		.opportunity-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(var(--gray), 0.15);
+			background: rgba(var(--gray-light), 0.15);
+		}
+
+		.opportunity-card h3 {
+			margin-top: 0;
+			margin-bottom: 1rem;
+			font-size: 1.25rem;
+			color: var(--accent);
+		}
+
+		.opportunity-card p {
+			margin-bottom: 0;
+			font-size: 1rem;
+		}
+
+		.opportunity-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			margin-top: 2rem;
+		}
+
+		.opportunity-item {
+			padding: 1.5rem;
+			background: rgba(var(--accent-light), 0.05);
+			border-radius: 12px;
+			border: 1px solid rgba(var(--accent), 0.1);
+			transition: all 0.3s ease;
+		}
+
+		.opportunity-item:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(var(--accent), 0.1);
+			background: rgba(var(--accent-light), 0.1);
+		}
+
+		.opportunity-item h3 {
+			margin-top: 0;
+			margin-bottom: 1rem;
+			font-size: 1.25rem;
+			color: var(--accent);
+		}
+
+		.opportunity-item p {
+			margin-bottom: 0;
+			font-size: 1rem;
+		}
+
+		@media (max-width: 768px) {
+			.opportunity-cards {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
+</Layout>

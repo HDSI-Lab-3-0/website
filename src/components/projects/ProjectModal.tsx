@@ -43,7 +43,7 @@ export default function ProjectModal({
 			placement="center"
 			size="3xl"
 			scrollBehavior="inside"
-			hideCloseButton={false}
+			hideCloseButton={true}
 			classNames={{
 				backdrop: "bg-black/70 backdrop-blur-sm z-[1000]",
 				base: "z-[1001] max-h-[90vh] bg-white shadow-2xl rounded-3xl modal-content border border-slate-200/50",
