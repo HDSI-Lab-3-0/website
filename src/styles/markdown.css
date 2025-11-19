@@ -373,11 +373,42 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.markdown-content pre::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.markdown-content pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.markdown-content pre::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 2px;
+  border: none;
+}
+
 /* Create a wrapper for code content to handle scrolling separately */
 .markdown-content pre > code {
   display: block;
   overflow-x: auto;
   padding-right: 50px; /* Add space to prevent code from going under the copy button */
+}
+
+/* Apply same scrollbar styling to code element */
+.markdown-content pre > code::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.markdown-content pre > code::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.markdown-content pre > code::-webkit-scrollbar-thumb {
+  background: #ffffff;
+  border-radius: 2px;
+  border: none;
 }
 
 .markdown-content pre code {
