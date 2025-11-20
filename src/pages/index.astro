@@ -56,23 +56,31 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 								computational thinking with hands-on engineering, creating a unique interdisciplinary approach to STEM
 								education.
 							</p>
-							<h3>Our Mission</h3>
-							<p>
-								Our mission is to democratize STEM education by creating accessible, engaging, and innovative learning experiences.
-								We empower undergraduate students to become educators and mentors while developing technical skills in robotics,
-								circuit design, and data science. Through collaborative projects and community partnerships, we aim to:
-							</p>
-							<ul>
-								<li>Inspire K-12 students from diverse backgrounds to pursue STEM careers</li>
-								<li>Provide undergraduate students with practical teaching and leadership experience</li>
-								<li>Create sustainable, scalable educational resources for our community</li>
-								<li>Bridge the gap between academic research and practical application</li>
-							</ul>
 						</div>
 					</div>
 				</div>
 			</section>
-
+	
+			<!-- Our Mission Section -->
+			<section class="mission-section">
+				<div class="container">
+					<div class="mission-content">
+						<h2>Our Mission</h2>
+						<p>
+							Our mission is to democratize STEM education by creating accessible, engaging, and innovative learning experiences.
+							We empower undergraduate students to become educators and mentors while developing technical skills in robotics,
+							circuit design, and data science. Through collaborative projects and community partnerships, we aim to:
+						</p>
+						<ul>
+							<li>Inspire K-12 students from diverse backgrounds to pursue STEM careers</li>
+							<li>Provide undergraduate students with practical teaching and leadership experience</li>
+							<li>Create sustainable, scalable educational resources for our community</li>
+							<li>Bridge the gap between academic research and practical application</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+	
 			<!-- Services/Sponsors Section -->
 			<section class="services-section">
 				<div class="container">
@@ -306,6 +314,41 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 		margin-bottom: 0.75rem;
 	}
 
+	.mission-content {
+		max-width: 800px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.mission-content h2 {
+		font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
+		font-weight: 700;
+		color: rgb(var(--black));
+		margin-bottom: 1.5rem;
+		line-height: 1.3;
+	}
+
+	.mission-content p {
+		font-size: 1.125rem;
+		line-height: 1.8;
+		color: rgb(var(--gray));
+		margin-bottom: 1.5rem;
+	}
+
+	.mission-content ul {
+		font-size: 1.125rem;
+		line-height: 1.8;
+		color: rgb(var(--gray));
+		margin: 1.5rem 0;
+		padding-left: 1.5rem;
+		text-align: left;
+		display: inline-block;
+	}
+
+	.mission-content li {
+		margin-bottom: 0.75rem;
+	}
+
 	/* Services/Sponsors Section */
 	.services-section {
 		padding: 4rem 1.5rem;
@@ -358,6 +401,7 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 	/* Responsive Design */
 	@media (min-width: 1024px) {
 		.about-section,
+		.mission-section,
 		.services-section {
 			padding: 6rem 2rem;
 		}
@@ -379,6 +423,7 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 		}
 
 		.about-section,
+		.mission-section,
 		.services-section {
 			padding: 3rem 1.5rem;
 		}
@@ -409,6 +454,7 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 		}
 
 		.about-section,
+		.mission-section,
 		.services-section {
 			padding: 2.5rem 1rem;
 		}
