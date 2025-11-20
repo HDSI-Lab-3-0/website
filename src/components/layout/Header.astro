@@ -2,19 +2,30 @@
 import { SITE_TITLE } from '../../consts';
 import HeaderLink from './HeaderLink.astro';
 import { Icon } from '../ui/Icon';
+import MobileNavigation from './MobileNavigation.tsx';
+import OpportunitiesDropdown from './OpportunitiesDropdown.tsx';
 ---
 
 <header class="sticky-header">
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
+		
+		<!-- Desktop Navigation -->
+		<div class="internal-links desktop-only">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/members">Members</HeaderLink>
 			<HeaderLink href="/projects">Projects</HeaderLink>
+			<OpportunitiesDropdown client:load />
 			<HeaderLink href="/contact">Contact</HeaderLink>
 			<HeaderLink href="/donate">Donate</HeaderLink>
 		</div>
-		<div class="social-links">
+		
+		<!-- Mobile Navigation -->
+		<div class="mobile-nav-container">
+			<MobileNavigation client:load />
+		</div>
+		
+		<div class="social-links desktop-only">
 			<a href="https://github.com/HDSI-Lab-3-0/website" target="_blank">
 				<span class="sr-only">Go to HDSI Lab GitHub repo</span>
 				<Icon icon="Github" size={20} className="text-gray-600 hover:text-gray-900" />
@@ -53,6 +64,15 @@ import { Icon } from '../ui/Icon';
 	.internal-links {
 		display: flex;
 		gap: 2rem;
+		align-items: center;
+	}
+	
+	.desktop-only {
+		display: block;
+	}
+	
+	.mobile-nav-container {
+		display: none;
 	}
 	nav a {
 		padding: 1.5rem 0.5rem 0 0.5rem;
@@ -87,9 +107,18 @@ import { Icon } from '../ui/Icon';
 		display: flex;
 	}
 	@media (max-width: 720px) {
-		.internal-links {
-			gap: 1rem;
+		.desktop-only {
+			display: none;
 		}
+		
+		.mobile-nav-container {
+			display: block;
+		}
+		
+		.internal-links {
+			display: none;
+		}
+		
 		nav a {
 			padding: 1rem 0.25rem 0 0.25rem;
 			padding-bottom: 1rem;
@@ -99,9 +128,6 @@ import { Icon } from '../ui/Icon';
 			bottom: 0.9rem;
 			left: 0.25rem;
 			right: 0.25rem;
-		}
-		.social-links {
-			display: none;
 		}
 	}
 </style>

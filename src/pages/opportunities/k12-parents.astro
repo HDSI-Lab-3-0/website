@@ -1,0 +1,164 @@
+---
+import Layout from '../../layouts/ProjectPost.astro';
+---
+
+<Layout
+	title="Opportunities for K-12 Parents"
+	description="Programs and resources for parents to support their children's journey into robotics and technology education."
+	pubDate={new Date('January 01 2023')}
+	heroImage={undefined}
+>
+	<div class="content-page">
+		<header class="page-header">
+			<h1>Opportunities for K-12 Parents</h1>
+			<p class="page-description">
+				Programs and resources for parents to support their children's journey into robotics and technology education.
+			</p>
+		</header>
+
+		<section class="content-section">
+			<p class="lead-text">
+				Parents can enroll their children in these specialized programs that require parental consent and support.
+			</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Robotic Arts and Crafts workshop</h3>
+					<p>A creative program that combines artistic expression with robotics fundamentals. Students build functional artistic robots while learning engineering principles.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Summer Day Camp</h3>
+					<p>Immersive week-long summer experience where students dive deep into robotics projects, make new friends with similar interests, and showcase their creations.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Girl Scouts</h3>
+					<p>Specialized robotics programs aligned with Girl Scout badges and achievements. These workshops help scouts earn technology and engineering badges while having fun.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="content-section">
+			<h2>Parent Involvement</h2>
+			<p>Ways you can support your child's robotics journey:</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Parent Volunteer Program</h3>
+					<p>Join our volunteer team to help with events, workshops, and competitions. No technical experience required - just enthusiasm and willingness to help!</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Parent Information Sessions</h3>
+					<p>Monthly sessions designed to help parents understand robotics education, career pathways, and how to support their children's interests.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Family Robotics Days</h3>
+					<p>Special events where families can work together on robotics projects, learn alongside their children, and celebrate achievements.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="content-section">
+			<h2>Enrollment Information</h2>
+			<p>Everything you need to know about enrolling your child in our programs:</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Registration Process</h3>
+					<p>Step-by-step guide to registering your child for our programs, including required forms, deadlines, and what to expect after registration.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Consent Forms</h3>
+					<p>All participating students need parental consent forms completed before attending any program. Forms can be completed online or in person.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Scholarship Opportunities</h3>
+					<p>Financial assistance is available for families who need support with program fees. Learn about our scholarship application process.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="content-section">
+			<h2>Support Resources</h2>
+			<p>Additional resources to help you support your child's interest in robotics:</p>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Home Robotics Activities</h3>
+					<p>Simple robotics projects you can do at home with common household materials to reinforce learning and spark creativity.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Recommended Learning Resources</h3>
+					<p>Curated list of books, websites, videos, and apps that complement our programs and support continued learning at home.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>Career Pathways Guide</h3>
+					<p>Information about STEM careers and educational pathways to help you guide your child's long-term interests in technology and engineering.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="content-section">
+			<h2>Frequently Asked Questions</h2>
+			
+			<div class="opportunity-list">
+				<div class="opportunity-item">
+					<h3>Is prior experience necessary?</h3>
+					<p>No prior experience is necessary! Our programs are designed for all skill levels, from complete beginners to those with some robotics background.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>What safety measures are in place?</h3>
+					<p>All our programs follow strict safety protocols. Staff are trained in first aid, all equipment is age-appropriate, and student-to-instructor ratios are maintained at optimal levels.</p>
+				</div>
+				
+				<div class="opportunity-item">
+					<h3>How can I help if I don't have technical background?</h3>
+					<p>You don't need technical expertise to support your child! Encouragement, helping with logistics, and showing interest in their projects are all valuable ways to contribute.</p>
+				</div>
+			</div>
+		</section>
+	</div>
+
+	<style>
+		.opportunity-list {
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
+			margin-top: 2rem;
+		}
+
+		.opportunity-item {
+			padding: 1.5rem;
+			background: rgba(var(--accent-light), 0.05);
+			border-radius: 12px;
+			border: 1px solid rgba(var(--accent), 0.1);
+			transition: all 0.3s ease;
+		}
+
+		.opportunity-item:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(var(--accent), 0.1);
+			background: rgba(var(--accent-light), 0.1);
+		}
+
+		.opportunity-item h3 {
+			margin-top: 0;
+			margin-bottom: 1rem;
+			font-size: 1.25rem;
+			color: var(--accent);
+		}
+
+		.opportunity-item p {
+			margin-bottom: 0;
+			font-size: 1rem;
+		}
+	</style>
+</Layout>
