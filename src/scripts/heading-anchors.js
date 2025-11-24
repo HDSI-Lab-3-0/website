@@ -57,11 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
       
-      // Copy link on click
-      linkButton.addEventListener('click', async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
+      // Function to copy link to clipboard
+      const copyLinkToClipboard = async () => {
         const url = window.location.origin + window.location.pathname + '#' + heading.id;
         
         try {
@@ -77,6 +74,9 @@ document.addEventListener('DOMContentLoaded', () => {
             </svg>
           `;
           
+          // Add visual feedback to heading
+          heading.classList.add('link-copied');
+          
           // Revert after 2 seconds
           setTimeout(() => {
             linkButton.classList.remove('copied');
@@ -88,10 +88,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
               </svg>
             `;
+            heading.classList.remove('link-copied');
           }, 2000);
         } catch (err) {
           console.error('Failed to copy link:', err);
         }
+      };
+      
+      // Copy link on heading text click
+      heading.addEventListener('click', (e) => {
+        // Only copy if the click is not on the link button
+        if (e.target !== linkButton && !linkButton.contains(e.target)) {
+          e.preventDefault();
+          copyLinkToClipboard();
+        }
+      });
+      
+      // Copy link on button click
+      linkButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        copyLinkToClipboard();
       });
       
       // Append link button to heading

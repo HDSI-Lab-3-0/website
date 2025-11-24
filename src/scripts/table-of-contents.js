@@ -136,6 +136,18 @@ document.addEventListener('DOMContentLoaded', () => {
           const activeLink = tocContainer.querySelector(`.toc-link[href="#${entry.target.id}"]`);
           if (activeLink) {
             activeLink.classList.add('toc-active');
+            
+            // Scroll active link into view if needed
+            const tocContent = tocContainer.querySelector('.toc-content');
+            if (tocContent) {
+              const linkRect = activeLink.getBoundingClientRect();
+              const contentRect = tocContent.getBoundingClientRect();
+              
+              // Check if the active link is outside the visible area of the TOC content
+              if (linkRect.top < contentRect.top || linkRect.bottom > contentRect.bottom) {
+                activeLink.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              }
+            }
           }
         }
       });

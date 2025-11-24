@@ -12,6 +12,7 @@ export const OpportunitiesDropdown: React.FC<OpportunitiesDropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const opportunities = [
     {
@@ -79,15 +80,47 @@ export const OpportunitiesDropdown: React.FC<OpportunitiesDropdownProps> = ({
     };
   }, [isMobile]);
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleMouseEnter = () => {
     if (!isMobile) {
+      // Clear any existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
       setIsOpen(true);
     }
   };
 
   const handleMouseLeave = () => {
     if (!isMobile) {
-      setIsOpen(false);
+      // Add a delay before closing to allow moving to dropdown content
+      timeoutRef.current = setTimeout(() => {
+        setIsOpen(false);
+      }, 200); // 200ms delay
+    }
+  };
+
+  const handleDropdownMouseEnter = () => {
+    if (!isMobile && timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  const handleDropdownMouseLeave = () => {
+    if (!isMobile) {
+      timeoutRef.current = setTimeout(() => {
+        setIsOpen(false);
+      }, 200); // 200ms delay
     }
   };
 
@@ -128,7 +161,11 @@ export const OpportunitiesDropdown: React.FC<OpportunitiesDropdownProps> = ({
       </button>
       
       {isOpen && (
-        <div className="opportunities-menu">
+        <div
+          className="opportunities-menu"
+          onMouseEnter={handleDropdownMouseEnter}
+          onMouseLeave={handleDropdownMouseLeave}
+        >
           {opportunities.map((opportunity) => (
             <a
               key={opportunity.key}
@@ -145,7 +182,7 @@ export const OpportunitiesDropdown: React.FC<OpportunitiesDropdownProps> = ({
         </div>
       )}
       
-      <style jsx="true">{`
+      <style>{`
         .opportunities-dropdown {
           position: relative;
           display: inline-block;
@@ -202,6 +239,17 @@ export const OpportunitiesDropdown: React.FC<OpportunitiesDropdownProps> = ({
           z-index: 1000;
           padding: 0.5rem 0;
           margin-top: 0.25rem;
+        }
+        
+        /* Add invisible bridge to prevent gap between trigger and dropdown */
+        .opportunities-menu::before {
+          content: "";
+          position: absolute;
+          top: -8px;
+          left: 0;
+          right: 0;
+          height: 8px;
+          background: transparent;
         }
         
         .opportunity-item {

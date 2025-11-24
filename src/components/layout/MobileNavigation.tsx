@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalContent, ModalBody, ModalHeader } from '@heroui/react';
-import { SITE_TITLE } from '../../consts';
 import OpportunitiesDropdown from './OpportunitiesDropdown';
 
 const MobileNavigation: React.FC = () => {
@@ -141,7 +140,7 @@ const MobileNavigation: React.FC = () => {
         </ModalContent>
       </Modal>
 
-      <style jsx="true">{`
+      <style>{`
         @media (min-width: 721px) {
           .mobile-nav-modal,
           .mobile-nav-wrapper {

@@ -279,6 +279,11 @@ hr {
     border-bottom-color: var(--accent);
 }
 
+.contact-form-container {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
 .donation-info {
     padding: 2rem;
     background: rgba(var(--accent-light), 0.05);

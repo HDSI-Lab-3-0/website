@@ -32,7 +32,6 @@ export default function ProjectModal({
 	const { data } = project;
 	const projectSlug = project.id;
 	const displayImage =
-		getImageSrc(data.imageGif) ||
 		getImageSrc(data.heroImage) ||
 		"/assets/project-placeholder-1.jpg";
 
