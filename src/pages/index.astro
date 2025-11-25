@@ -17,103 +17,139 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 		<Header />
 		<main>
 			<!-- Hero Section -->
-			<section class="hero">
-				<Image src={heroImage} alt="Hero background" class="hero-background" />
-				<div class="hero-overlay"></div>
-				<div class="hero-content">
-					<h1 class="hero-title">Build Cool Stuff. Inspire Kids.</h1>
-					<p class="hero-subtitle">
+			<section class="relative min-h-screen flex items-center justify-center overflow-hidden lg:min-h-[600px]">
+				<Image src={heroImage} alt="Hero background" class="absolute inset-0 w-full h-full object-cover z-0" />
+				<div class="absolute inset-0 bg-gradient-to-br from-white/95 to-white/80 z-10 backdrop-blur-sm"></div>
+				<div class="relative z-20 text-center max-w-4xl px-6 sm:px-8">
+					<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight bg-gradient-to-br from-slate-900 to-slate-700 bg-clip-text text-transparent">
+						Build Cool Stuff. Inspire Kids.
+					</h1>
+					<p class="text-lg sm:text-xl lg:text-2xl text-slate-700 mb-12 leading-relaxed max-w-3xl mx-auto font-normal">
 						We are a hands-on innovation lab where undergraduates design robotics, circuits, and data science projects that spark STEM curiosity in K-12 students
 					</p>
-					<a href="/projects" class="cta-button">
-						<span class="button-text">Explore Our Projects</span>
-						<svg class="button-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<a href="/projects" class="group inline-flex items-center gap-3 py-4 px-11 bg-gradient-to-br from-blue-600 to-blue-700 text-white no-underline font-semibold text-lg rounded-full border-0 transition-all duration-300 ease-out shadow-lg hover:shadow-xl hover:-translate-y-1 hover:scale-105 active:translate-y-0 active:scale-100">
+						<span>Explore Our Projects</span>
+						<svg class="flex-shrink-0 transition-transform duration-300 group-hover:translate-x-1" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4.16667 10H15.8333M15.8333 10L10 4.16667M15.8333 10L10 15.8333" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 						</svg>
 					</a>
 				</div>
 			</section>
-
+	
+			<!-- Our Mission Section -->
+			<section class="py-20 px-6 bg-gradient-to-b from-white to-slate-50">
+				<div class="max-w-6xl mx-auto">
+					<div class="max-w-4xl mx-auto text-center">
+						<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight">Our Mission</h2>
+						<p class="text-lg lg:text-xl leading-relaxed text-slate-600 mb-10 font-normal">
+							Our mission is to democratize STEM education by creating accessible, engaging, and innovative learning experiences.
+							We empower undergraduate students to become educators and mentors while developing technical skills in robotics,
+							circuit design, and data science. Through collaborative projects and community partnerships, we aim to:
+						</p>
+						<ul class="space-y-4 text-left">
+							<li class="relative p-4 pl-12 bg-blue-50 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-blue-100 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Inspire K-12 students from diverse backgrounds to pursue STEM careers
+							</li>
+							<li class="relative p-4 pl-12 bg-blue-50 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-blue-100 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Provide undergraduate students with practical teaching and leadership experience
+							</li>
+							<li class="relative p-4 pl-12 bg-blue-50 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-blue-100 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Create sustainable, scalable educational resources for our community
+							</li>
+							<li class="relative p-4 pl-12 bg-blue-50 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-blue-100 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Bridge the gap between academic research and practical application
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+	
+			<!-- Section Divider -->
+			<div class="py-12 bg-white">
+				<div class="max-w-6xl mx-auto h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+			</div>
+	
 			<!-- About Us Section -->
-			<section class="about-section">
-				<div class="container">
-					<div class="about-grid">
-						<div class="about-image">
-							<Image src={aboutImage} alt="About HDSI Lab" />
+			<section class="py-20 px-6 bg-white">
+				<div class="max-w-6xl mx-auto">
+					<div class="grid lg:grid-cols-2 gap-12 items-center">
+						<div class="relative rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+							<Image src={aboutImage} alt="About HDSI Lab" class="w-full h-auto" />
 						</div>
-						<div class="about-content">
-							<h2>About Us</h2>
-							<p>
-								HDSI Lab 3.0 is a hands-on innovation lab at UC San Diego where undergraduate students design, build, and deploy
+						<div>
+							<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight">About Us</h2>
+							<p class="text-lg lg:text-xl leading-relaxed text-slate-600 mb-8 font-normal">
+								HDSI Lab 3.0 is a hands-on innovation lab where undergraduate students design, build, and deploy
 								interactive robotics, circuits, and data science projects. We bridge the gap between higher education and
 								K-12 STEM learning by creating engaging experiences that spark curiosity and inspire the next generation
 								of innovators.
 							</p>
-							<h3>Data Science at UCSD</h3>
-							<p>
-								As part of UC San Diego's Halıcıoğlu Data Science Institute, we leverage cutting-edge data science methodologies
-								to enhance educational experiences. Our projects integrate machine learning, data visualization, and
-								computational thinking with hands-on engineering, creating a unique interdisciplinary approach to STEM
-								education.
-							</p>
-							<ul class="enhanced-list">
-								<li>Machine learning applications for educational tools</li>
-								<li>Interactive data visualization platforms</li>
-								<li>Computational thinking curriculum development</li>
-								<li>Hands-on engineering workshops</li>
-							</ul>
 						</div>
 					</div>
 				</div>
 			</section>
 	
-			<!-- Our Mission Section -->
-			<section class="mission-section">
-				<div class="container">
-					<div class="mission-content">
-						<h2>Our Mission</h2>
-						<p>
-							Our mission is to democratize STEM education by creating accessible, engaging, and innovative learning experiences.
-							We empower undergraduate students to become educators and mentors while developing technical skills in robotics,
-							circuit design, and data science. Through collaborative projects and community partnerships, we aim to:
+			<!-- Section Divider -->
+			<div class="py-12 bg-white">
+				<div class="max-w-6xl mx-auto h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
+			</div>
+		
+			<!-- Data Science at UCSD Section -->
+			<section class="py-20 px-6 bg-white">
+				<div class="max-w-6xl mx-auto">
+					<div class="max-w-4xl mx-auto text-center">
+						<h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight">Data Science at UCSD</h2>
+						<p class="text-lg lg:text-xl leading-relaxed text-slate-600 mb-8 font-normal text-center">
+							As part of UC San Diego's Halıcıoğlu Data Science Institute, we leverage cutting-edge data science methodologies
+							to enhance educational experiences. Our projects integrate machine learning, data visualization, and
+							computational thinking with hands-on engineering, creating a unique interdisciplinary approach to STEM
+							education.
 						</p>
-						<ul class="enhanced-list mission-list">
-							<li>Inspire K-12 students from diverse backgrounds to pursue STEM careers</li>
-							<li>Provide undergraduate students with practical teaching and leadership experience</li>
-							<li>Create sustainable, scalable educational resources for our community</li>
-							<li>Bridge the gap between academic research and practical application</li>
+						<ul class="space-y-4 text-left">
+							<li class="relative p-4 pl-12 bg-slate-100 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-slate-200 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Machine learning applications for educational tools
+							</li>
+							<li class="relative p-4 pl-12 bg-slate-100 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-slate-200 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Interactive data visualization platforms
+							</li>
+							<li class="relative p-4 pl-12 bg-slate-100 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-slate-200 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Computational thinking curriculum development
+							</li>
+							<li class="relative p-4 pl-12 bg-slate-100 rounded-xl transition-all duration-300 ease-out text-lg leading-relaxed text-slate-700 hover:bg-slate-200 hover:translate-x-1 hover:shadow-md before:content-['•'] before:absolute before:left-4 before:top-1/2 before:-translate-y-1/2 before:text-slate-700 before:text-2xl before:font-bold before:leading-none">
+								Hands-on engineering workshops
+							</li>
 						</ul>
 					</div>
 				</div>
 			</section>
 	
 			<!-- Services/Sponsors Section -->
-			<section class="services-section">
-				<div class="container">
-					<h2 class="section-title">Our Sponsors</h2>
-					<div class="sponsors-grid">
-						<div class="sponsor-card">
-							<div class="card-content">
-								<h3>Technology Partner</h3>
-								<p>Leading provider of cutting-edge educational technology solutions</p>
+			<section class="py-16 px-6 bg-gradient-to-b from-slate-50 to-white">
+				<div class="max-w-6xl mx-auto">
+					<h2 class="text-center text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-12 leading-tight">Our Sponsors</h2>
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+							<div>
+								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Technology Partner</h3>
+								<p class="text-base leading-relaxed text-slate-600 m-0">Leading provider of cutting-edge educational technology solutions</p>
 							</div>
 						</div>
-						<div class="sponsor-card">
-							<div class="card-content">
-								<h3>Research Foundation</h3>
-								<p>Supporting innovative educational research initiatives</p>
+						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+							<div>
+								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Research Foundation</h3>
+								<p class="text-base leading-relaxed text-slate-600 m-0">Supporting innovative educational research initiatives</p>
 							</div>
 						</div>
-						<div class="sponsor-card">
-							<div class="card-content">
-								<h3>Industry Collaborator</h3>
-								<p>Bridging academic research with practical industry applications</p>
+						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+							<div>
+								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Industry Collaborator</h3>
+								<p class="text-base leading-relaxed text-slate-600 m-0">Bridging academic research with practical industry applications</p>
 							</div>
 						</div>
-						<div class="sponsor-card">
-							<div class="card-content">
-								<h3>Education Grant</h3>
-								<p>Funding transformative educational programs and initiatives</p>
+						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+							<div>
+								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Education Grant</h3>
+								<p class="text-base leading-relaxed text-slate-600 m-0">Funding transformative educational programs and initiatives</p>
 							</div>
 						</div>
 					</div>
@@ -123,443 +159,3 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 		<Footer />
 	</body>
 </html>
-
-<style>
-	/* Hero Section */
-	.hero {
-		position: relative;
-		height: 100vh;
-		min-height: 600px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		overflow: hidden;
-	}
-
-	.hero-background {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		z-index: 0;
-	}
-
-	.hero-overlay {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.8) 100%);
-		z-index: 1;
-		backdrop-filter: blur(2px);
-	}
-
-	.hero-content {
-		position: relative;
-		z-index: 2;
-		text-align: center;
-		max-width: 800px;
-		padding: 2rem;
-	}
-
-	.hero-title {
-		font-size: clamp(2.5rem, 6vw + 1rem, 5rem);
-		font-weight: 800;
-		color: rgb(var(--black));
-		margin-bottom: 1.5rem;
-		line-height: 1.1;
-		letter-spacing: -0.02em;
-		background: linear-gradient(135deg, rgb(var(--black)) 0%, rgb(var(--gray-dark)) 100%);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.hero-subtitle {
-		font-size: clamp(1.125rem, 2.5vw + 0.5rem, 1.5rem);
-		color: rgb(var(--gray-dark));
-		margin-bottom: 3rem;
-		line-height: 1.7;
-		max-width: 680px;
-		margin-left: auto;
-		margin-right: auto;
-		font-weight: 400;
-	}
-
-	.cta-button {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
-		padding: 1.125rem 2.75rem;
-		background: linear-gradient(135deg, var(--accent) 0%, #4158ff 100%);
-		color: white;
-		text-decoration: none;
-		font-weight: 600;
-		font-size: 1.0625rem;
-		border-radius: 50px;
-		border: none;
-		transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		box-shadow: 0 4px 20px rgba(35, 55, 255, 0.25);
-		position: relative;
-		overflow: hidden;
-	}
-
-	.cta-button::before {
-		content: '';
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		background: linear-gradient(135deg, #4158ff 0%, var(--accent) 100%);
-		opacity: 0;
-		transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.cta-button:hover {
-		transform: translateY(-3px) scale(1.02);
-		box-shadow: 0 8px 30px rgba(35, 55, 255, 0.4);
-	}
-
-	.cta-button:hover::before {
-		opacity: 1;
-	}
-
-	.cta-button:active {
-		transform: translateY(-1px) scale(0.98);
-	}
-
-	.button-text,
-	.button-icon {
-		position: relative;
-		z-index: 1;
-	}
-
-	.button-icon {
-		transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-		flex-shrink: 0;
-	}
-
-	.cta-button:hover .button-icon {
-		transform: translateX(4px);
-	}
-
-	/* About Section */
-	.about-section {
-		padding: 4rem 1.5rem;
-		background-color: white;
-	}
-
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-	}
-
-	.about-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 3rem;
-		align-items: center;
-	}
-
-	.about-image {
-		position: relative;
-		border-radius: 12px;
-		overflow: hidden;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		transition: all 0.3s ease;
-	}
-
-	.about-image:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-	}
-
-	.about-image img {
-		width: 100%;
-		height: auto;
-		display: block;
-	}
-
-	.about-content h2 {
-		font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
-		font-weight: 700;
-		color: rgb(var(--black));
-		margin-bottom: 1.5rem;
-		line-height: 1.3;
-	}
-
-	.about-content h3 {
-		font-size: clamp(1.25rem, 2vw + 0.5rem, 1.5rem);
-		font-weight: 600;
-		color: rgb(var(--black));
-		margin-top: 2rem;
-		margin-bottom: 1rem;
-		line-height: 1.3;
-	}
-
-	.about-content p {
-		font-size: 1.125rem;
-		line-height: 1.8;
-		color: rgb(var(--gray));
-		margin-bottom: 1.5rem;
-	}
-
-	.about-content ul {
-		font-size: 1.125rem;
-		line-height: 1.8;
-		color: rgb(var(--gray));
-		margin: 1.5rem 0;
-		padding-left: 1.5rem;
-	}
-
-	.about-content li {
-		margin-bottom: 0.75rem;
-	}
-
-	.mission-content {
-		max-width: 800px;
-		margin: 0 auto;
-		text-align: center;
-	}
-
-	.mission-content h2 {
-		font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
-		font-weight: 700;
-		color: rgb(var(--black));
-		margin-bottom: 1.5rem;
-		line-height: 1.3;
-	}
-
-	.mission-content p {
-		font-size: 1.125rem;
-		line-height: 1.8;
-		color: rgb(var(--gray));
-		margin-bottom: 1.5rem;
-	}
-
-	.mission-content ul {
-		font-size: 1.125rem;
-		line-height: 1.8;
-		color: rgb(var(--gray));
-		margin: 1.5rem 0;
-		padding-left: 1.5rem;
-		text-align: left;
-		display: inline-block;
-	}
-
-	.mission-content li {
-		margin-bottom: 0.75rem;
-	}
-
-	/* Enhanced List Styling */
-	.enhanced-list {
-		list-style: none;
-		padding: 0;
-		margin: 2rem 0;
-	}
-
-	.enhanced-list li {
-		position: relative;
-		padding: 1rem 1rem 1rem 3.5rem;
-		margin-bottom: 1rem;
-		background: rgba(var(--gray-light), 0.3);
-		border-radius: 12px;
-		border-left: 4px solid var(--accent);
-		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-		font-size: 1.125rem;
-		line-height: 1.6;
-		color: rgb(var(--gray-dark));
-	}
-
-	.enhanced-list li::before {
-		content: '';
-		position: absolute;
-		left: 1.25rem;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 8px;
-		height: 8px;
-		background: var(--accent);
-		border-radius: 50%;
-		box-shadow: 0 0 0 3px rgba(35, 55, 255, 0.2);
-		transition: all 0.3s ease;
-	}
-
-	.enhanced-list li:hover {
-		background: rgba(var(--gray-light), 0.5);
-		transform: translateX(4px);
-		box-shadow: 0 4px 12px rgba(var(--gray), 0.1);
-	}
-
-	.enhanced-list li:hover::before {
-		background: var(--accent-dark);
-		box-shadow: 0 0 0 5px rgba(35, 55, 255, 0.3);
-	}
-
-	/* Mission List Specific Styling */
-	.mission-list {
-		display: grid;
-		gap: 1rem;
-		text-align: left;
-	}
-
-	.mission-list li {
-		border-left-color: var(--accent-light);
-		background: rgba(var(--accent-light), 0.1);
-	}
-
-	.mission-list li::before {
-		background: var(--accent-light);
-		box-shadow: 0 0 0 3px rgba(139, 157, 255, 0.2);
-	}
-
-	.mission-list li:hover {
-		background: rgba(var(--accent-light), 0.2);
-		border-left-color: var(--accent);
-	}
-
-	.mission-list li:hover::before {
-		background: var(--accent);
-		box-shadow: 0 0 0 5px rgba(139, 157, 255, 0.3);
-	}
-
-	/* Responsive adjustments for enhanced lists */
-	@media (max-width: 768px) {
-		.enhanced-list li {
-			padding: 0.875rem 0.875rem 0.875rem 3rem;
-			font-size: 1rem;
-		}
-
-		.enhanced-list li::before {
-			left: 1rem;
-			width: 7px;
-			height: 7px;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.enhanced-list li {
-			padding: 0.75rem 0.75rem 0.75rem 2.75rem;
-			font-size: 0.95rem;
-		}
-
-		.enhanced-list li::before {
-			left: 0.875rem;
-		}
-	}
-
-	/* Services/Sponsors Section */
-	.services-section {
-		padding: 4rem 1.5rem;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-	}
-
-	.section-title {
-		text-align: center;
-		font-size: clamp(1.75rem, 3vw + 1rem, 2.5rem);
-		font-weight: 700;
-		color: rgb(var(--black));
-		margin-bottom: 3rem;
-		line-height: 1.3;
-	}
-
-	.sponsors-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-		gap: 2rem;
-	}
-
-	.sponsor-card {
-		background: white;
-		border-radius: 12px;
-		padding: 2rem;
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-		transition: all 0.3s ease;
-	}
-
-	.sponsor-card:hover {
-		transform: translateY(-4px);
-		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-	}
-
-	.card-content h3 {
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: rgb(var(--black));
-		margin-bottom: 1rem;
-		line-height: 1.3;
-	}
-
-	.card-content p {
-		font-size: 1rem;
-		line-height: 1.8;
-		color: rgb(var(--gray));
-		margin: 0;
-	}
-
-	/* Responsive Design */
-	@media (min-width: 1024px) {
-		.about-section,
-		.mission-section,
-		.services-section {
-			padding: 6rem 2rem;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.hero {
-			height: 80vh;
-			min-height: 500px;
-		}
-
-		.about-grid {
-			grid-template-columns: 1fr;
-			gap: 2.5rem;
-		}
-
-		.sponsors-grid {
-			grid-template-columns: 1fr;
-		}
-
-		.about-section,
-		.mission-section,
-		.services-section {
-			padding: 3rem 1.5rem;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.hero-content {
-			padding: 1.5rem;
-		}
-
-		.hero-title {
-			letter-spacing: -0.01em;
-		}
-
-		.cta-button {
-			padding: 1rem 2.25rem;
-			font-size: 1rem;
-			gap: 0.5rem;
-		}
-
-		.button-icon {
-			width: 18px;
-			height: 18px;
-		}
-
-		.sponsor-card {
-			padding: 1.5rem;
-		}
-
-		.about-section,
-		.mission-section,
-		.services-section {
-			padding: 2.5rem 1rem;
-		}
-	}
-</style>

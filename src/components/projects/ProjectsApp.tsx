@@ -10,6 +10,7 @@ interface ProjectsAppProps {
 }
 
 export default function ProjectsApp({ projects }: ProjectsAppProps) {
+	console.log('ProjectsApp component loaded with', projects.length, 'projects');
 	const [selectedTags, setSelectedTags] = useState<string[]>([]);
 	const [selectedProject, setSelectedProject] =
 		useState<CollectionEntry<"projects"> | null>(null);

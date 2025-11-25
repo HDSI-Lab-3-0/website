@@ -1,64 +1,102 @@
 {
-  "members": [
-    {
-      "id": "saura-naderi",
-      "name": "Saura Naderi",
-      "role": "Director",
-      "image": "/images/members/saura-naderi.jpg",
-      "bio": "Leading innovative research in robotics and human-computer interaction, with a focus on accessible technology and interdisciplinary collaboration.",
-      "category": "director",
-      "email": "saura@example.com",
-      "order": 1
-    },
-    {
-      "id": "alex-johnson",
-      "name": "Alex Johnson",
-      "role": "Senior Research Fellow",
-      "image": "/images/members/alex-johnson.jpg",
-      "bio": "Specializes in machine learning and computer vision applications for robotic systems. PhD in Computer Science from Stanford University.",
-      "category": "lab-fellow",
-      "email": "alex.johnson@example.com",
-      "order": 2
-    },
-    {
-      "id": "morgan-chen",
-      "name": "Morgan Chen",
-      "role": "Lab Fellow",
-      "image": "/images/members/morgan-chen.jpg",
-      "bio": "Focuses on embedded systems and IoT integration in robotic platforms. Experienced in real-time control systems and sensor fusion.",
-      "category": "lab-fellow",
-      "email": "morgan.chen@example.com",
-      "order": 3
-    },
-    {
-      "id": "jordan-lee",
-      "name": "Jordan Lee",
-      "role": "Lab Fellow",
-      "image": "/images/members/jordan-lee.jpg",
-      "bio": "Research interests include swarm robotics and distributed autonomous systems. Background in electrical engineering and control theory.",
-      "category": "lab-fellow",
-      "email": "jordan.lee@example.com",
-      "order": 4
-    },
-    {
-      "id": "casey-rivera",
-      "name": "Casey Rivera",
-      "role": "Lab Fellow",
-      "image": "/images/members/casey-rivera.jpg",
-      "bio": "Works on human-robot interaction and assistive robotics. Passionate about designing accessible technology for diverse user communities.",
-      "category": "lab-fellow",
-      "email": "casey.rivera@example.com",
-      "order": 5
-    },
-    {
-      "id": "sam-taylor",
-      "name": "Sam Taylor",
-      "role": "Graduate Researcher",
-      "image": "/images/members/sam-taylor.jpg",
-      "bio": "PhD candidate researching bio-inspired robotics and soft robotics. Exploring novel actuation methods and compliant mechanisms.",
-      "category": "graduate-researcher",
-      "email": "sam.taylor@example.com",
-      "order": 6
-    }
-  ]
+    "members": [
+        {
+            "name": "Emmy Wei",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow specializing in advanced robotics research and development.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Andrew Lara",
+            "role": "Senior Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow focusing on innovative robotics applications and systems integration.",
+            "category": "senior-lab-fellow"
+        },
+        {
+            "name": "Wan-Rong Leung",
+            "role": "Senior Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "senior-lab-fellow"
+        },
+        {
+            "name": "Charles Nguyen",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Cecilia Werre",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow specializing in robotics research and development.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Hannah Gonzalez",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow focusing on robotics systems and applications.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Hana Tjendrawasi",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow specializing in robotics research and development.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Jamera Fernando",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Kyle Shiroma",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow contributing to robotics research and development projects.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Marcos Pascual Rodriguez",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow specializing in robotics systems and applications.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Moniriddh Bunyay",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow focusing on robotics systems and applications.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Selina Zhang",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow focusing on robotics systems and applications.",
+            "category": "lab-fellow"
+        },
+        {
+            "name": "Saura Naderi",
+            "role": "Director",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Leading innovative research in robotics and human-computer interaction, with a focus on accessible technology and interdisciplinary collaboration.",
+            "category": "director"
+        },
+        {
+            "name": "Yifei Chen",
+            "role": "Lab Fellow",
+            "image": "/images/members/saura-naderi.jpg",
+            "bio": "Lab Fellow specializing in robotics research and development.",
+            "category": "lab-fellow"
+        }
+    ]
 }

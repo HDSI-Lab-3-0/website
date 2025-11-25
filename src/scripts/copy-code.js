@@ -67,9 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
         textArea.focus();
         textArea.select();
         
-        // execCommand is deprecated, but keeping this as a last resort
-        // for very old browsers that don't support clipboard API
-        console.warn('Using deprecated execCommand as fallback');
+        // Manual fallback for browsers without clipboard API
+        textArea.select();
         try {
           document.execCommand('copy');
           copyButton.classList.add('copied');
@@ -79,6 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 2000);
         } catch (fallbackErr) {
           console.error('Failed to copy code:', fallbackErr);
+          // Show error message to user
+          alert('Failed to copy code. Please copy manually.');
         }
         
         document.body.removeChild(textArea);

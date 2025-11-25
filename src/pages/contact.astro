@@ -4,7 +4,7 @@ import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import ContactForm from '../components/ui/ContactForm.tsx';
 import "../styles/global.css";
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts.ts';
+import { SITE_DESCRIPTION } from '../consts.ts';
 ---
 
 <html lang="en">
@@ -16,19 +16,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts.ts';
 
     <main class="constrained-main">
       <div class="content-page">
-        <header class="page-header">
-          <h1>Contact</h1>
-          <p class="page-description">Get in touch with us</p>
-        </header>
-        
-        <div class="content-section">
-          <div class="contact-info">
-            <div class="contact-item">
-              <h2>Email</h2>
-              <p><a href="mailto:your@email.com">your@email.com</a></p>
-            </div>
-          </div>
-          
+       
           <div class="contact-form-container">
             <ContactForm client:load />
           </div>

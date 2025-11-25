@@ -16,7 +16,7 @@ type Props = CollectionEntry<'projects'>['data'] & {
 	showTOC?: boolean;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, imageGif, links, relevance, tags, estimated_time, showTitle = true, showTOC = true } = Astro.props;
+const { title, description, pubDate, updatedDate, imageGif, links, relevance, tags, estimated_time, showTitle = true, showTOC = true } = Astro.props;
 
 // Get icon for each category
 function getCategoryIcon(category: string): string {
@@ -110,318 +110,69 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-				margin-bottom: 2.5rem;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			
-			/* Layout with sidebar for TOC */
-			.content-wrapper {
-				display: flex;
-				gap: 3rem;
-				max-width: 1400px;
-				margin: 0 auto;
-				position: relative;
-				padding: 2rem 1rem;
-			}
-			
-			.toc-sidebar {
-				flex-shrink: 0;
-				width: 250px;
-				order: -1; /* Move TOC to the left */
-			}
-			
-			.main-content {
-				flex: 1;
-				min-width: 0;
-				order: 1; /* Content on the right */
-				overflow: hidden;
-			}
-			
-			.prose {
-				width: 800px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 2em 1em;
-				color: rgb(var(--gray-dark));
-			}
-			
-			/* Match responsive breakpoints with markdown-content */
+			/* Responsive layout adjustments */
 			@media (min-width: 1200px) {
-				.prose {
+				.w-\[800px\] {
 					width: 900px;
 					padding: 2.5em 1.5em;
 				}
 			}
 			
 			@media (min-width: 1600px) {
-				.prose {
+				.w-\[800px\] {
 					width: 1000px;
 					padding: 3em 2em;
 				}
 			}
 			
-			/* Responsive layout adjustments */
 			@media (max-width: 1024px) {
-				.content-wrapper {
+				.flex.gap-12 {
 					flex-direction: column;
 					gap: 2rem;
 					padding: 1.5rem 1rem;
 				}
 				
-				.toc-sidebar {
+				.flex-shrink-0.w-\[250px\] {
 					width: 100%;
-					order: 1; /* Show TOC after content on mobile */
+					order: 1;
 				}
 				
-				.main-content {
-					order: -1; /* Show content first on mobile */
+				.flex-1.min-w-0.order-1 {
+					order: -1;
 				}
 				
-				.prose {
+				.w-\[800px\] {
 					padding: 1.5em 1em;
 				}
 			}
 			
 			@media (max-width: 768px) {
-				.content-wrapper {
+				.flex.gap-12 {
 					padding: 1rem 0.5rem;
 				}
 				
-				.prose {
+				.w-\[800px\] {
 					padding: 1em 0.5em;
 				}
-			}
-			.title {
-				margin-bottom: 2em;
-				padding: 1.5em 0;
-				text-align: center;
-				line-height: 1.2;
-			}
-			.title h1 {
-				margin: 0 0 0.75em 0;
-				font-size: 2.5rem;
-				line-height: 1.1;
-			}
-			
-			@media (max-width: 768px) {
-				.title h1 {
+				
+				.m-0.mb-3.text-\[2\.5rem\] {
 					font-size: 2rem;
 				}
 			}
 			
 			@media (max-width: 480px) {
-				.title {
+				.mb-8.pb-6 {
 					padding: 1em 0;
 					margin-bottom: 1.5em;
 				}
-				.title h1 {
+				
+				.m-0.mb-3.text-\[2\.5rem\] {
 					font-size: 1.75rem;
 				}
-			}
-			.date {
-				margin-bottom: 0.75em;
-				color: rgb(var(--gray));
-				font-size: 0.95rem;
-				line-height: 1.6;
-			}
-			.last-updated-on {
-				font-style: italic;
-				margin-top: 0.5em;
-				font-size: 0.9rem;
-			}
-			.gif-image {
-				width: 100%;
-				margin: 2.5em 0;
-			}
-			.gif-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.links {
-				margin: 2em 0;
-				padding: 1.5em;
-				background: rgba(var(--accent-light), 0.1);
-				border-radius: 12px;
-				border: 1px solid rgba(var(--accent), 0.1);
-			}
-			.links h2 {
-				margin-top: 0;
-				margin-bottom: 1em;
-				font-size: 1.3em;
-				color: rgb(var(--black));
-			}
-			.links ul {
-				list-style: none;
-				padding: 0;
-				margin: 0;
-			}
-			.links li {
-				margin: 0.75em 0;
-			}
-			.links li:last-child {
-				margin-bottom: 0;
-			}
-			.links a {
-				color: rgb(var(--accent));
-				text-decoration: none;
-			}
-			.links a:hover {
-				text-decoration: underline;
-			}
-			.relevance {
-				margin: 1.5em 0;
-				padding: 1em;
-				background: rgba(var(--gray-light), 0.1);
-				border-radius: 8px;
-				font-style: italic;
-			}
-			.relevance h2 {
-				margin-top: 0;
-				font-size: 1.2em;
-				font-style: normal;
-			}
-			.tags-section {
-				margin: 2.5em 0;
-				padding: 1.5em 0;
-				border-top: 1px solid rgba(var(--gray-light), 0.5);
-			}
-			.tags-header {
-				display: flex;
-				align-items: center;
-				margin-bottom: 1.5em;
-				gap: 0.5em;
-			}
-			.tags-header h2 {
-				margin: 0;
-				font-size: 1.25em;
-				font-weight: 600;
-				color: rgb(var(--gray-dark));
-			}
-			.tags-container {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.75em;
-				margin-top: 0.5em;
-			}
-			.tag-item {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4em;
-				padding: 0.4em 0.9em;
-				background: rgba(var(--gray-light), 0.15);
-				border: 1px solid rgba(var(--gray), 0.15);
-				border-radius: 9999px;
-				font-size: 0.9em;
-				font-weight: 500;
-				color: rgb(var(--gray-dark));
-				transition: all 0.2s ease;
-			}
-			.tag-item:hover {
-				background: rgba(var(--gray-light), 0.3);
-				transform: translateY(-1px);
-				box-shadow: 0 2px 4px rgba(var(--gray), 0.1);
-			}
-			.tag-icon {
-				flex-shrink: 0;
-				opacity: 0.8;
-			}
-			.tag-text {
-				white-space: nowrap;
-			}
-			.tag-divider {
-				width: 1px;
-				height: 1em;
-				background: rgba(var(--gray), 0.2);
-				margin: 0 0.25em;
-			}
-			.tag-category-label {
-				font-size: 0.75em;
-				opacity: 0.7;
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-			}
-			
-			/* Responsive design for tags */
-			@media (max-width: 768px) {
-				.tags-section {
-					margin: 2em 0;
-					padding: 1em 0;
-				}
-				.tags-container {
-					gap: 0.5em;
-				}
-				.tag-item {
-					font-size: 0.85em;
-					padding: 0.35em 0.75em;
-				}
-			}
-			
-			@media (max-width: 480px) {
-				.tags-container {
-					gap: 0.4em;
-				}
-				.tag-item {
-					font-size: 0.8em;
-					padding: 0.3em 0.65em;
-				}
-				.tag-category-label {
+				
+				.text-\[0\.75em\].opacity-70.uppercase.tracking-wider {
 					display: none;
 				}
-			}
-			.time-indicators {
-				margin: 1.5em 0;
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.75em;
-				align-items: center;
-			}
-			.estimated-time-tag {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4em;
-				padding: 0.5em 1em;
-				background: rgba(var(--accent), 0.1);
-				border: 1px solid rgba(var(--accent), 0.3);
-				border-radius: 9999px;
-				font-size: 0.9em;
-				font-weight: 500;
-				color: var(--accent);
-				transition: all 0.2s ease;
-			}
-			.estimated-time-tag:hover {
-				background: rgba(var(--accent), 0.15);
-				transform: translateY(-1px);
-				box-shadow: 0 2px 4px rgba(var(--accent), 0.2);
-			}
-			.reading-time {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.4em;
-				padding: 0.5em 1em;
-				background: rgba(var(--gray-light), 0.15);
-				border: 1px solid rgba(var(--gray), 0.2);
-				border-radius: 9999px;
-				font-size: 0.9em;
-				font-weight: 500;
-				color: rgb(var(--gray-dark));
-			}
-			.time-icon {
-				flex-shrink: 0;
-				opacity: 0.9;
 			}
 		</style>
 	</head>
@@ -431,11 +182,11 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 		<!-- Reading Progress Bar -->
 		<div class="reading-progress" id="reading-progress"></div>
 		
-		<main>
+		<main class="w-[calc(100%-2em)] max-w-full m-0">
 			<article>
-				<div class="content-wrapper">
+				<div class="flex gap-12 max-w-[1400px] mx-auto relative py-8 px-4">
 					{showTOC && (
-						<aside class="toc-sidebar">
+						<aside class="flex-shrink-0 w-[250px] -order-1">
 							<div class="table-of-contents">
 								<div class="toc-header">
 									<span class="toc-title">Contents</span>
@@ -446,40 +197,40 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 							</div>
 						</aside>
 					)}
-					<div class="main-content">
-						<div class="prose">
+					<div class="flex-1 min-w-0 order-1 overflow-hidden">
+						<div class="w-[800px] max-w-[calc(100%-2em)] mx-auto py-8 px-4 text-[rgb(var(--gray-dark))]">
 							{imageGif && (
-								<div class="gif-image">
-									<Image width={1020} height={510} src={imageGif} alt="" />
+								<div class="w-full my-10">
+									<Image width={1020} height={510} src={imageGif} alt="" class="block mx-auto rounded-xl shadow-[var(--box-shadow)]" />
 								</div>
 							)}
-							<div class="title">
-								<div class="date">
+							<div class="mb-8 pb-6 text-center leading-[1.2]">
+								<div class="mb-3 text-[rgb(var(--gray))] text-[0.95rem] leading-[1.6]">
 									<FormattedDate date={pubDate} />
 									{
 										updatedDate && (
-											<div class="last-updated-on">
+											<div class="italic mt-2 text-[0.9rem]">
 												Last updated on <FormattedDate date={updatedDate} />
 											</div>
 										)
 									}
 								</div>
-								{showTitle && <h1>{title}</h1>}
+								{showTitle && <h1 class="m-0 mb-3 text-[2.5rem] leading-[1.1]">{title}</h1>}
 								<hr />
 								{links && (links.lessonPlan || links.materials) && (
-									<div class="links">
-										<h2>Resources</h2>
-										<ul>
+									<div class="my-8 p-6 bg-[rgba(var(--accent-light),0.1)] rounded-xl border border-[rgba(var(--accent),0.1)]">
+										<h2 class="mt-0 mb-4 text-[1.3em] text-[rgb(var(--black))]">Resources</h2>
+										<ul class="list-none p-0 m-0">
 											{links.lessonPlan && (
-												<li>
-													<a href={links.lessonPlan} target="_blank" rel="noopener noreferrer">
+												<li class="my-3">
+													<a href={links.lessonPlan} target="_blank" rel="noopener noreferrer" class="text-[rgb(var(--accent))] no-underline hover:underline">
 														<Icon icon="FileText" size={16} style={{ display: 'inline', marginRight: '0.5em' }} /> Lesson Plan
 													</a>
 												</li>
 											)}
 											{links.materials && (
-												<li>
-													<a href={links.materials} target="_blank" rel="noopener noreferrer">
+												<li class="my-3 last:mb-0">
+													<a href={links.materials} target="_blank" rel="noopener noreferrer" class="text-[rgb(var(--accent))] no-underline hover:underline">
 														<Icon icon="Package" size={16} style={{ display: 'inline', marginRight: '0.5em' }} /> Materials
 													</a>
 												</li>
@@ -488,39 +239,39 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 									</div>
 								)}
 								{relevance && (
-									<div class="relevance">
-										<h2>Relevance</h2>
+									<div class="my-6 p-4 bg-[rgba(var(--gray-light),0.1)] rounded-lg italic">
+										<h2 class="mt-0 text-[1.2em] not-italic">Relevance</h2>
 										<p>{relevance}</p>
 									</div>
 								)}
 								{allTagsWithCategories && allTagsWithCategories.length > 0 && (
-									<div class="tags-section">
-										<div class="tags-header">
-											<Icon icon="Tag" size={20} className="tag-icon" style={{ color: 'rgb(var(--gray))' }} />
-											<h2>Tags</h2>
+									<div class="my-10 py-6 border-t border-[rgba(var(--gray-light),0.5)]">
+										<div class="flex items-center mb-6 gap-2">
+											<Icon icon="Tag" size={20} className="flex-shrink-0 opacity-80" style={{ color: 'rgb(var(--gray))' }} />
+											<h2 class="m-0 text-[1.25em] font-semibold text-[rgb(var(--gray-dark))]">Tags</h2>
 										</div>
-										<div class="tags-container">
+										<div class="flex flex-wrap gap-3 mt-2">
 											{allTagsWithCategories.map((tagInfo) => (
-												<div class="tag-item" style={{ borderColor: tagInfo.color + '40', background: tagInfo.color + '10' }}>
-													<Icon icon={tagInfo.icon} size={14} className="tag-icon" style={{ color: tagInfo.color }} />
-													<span class="tag-text">{tagInfo.tag}</span>
-													<span class="tag-divider"></span>
-													<span class="tag-category-label" style={{ color: tagInfo.color }}>{tagInfo.category}</span>
+												<div class="inline-flex items-center gap-[0.4em] py-[0.4em] px-[0.9em] bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.15)] rounded-full text-[0.9em] font-medium text-[rgb(var(--gray-dark))] transition-all duration-200 hover:bg-[rgba(var(--gray-light),0.3)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--gray),0.1)]" style={{ borderColor: tagInfo.color + '40', background: tagInfo.color + '10' }}>
+													<Icon icon={tagInfo.icon} size={14} className="flex-shrink-0 opacity-80" style={{ color: tagInfo.color }} />
+													<span class="whitespace-nowrap">{tagInfo.tag}</span>
+													<span class="w-px h-[1em] bg-[rgba(var(--gray),0.2)] mx-1"></span>
+													<span class="text-[0.75em] opacity-70 uppercase tracking-wider" style={{ color: tagInfo.color }}>{tagInfo.category}</span>
 												</div>
 											))}
 										</div>
 									</div>
 								)}
 								{estimated_time && (
-									<div class="time-indicators">
+									<div class="my-6 flex flex-wrap gap-3 items-center">
 										{estimated_time && (
-											<div class="estimated-time-tag">
-												<Icon icon="Clock" size={16} className="time-icon" />
+											<div class="inline-flex items-center gap-[0.4em] py-2 px-4 bg-[rgba(var(--accent),0.1)] border border-[rgba(var(--accent),0.3)] rounded-full text-[0.9em] font-medium text-[var(--accent)] transition-all duration-200 hover:bg-[rgba(var(--accent),0.15)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--accent),0.2)]">
+												<Icon icon="Clock" size={16} className="flex-shrink-0 opacity-90" />
 												<span>{estimated_time} min project</span>
 											</div>
 										)}
-										<div class="reading-time" id="reading-time-indicator">
-											<Icon icon="BookOpen" size={16} className="time-icon" />
+										<div class="inline-flex items-center gap-[0.4em] py-2 px-4 bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.2)] rounded-full text-[0.9em] font-medium text-[rgb(var(--gray-dark))]" id="reading-time-indicator">
+											<Icon icon="BookOpen" size={16} className="flex-shrink-0 opacity-90" />
 											<span id="reading-time-text">Calculating...</span>
 										</div>
 									</div>

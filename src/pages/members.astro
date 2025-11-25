@@ -3,13 +3,65 @@ import BaseHead from '../components/layout/BaseHead.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
 import "../styles/global.css";
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts.ts';
+import { SITE_DESCRIPTION } from '../consts.ts';
 import membersData from '../data/members.json';
 
-// Group members by category
-const director = membersData.members.find(m => m.category === 'director');
-const labFellows = membersData.members.filter(m => m.category === 'lab-fellow').sort((a, b) => a.order - b.order);
-const graduateResearchers = membersData.members.filter(m => m.category === 'graduate-researcher').sort((a, b) => a.order - b.order);
+// Define type for member
+interface Member {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+  category: string;
+}
+
+// Define category hierarchy for display
+const displayCategoryOrder = ['director', 'lab-fellow', 'volunteer'];
+
+// Define seniority order within each category (senior first)
+const seniorityOrder: Record<string, string[]> = {
+  'lab-fellow': ['senior-lab-fellow', 'lab-fellow'],
+  'volunteer': ['senior-volunteer', 'volunteer']
+};
+
+// Sort members by category hierarchy, then by seniority, then alphabetically by name
+const sortedMembers = [...membersData.members as Member[]].sort((a, b) => {
+  // Map original categories to display categories
+  const getDisplayCategory = (category: string) => {
+    if (category === 'senior-lab-fellow' || category === 'lab-fellow') return 'lab-fellow';
+    if (category === 'senior-volunteer' || category === 'volunteer') return 'volunteer';
+    return category;
+  };
+  
+  const displayCategoryA = getDisplayCategory(a.category);
+  const displayCategoryB = getDisplayCategory(b.category);
+  
+  // First sort by display category
+  const categoryOrderA = displayCategoryOrder.indexOf(displayCategoryA);
+  const categoryOrderB = displayCategoryOrder.indexOf(displayCategoryB);
+  
+  if (categoryOrderA !== categoryOrderB) {
+    return categoryOrderA - categoryOrderB;
+  }
+  
+  // Then sort by seniority within the category
+  if (displayCategoryA === 'lab-fellow' || displayCategoryA === 'volunteer') {
+    const seniorityA = seniorityOrder[displayCategoryA]?.indexOf(a.category) ?? -1;
+    const seniorityB = seniorityOrder[displayCategoryB]?.indexOf(b.category) ?? -1;
+    
+    if (seniorityA !== seniorityB) {
+      return seniorityA - seniorityB;
+    }
+  }
+  
+  // Finally sort alphabetically by name
+  return a.name.localeCompare(b.name);
+});
+
+// Group members by display category
+const director = sortedMembers.filter(m => m.category === 'director');
+const labFellows = sortedMembers.filter(m => m.category === 'senior-lab-fellow' || m.category === 'lab-fellow');
+const volunteers = sortedMembers.filter(m => m.category === 'senior-volunteer' || m.category === 'volunteer');
 ---
 
 <html lang="en">
@@ -197,21 +249,21 @@ const graduateResearchers = membersData.members.filter(m => m.category === 'grad
         Meet our dedicated team of researchers and innovators pushing the boundaries of robotics and technology.
       </p>
 
-      {director && (
+      {director.length > 0 && (
         <section class="section-spacer">
           <h2 class="section-title">Director</h2>
           <div class="director-card member-card">
             <div class="member-image-wrapper">
-              <img 
-                src={director.image} 
-                alt={director.name}
+              <img
+                src={director[0].image}
+                alt={director[0].name}
                 class="member-image"
               />
             </div>
             <div class="member-content">
-              <h3 class="member-name">{director.name}</h3>
-              <p class="member-role">{director.role}</p>
-              <p class="member-bio">{director.bio}</p>
+              <h3 class="member-name">{director[0].name}</h3>
+              <p class="member-role">{director[0].role}</p>
+              <p class="member-bio">{director[0].bio}</p>
             </div>
           </div>
         </section>
@@ -224,8 +276,8 @@ const graduateResearchers = membersData.members.filter(m => m.category === 'grad
             {labFellows.map(fellow => (
               <div class="member-card">
                 <div class="member-image-wrapper">
-                  <img 
-                    src={fellow.image} 
+                  <img
+                    src={fellow.image}
                     alt={fellow.name}
                     class="member-image"
                   />
@@ -241,23 +293,23 @@ const graduateResearchers = membersData.members.filter(m => m.category === 'grad
         </section>
       )}
 
-      {graduateResearchers.length > 0 && (
+      {volunteers.length > 0 && (
         <section>
-          <h2 class="section-title">Graduate Researchers</h2>
+          <h2 class="section-title">Volunteers</h2>
           <div class="members-grid">
-            {graduateResearchers.map(researcher => (
+            {volunteers.map(volunteer => (
               <div class="member-card">
                 <div class="member-image-wrapper">
-                  <img 
-                    src={researcher.image} 
-                    alt={researcher.name}
+                  <img
+                    src={volunteer.image}
+                    alt={volunteer.name}
                     class="member-image"
                   />
                 </div>
                 <div class="member-content">
-                  <h3 class="member-name">{researcher.name}</h3>
-                  <p class="member-role">{researcher.role}</p>
-                  <p class="member-bio">{researcher.bio}</p>
+                  <h3 class="member-name">{volunteer.name}</h3>
+                  <p class="member-role">{volunteer.role}</p>
+                  <p class="member-bio">{volunteer.bio}</p>
                 </div>
               </div>
             ))}
