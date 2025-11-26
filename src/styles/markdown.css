@@ -68,6 +68,7 @@
 .markdown-content h5:hover,
 .markdown-content h6:hover {
   color: var(--accent);
+  cursor: pointer;
 }
 
 

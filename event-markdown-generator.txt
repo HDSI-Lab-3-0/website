@@ -16,6 +16,7 @@ Include YAML/MDX frontmatter at the top of the file with these fields:
 - **eventStatus** (string enum): Choose one of `upcoming`, `ongoing`, `completed`, or `cancelled`.
 - **eventLocation** (string): Venue or delivery format (e.g., “Price Center Ballroom, UCSD” or “Online via Zoom”).
 - **eventFor** (string): Primary audience/participants (e.g., “Middle school robotics clubs”).
+- **eventImage** (image path): Relative path to the hero/card image, e.g., `"../../assets/project-placeholder-1.jpg"`.
 - **eventTags** (array of strings): Mix of descriptive tags. Include at least one from each relevant category below so filtering works.
 
 ### Optional Fields
@@ -73,6 +74,7 @@ eventDateEnd: 2024-08-20T17:00:00.000Z
 eventStatus: "upcoming"
 eventLocation: "Atkinson Hall, UC San Diego"
 eventFor: "High school robotics teams and mentors"
+eventImage: "../../assets/project-placeholder-1.jpg"
 eventTags: ["at UCSD", "High School", "Free", "Workshop", "Robotics"]
 ---
 

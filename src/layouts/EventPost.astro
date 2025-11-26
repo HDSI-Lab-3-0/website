@@ -17,7 +17,7 @@ type Props = CollectionEntry<'events'>['data'] & {
 	showTOC?: boolean;
 };
 
-const { eventName, eventDescription, eventDateStart, eventDateEnd, eventStatus, eventLocation, eventFor, imageGif, eventTags, showTitle = true, showTOC = true } = Astro.props;
+const { eventName, eventDescription, eventDateStart, eventDateEnd, eventStatus, eventLocation, eventFor, eventImage, imageGif, eventTags, showTitle = true, showTOC = true } = Astro.props;
 const hasHeroSlot = Astro.slots.has('hero');
 
 // Get status color and icon from utility functions
@@ -25,6 +25,7 @@ const statusBadgeProps = getEventStatusBadgeProps(eventStatus);
 const resolvedEventLocation = eventLocation?.trim() || getEventLocation(eventTags);
 const resolvedEventAudience = eventFor?.trim() || getEventAudience(eventTags);
 const eventDateRange = formatEventDateTimeRange(eventDateStart, eventDateEnd);
+const heroVisual = imageGif || eventImage;
 
 // Get status icon
 function getStatusIcon(status: string): string {
@@ -204,15 +205,16 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 			.event-stats-grid {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.5rem;
-				align-items: center;
+				gap: 0.75rem;
+				align-items: stretch;
+				width: 100%;
 			}
 			
 			.event-stat-card {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.375rem;
-				padding: 0.375rem 0.75rem;
+				display: flex;
+				align-items: flex-start;
+				gap: 0.5rem;
+				padding: 0.5rem 0.85rem;
 				background: rgba(255, 255, 255, 0.7);
 				backdrop-filter: blur(6px);
 				border: 1px solid rgba(59, 130, 246, 0.08);
@@ -220,6 +222,7 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 				transition: all 0.2s ease;
 				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 				min-width: 0;
+				flex: 1 1 220px;
 			}
 			
 			.event-stat-card:hover {
@@ -238,8 +241,9 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 			.event-stat-content {
 				display: flex;
 				flex-direction: column;
-				gap: 0.0625rem;
+				gap: 0.1rem;
 				min-width: 0;
+				align-items: flex-start;
 			}
 			
 			.event-stat-label {
@@ -254,10 +258,11 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 			.event-stat-value {
 				font-size: 0.75rem;
 				font-weight: 600;
-				line-height: 1.1;
+				line-height: 1.3;
 				overflow: hidden;
 				text-overflow: ellipsis;
-				white-space: nowrap;
+				white-space: normal;
+				word-break: break-word;
 			}
 			
 			.event-tags-section {
@@ -431,8 +436,9 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 				}
 				
 				.event-stat-card {
-					padding: 0.3125rem 0.625rem;
-					min-width: 120px;
+					padding: 0.375rem 0.65rem;
+					min-width: 0;
+					flex: 1 1 160px;
 				}
 				
 				.flex.justify-between.items-center {
@@ -559,9 +565,15 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 					)}
 					<div class="flex-1 min-w-0 order-1 overflow-hidden">
 					<div class="w-[800px] max-w-[calc(100%-2em)] mx-auto py-8 px-4 text-[rgb(var(--gray-dark))]">
-						{imageGif && (
+						{heroVisual && (
 							<div class="w-full my-10">
-								<Image width={1020} height={510} src={imageGif} alt="" class="block mx-auto rounded-xl shadow-[var(--box-shadow)]" />
+								<Image
+									width={1020}
+									height={510}
+									src={heroVisual}
+									alt={`${eventName} event visual`}
+									class="block mx-auto rounded-xl shadow-[var(--box-shadow)] object-cover"
+								/>
 							</div>
 						)}
 						{hasHeroSlot ? (

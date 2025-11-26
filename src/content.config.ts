@@ -40,6 +40,7 @@ const events = defineCollection({
             eventStatus: z.enum(["upcoming", "ongoing", "completed", "cancelled"]),
             eventLocation: z.string(),
             eventFor: z.string(),
+            eventImage: image(),
             heroImage: image().optional(),
             imageGif: image().optional(),
             eventTags: z.array(z.string()).optional(),

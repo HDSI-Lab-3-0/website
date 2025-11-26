@@ -22,6 +22,7 @@ export default function EventGrid({
 		<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
 			{events.map((event) => {
 				const displayImage =
+					getImageSrc(event.data.eventImage) ||
 					getImageSrc(event.data.imageGif) ||
 					getImageSrc(event.data.heroImage) ||
 					"/assets/project-placeholder-1.jpg";
@@ -76,29 +77,27 @@ export default function EventGrid({
 								{event.data.eventDescription}
 							</p>
 
-							{/* Date and time */}
-							<div className="flex items-center gap-2 mb-3 text-sm text-slate-600">
-								<svg
-									className="w-4 h-4 text-blue-500"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={2}
-										d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-									/>
-								</svg>
-								<span className="truncate">{dateTimeRange}</span>
-							</div>
-
-							{/* Location and duration */}
-							<div className="flex items-center justify-between mb-4 text-xs text-slate-500">
-								<div className="flex items-center gap-1">
+							{/* Event details */}
+							<div className="space-y-2 mb-4 text-sm text-slate-600">
+								<div className="flex items-start gap-2 min-w-0">
 									<svg
-										className="w-4 h-4"
+										className="w-4 h-4 text-blue-500 flex-shrink-0"
+										fill="none"
+										stroke="currentColor"
+										viewBox="0 0 24 24"
+									>
+										<path
+											strokeLinecap="round"
+											strokeLinejoin="round"
+											strokeWidth={2}
+											d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+										/>
+									</svg>
+									<span className="leading-snug break-words">{dateTimeRange}</span>
+								</div>
+								<div className="flex items-start gap-2 min-w-0 text-slate-500">
+									<svg
+										className="w-4 h-4 flex-shrink-0"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -116,11 +115,11 @@ export default function EventGrid({
 											d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
 										/>
 									</svg>
-									<span>{location}</span>
+									<span className="leading-snug break-words">{location}</span>
 								</div>
-								<div className="flex items-center gap-1">
+								<div className="flex items-start gap-2 min-w-0 text-slate-500">
 									<svg
-										className="w-4 h-4"
+										className="w-4 h-4 flex-shrink-0"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -132,7 +131,7 @@ export default function EventGrid({
 											d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
 										/>
 									</svg>
-									<span>{duration}</span>
+									<span className="leading-snug break-words">{duration}</span>
 								</div>
 							</div>
 
@@ -160,15 +159,15 @@ export default function EventGrid({
 							</div>
 
 							{/* Audience and action */}
-							<div className="flex items-center justify-between">
-								<span className="text-xs text-slate-500 bg-slate-100 px-2 py-1 rounded">
+							<div className="flex flex-col gap-3 sm:flex-row sm:items-stretch sm:gap-4">
+								<span className="text-xs text-slate-600 bg-slate-100 px-2 py-1 rounded leading-snug sm:flex-1">
 									{audience}
 								</span>
 								<Button
 									size="sm"
 									variant="flat"
 									color="primary"
-									className="text-xs font-medium group-hover:bg-blue-600 group-hover:text-white transition-all duration-300"
+									className="text-sm font-semibold w-full sm:w-auto sm:flex-shrink-0 whitespace-nowrap px-4 py-2 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300"
 									onClick={handleEventSelect}
 								>
 									View Details →

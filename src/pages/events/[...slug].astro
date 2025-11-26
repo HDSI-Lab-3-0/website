@@ -238,11 +238,15 @@ const statusIcon = getStatusIcon(eventData.eventStatus);
 		.event-hero__stat-icon {
 			width: 32px;
 			height: 32px;
+			min-width: 32px;
+			min-height: 32px;
+			aspect-ratio: 1 / 1;
 			border-radius: 10px;
 			background: rgba(37, 99, 235, 0.1);
 			display: grid;
 			place-items: center;
 			color: #2563eb;
+			flex-shrink: 0;
 		}
 
 		.event-hero__stat-text {
