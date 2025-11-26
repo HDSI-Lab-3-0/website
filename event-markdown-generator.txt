@@ -1,0 +1,120 @@
+# AI Prompt for Event Markdown Generation
+
+## Instructions for AI
+
+Generate a complete markdown document for an event following the specifications below. Your response must contain the entire markdown content in a single code block so it can be copied directly into the events collection.
+
+## Frontmatter Fields
+
+Include YAML/MDX frontmatter at the top of the file with these fields:
+
+### Required Fields
+- **eventName** (string): Official title of the event.
+- **eventDescription** (string): One–sentence summary that appears in previews.
+- **eventDateStart** (ISO 8601 datetime): Event start timestamp, e.g., `2024-11-15T08:30:00.000Z`.
+- **eventDateEnd** (ISO 8601 datetime): Event end timestamp (same day or multi-day).
+- **eventStatus** (string enum): Choose one of `upcoming`, `ongoing`, `completed`, or `cancelled`.
+- **eventLocation** (string): Venue or delivery format (e.g., “Price Center Ballroom, UCSD” or “Online via Zoom”).
+- **eventFor** (string): Primary audience/participants (e.g., “Middle school robotics clubs”).
+- **eventTags** (array of strings): Mix of descriptive tags. Include at least one from each relevant category below so filtering works.
+
+### Optional Fields
+- **imageGif** (image path/URL): Animation to embed near the top of the event page.
+
+## Tag Categories and Valid Options
+
+When picking tags, prioritize these official category values; any extras fall into “Other” automatically:
+
+### Location
+- "in classroom"
+- "out of classroom"
+- "at UCSD"
+
+### School Level
+- "Elementary"
+- "Middle School"
+- "High School"
+- "UCSD Undergraduate"
+- "Community College"
+
+### Sponsor
+- "NSF TILOS"
+- "NSF ENCORE"
+- "HDSI LAB 3.0"
+
+### Cost
+- "Free"
+- "Paid"
+- "Offers Sponsorship"
+
+### Type
+- "Professional Development for Teachers"
+- "Summer Day Camp"
+- "Evening Workshops"
+
+## Content Structure
+
+After the frontmatter delimiter, write clear markdown optimized for the Event layout:
+
+- Start with `#` heading repeating the event name, followed by a short overview paragraph.
+- Use subheadings for agenda/schedule, key sessions, speakers, requirements, logistics, registration, audience expectations, and contact details.
+- Highlight critical notices (e.g., cancellations) with bold text or blockquotes.
+- Prefer lists for timelines or materials; tables for pricing tiers; callouts for quick facts.
+- Embed components or placeholders (e.g., `<div id="..."></div>`) only when useful.
+
+## Example Structure
+
+```markdown
+---
+eventName: "Example Event"
+eventDescription: "One-line description for cards."
+eventDateStart: 2024-08-20T09:00:00.000Z
+eventDateEnd: 2024-08-20T17:00:00.000Z
+eventStatus: "upcoming"
+eventLocation: "Atkinson Hall, UC San Diego"
+eventFor: "High school robotics teams and mentors"
+eventTags: ["at UCSD", "High School", "Free", "Workshop", "Robotics"]
+---
+
+# Example Event
+
+Kick off paragraph summarizing who should attend and what to expect.
+
+## Schedule
+
+- **9:00 AM – 9:30 AM**: Registration
+- **9:30 AM – 10:30 AM**: Opening Keynote
+- **10:30 AM – 12:00 PM**: Hands-on Labs
+
+## Featured Speakers
+
+- **Dr. Jamie Lee** — AI Curriculum Director
+- **Alex Patel** — Robotics Lead Engineer
+
+## What to Bring
+
+- Laptop with Chrome
+- Signed permission slip
+
+## Registration & Cost
+
+| Ticket Type | Price | Includes |
+|-------------|-------|----------|
+| General     | Free  | Sessions & materials |
+| VIP         | $50   | Reserved seating + swag |
+
+> **Need accommodations?** Email access@example.com at least two weeks prior.
+
+## Location
+
+Atkinson Hall, UC San Diego  
+9500 Gilman Dr., La Jolla, CA 92093
+
+## Contact
+
+Questions? Reach out to events@example.com.
+```
+
+## User Instructions
+
+After this prompt, paste your event information. I will respond with the fully formatted markdown file (frontmatter plus body) ready for `src/content/events/*.mdx`.

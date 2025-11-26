@@ -1,0 +1,681 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/layout/BaseHead.astro';
+import Footer from '../components/layout/Footer.astro';
+import FormattedDate from '../components/ui/FormattedDate.astro';
+import Header from '../components/layout/Header.astro';
+import { Icon } from '../components/ui/Icon.tsx';
+import tagsData from '../data/tags.json';
+import tableOfContentsScript from '../scripts/table-of-contents.js?url';
+import headingAnchorsScript from '../scripts/heading-anchors.js?url';
+import copyCodeScript from '../scripts/copy-code.js?url';
+import { formatEventDateTimeRange, getEventStatusBadgeProps, getEventLocation, getEventAudience } from '../utils/eventHelpers.ts';
+
+type Props = CollectionEntry<'events'>['data'] & {
+	showTitle?: boolean;
+	showTOC?: boolean;
+};
+
+const { eventName, eventDescription, eventDateStart, eventDateEnd, eventStatus, eventLocation, eventFor, imageGif, eventTags, showTitle = true, showTOC = true } = Astro.props;
+const hasHeroSlot = Astro.slots.has('hero');
+
+// Get status color and icon from utility functions
+const statusBadgeProps = getEventStatusBadgeProps(eventStatus);
+const resolvedEventLocation = eventLocation?.trim() || getEventLocation(eventTags);
+const resolvedEventAudience = eventFor?.trim() || getEventAudience(eventTags);
+const eventDateRange = formatEventDateTimeRange(eventDateStart, eventDateEnd);
+
+// Get status icon
+function getStatusIcon(status: string): string {
+	switch (status) {
+		case 'upcoming':
+			return 'Calendar';
+		case 'ongoing':
+			return 'PlayCircle';
+		case 'completed':
+			return 'CheckCircle';
+		case 'cancelled':
+			return 'XCircle';
+		default:
+			return 'Calendar';
+	}
+}
+
+// Get icon for each category
+function getCategoryIcon(category: string): string {
+	switch (category) {
+		case 'Location':
+			return 'MapPin';
+		case 'School Level':
+			return 'GraduationCap';
+		case 'Sponsor':
+			return 'Building';
+		case 'Cost':
+			return 'DollarSign';
+		case 'Type':
+			return 'Tag';
+		default:
+			return 'MoreHorizontal';
+	}
+}
+
+// Get color for each category
+function getCategoryColor(category: string): string {
+	switch (category) {
+		case 'Location':
+			return '#10b981'; // emerald-500
+		case 'School Level':
+			return '#3b82f6'; // blue-500
+		case 'Sponsor':
+			return '#8b5cf6'; // violet-500
+		case 'Cost':
+			return '#f59e0b'; // amber-500
+		case 'Type':
+			return '#ef4444'; // red-500
+		default:
+			return '#6b7280'; // gray-500
+	}
+}
+
+// Categorize tags based on tags.json
+function categorizeTags(eventTags: string[] | undefined) {
+	if (!eventTags || eventTags.length === 0) return {};
+	
+	const categorized: Record<string, string[]> = {};
+	const usedTags = new Set<string>();
+	
+	// Check each tag against all categories
+	for (const [category, categoryTags] of Object.entries(tagsData.categories)) {
+		const matchingTags = eventTags.filter(tag =>
+			categoryTags.some(catTag => catTag.toLowerCase() === tag.toLowerCase())
+		);
+		
+		if (matchingTags.length > 0) {
+			categorized[category] = matchingTags;
+			matchingTags.forEach(tag => usedTags.add(tag.toLowerCase()));
+		}
+	}
+	
+	// Add remaining tags to "Other" category
+	const otherTags = eventTags.filter(tag => !usedTags.has(tag.toLowerCase()));
+	if (otherTags.length > 0) {
+		categorized['Other'] = otherTags;
+	}
+	
+	return categorized;
+}
+
+// Flatten all tags with their categories for unified display
+function getAllTagsWithCategories(eventTags: string[] | undefined) {
+	if (!eventTags || eventTags.length === 0) return [];
+	
+	const categorized = categorizeTags(eventTags);
+	const allTags: Array<{ tag: string; category: string; icon: string; color: string }> = [];
+	
+	for (const [category, categoryTags] of Object.entries(categorized)) {
+		for (const tag of categoryTags) {
+			allTags.push({
+				tag,
+				category,
+				icon: getCategoryIcon(category),
+				color: getCategoryColor(category)
+			});
+		}
+	}
+	
+	return allTags;
+}
+
+const allTagsWithCategories = getAllTagsWithCategories(eventTags);
+const statusIcon = getStatusIcon(eventStatus);
+const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
+                   statusBadgeProps.className.includes('green') ? '#10b981' :
+                   statusBadgeProps.className.includes('red') ? '#ef4444' : '#6b7280';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={eventName} description={eventDescription} />
+			<style>
+ 
+
+			/* Modern compact event header styling */
+			.event-header {
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(99, 102, 241, 0.05) 100%);
+				border-radius: 12px;
+				padding: 1.5rem;
+				margin-bottom: 1.5rem;
+				position: relative;
+				overflow: hidden;
+				box-shadow: 0 2px 12px rgba(59, 130, 246, 0.05);
+			}
+			
+			.event-header::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				height: 3px;
+				background: linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6);
+				border-radius: 12px 12px 0 0;
+			}
+			
+			.event-title {
+				font-size: 2rem;
+				font-weight: 700;
+				line-height: 1.2;
+				letter-spacing: -0.02em;
+				margin-bottom: 1rem;
+				background: linear-gradient(135deg, rgb(var(--black)) 0%, rgb(var(--gray-dark)) 100%);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				background-clip: text;
+			}
+			
+			.event-meta-container {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 1rem;
+				margin-bottom: 1rem;
+			}
+			
+			.event-status-badge {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.375rem;
+				padding: 0.375rem 0.875rem;
+				border-radius: 20px;
+				font-size: 0.8rem;
+				font-weight: 600;
+				letter-spacing: 0.025em;
+				text-transform: uppercase;
+				transition: all 0.2s ease;
+				box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+			}
+			
+			.event-status-badge:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+			}
+			
+			.event-stats-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+				align-items: center;
+			}
+			
+			.event-stat-card {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.375rem;
+				padding: 0.375rem 0.75rem;
+				background: rgba(255, 255, 255, 0.7);
+				backdrop-filter: blur(6px);
+				border: 1px solid rgba(59, 130, 246, 0.08);
+				border-radius: 8px;
+				transition: all 0.2s ease;
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+				min-width: 0;
+			}
+			
+			.event-stat-card:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 2px 5px rgba(59, 130, 246, 0.06);
+				border-color: rgba(59, 130, 246, 0.15);
+			}
+			
+			.event-stat-icon {
+				flex-shrink: 0;
+				width: 16px;
+				height: 16px;
+				opacity: 0.7;
+			}
+			
+			.event-stat-content {
+				display: flex;
+				flex-direction: column;
+				gap: 0.0625rem;
+				min-width: 0;
+			}
+			
+			.event-stat-label {
+				font-size: 0.625rem;
+				font-weight: 500;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				opacity: 0.6;
+				line-height: 1.1;
+			}
+			
+			.event-stat-value {
+				font-size: 0.75rem;
+				font-weight: 600;
+				line-height: 1.1;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+			
+			.event-tags-section {
+				margin-top: 1rem;
+				padding-top: 1rem;
+				border-top: 1px solid rgba(var(--gray-light), 0.3);
+			}
+			
+			.event-tags-header {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+				margin-bottom: 0.75rem;
+			}
+			
+			.event-tags-title {
+				font-size: 0.9rem;
+				font-weight: 600;
+				margin: 0;
+				color: rgb(var(--gray-dark));
+			}
+			
+			.event-tags-grid {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.375rem;
+			}
+			
+			.event-tag {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.375rem;
+				padding: 0.25rem 0.625rem;
+				background: rgba(255, 255, 255, 0.7);
+				backdrop-filter: blur(6px);
+				border: 1px solid rgba(var(--gray), 0.1);
+				border-radius: 16px;
+				font-size: 0.75rem;
+				font-weight: 500;
+				transition: all 0.2s ease;
+				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+			}
+			
+			.event-tag:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+			}
+			
+			.event-tag-icon {
+				flex-shrink: 0;
+				width: 14px;
+				height: 14px;
+			}
+			
+			.event-tag-text {
+				white-space: nowrap;
+			}
+			
+			.event-tag-category {
+				font-size: 0.5625rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.05em;
+				opacity: 0.65;
+				margin-left: 0.125rem;
+			}
+			
+			.event-back-button {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.375rem;
+				padding: 0.5rem 1rem;
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+				border: 1px solid rgba(59, 130, 246, 0.15);
+				border-radius: 20px;
+				font-size: 0.8rem;
+				font-weight: 600;
+				color: #3b82f6;
+				text-decoration: none;
+				transition: all 0.2s ease;
+				box-shadow: 0 1px 4px rgba(59, 130, 246, 0.08);
+			}
+			
+			.event-back-button:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 4px 8px rgba(59, 130, 246, 0.15);
+				background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(99, 102, 241, 0.12) 100%);
+			}
+			
+			.event-reading-time {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.375rem;
+				padding: 0.375rem 0.75rem;
+				background: rgba(var(--gray-light), 0.25);
+				border-radius: 16px;
+				font-size: 0.75rem;
+				font-weight: 500;
+				color: rgb(var(--gray-dark));
+			}
+			
+			/* Responsive layout adjustments */
+			@media (min-width: 1200px) {
+				.w-\[800px\] {
+					width: 900px;
+					padding: 2.5em 1.5em;
+				}
+			}
+			
+			@media (min-width: 1600px) {
+				.w-\[800px\] {
+					width: 1000px;
+					padding: 3em 2em;
+				}
+			}
+			
+			@media (max-width: 1024px) {
+				.flex.gap-12 {
+					flex-direction: column;
+					gap: 2rem;
+					padding: 1.5rem 1rem;
+				}
+				
+				.flex-shrink-0.w-\[250px\] {
+					width: 100%;
+					order: 1;
+				}
+				
+				.flex-1.min-w-0.order-1 {
+					order: -1;
+				}
+				
+				.w-\[800px\] {
+					padding: 1.5em 1em;
+				}
+				
+				.event-header {
+					padding: 1.25rem 1rem;
+				}
+				
+				.event-stats-grid {
+					justify-content: space-between;
+				}
+			}
+			
+			@media (max-width: 768px) {
+				.flex.gap-12 {
+					padding: 1rem 0.5rem;
+				}
+				
+				.w-\[800px\] {
+					padding: 1em 0.5em;
+				}
+				
+				.event-header {
+					padding: 1rem 0.75rem;
+				}
+				
+				.event-title {
+					font-size: 1.75rem;
+					margin-bottom: 0.875rem;
+				}
+				
+				.event-meta-container {
+					gap: 0.75rem;
+				}
+				
+				.event-stats-grid {
+					gap: 0.375rem;
+					justify-content: flex-start;
+				}
+				
+				.event-stat-card {
+					padding: 0.3125rem 0.625rem;
+					min-width: 120px;
+				}
+				
+				.flex.justify-between.items-center {
+					flex-direction: column;
+					gap: 0.75rem;
+					align-items: stretch;
+				}
+				
+				.event-tags-section {
+					margin-top: 0.875rem;
+					padding-top: 0.875rem;
+				}
+			}
+			
+			@media (max-width: 480px) {
+				.event-header {
+					padding: 0.875rem 0.625rem;
+					margin-bottom: 1.25rem;
+				}
+				
+				.event-title {
+					font-size: 1.5rem;
+					margin-bottom: 0.75rem;
+				}
+				
+				.event-meta-container {
+					gap: 0.625rem;
+				}
+				
+				.event-status-badge {
+					padding: 0.3125rem 0.75rem;
+					font-size: 0.75rem;
+				}
+				
+				.event-stats-grid {
+					gap: 0.25rem;
+					flex-wrap: nowrap;
+					overflow-x: auto;
+					padding-bottom: 0.25rem;
+				}
+				
+				.event-stat-card {
+					padding: 0.25rem 0.5rem;
+					min-width: 100px;
+					flex-shrink: 0;
+				}
+				
+				.event-stat-icon {
+					width: 14px;
+					height: 14px;
+				}
+				
+				.event-stat-label {
+					font-size: 0.5625rem;
+				}
+				
+				.event-stat-value {
+					font-size: 0.6875rem;
+				}
+				
+				.event-back-button {
+					padding: 0.425rem 0.875rem;
+					font-size: 0.75rem;
+				}
+				
+				.event-reading-time {
+					padding: 0.3125rem 0.625rem;
+					font-size: 0.6875rem;
+				}
+				
+				.event-tags-section {
+					margin-top: 0.75rem;
+					padding-top: 0.75rem;
+				}
+				
+				.event-tags-header {
+					margin-bottom: 0.625rem;
+				}
+				
+				.event-tags-title {
+					font-size: 0.8125rem;
+				}
+				
+				.event-tags-grid {
+					gap: 0.25rem;
+				}
+				
+				.event-tag {
+					padding: 0.1875rem 0.5rem;
+					font-size: 0.6875rem;
+				}
+				
+				.event-tag-icon {
+					width: 12px;
+					height: 12px;
+				}
+				
+				.event-tag-category {
+					font-size: 0.5rem;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<!-- Reading Progress Bar -->
+		<div class="reading-progress" id="reading-progress"></div>
+		
+		<main class="w-[calc(100%-2em)] max-w-full m-0">
+			<article>
+				<div class="flex gap-12 max-w-[1400px] mx-auto relative py-8 px-4">
+					{showTOC && (
+						<aside class="flex-shrink-0 w-[250px] -order-1">
+							<div class="table-of-contents">
+								<div class="toc-header">
+									<span class="toc-title">Contents</span>
+								</div>
+								<div class="toc-content">
+									<!-- Table of contents will be generated by JavaScript -->
+								</div>
+							</div>
+						</aside>
+					)}
+					<div class="flex-1 min-w-0 order-1 overflow-hidden">
+					<div class="w-[800px] max-w-[calc(100%-2em)] mx-auto py-8 px-4 text-[rgb(var(--gray-dark))]">
+						{imageGif && (
+							<div class="w-full my-10">
+								<Image width={1020} height={510} src={imageGif} alt="" class="block mx-auto rounded-xl shadow-[var(--box-shadow)]" />
+							</div>
+						)}
+						{hasHeroSlot ? (
+							<slot name="hero" />
+						) : (
+							<div class="event-header">
+								{showTitle && <h1 class="event-title">{eventName}</h1>}
+								
+								<div class="event-meta-container">
+									<div class="event-status-badge" style={{ borderColor: statusColor + '40', background: statusColor + '10', color: statusColor }}>
+										<Icon icon={statusIcon} size={16} className="event-stat-icon" />
+										<span class="capitalize">{eventStatus}</span>
+									</div>
+									
+									<div class="event-stats-grid">
+										<div class="event-stat-card">
+											<Icon icon="Calendar" size={16} className="event-stat-icon" style={{ color: '#3b82f6' }} />
+											<div class="event-stat-content">
+												<span class="event-stat-label">Date & Time</span>
+												<span class="event-stat-value">{eventDateRange}</span>
+											</div>
+										</div>
+										
+										<div class="event-stat-card">
+											<Icon icon="MapPin" size={16} className="event-stat-icon" style={{ color: '#10b981' }} />
+											<div class="event-stat-content">
+												<span class="event-stat-label">Location</span>
+												<span class="event-stat-value">{resolvedEventLocation}</span>
+											</div>
+										</div>
+										
+										<div class="event-stat-card">
+											<Icon icon="Users" size={16} className="event-stat-icon" style={{ color: '#8b5cf6' }} />
+											<div class="event-stat-content">
+												<span class="event-stat-label">Audience</span>
+												<span class="event-stat-value">{resolvedEventAudience}</span>
+											</div>
+										</div>
+									</div>
+									
+									<div class="event-reading-time" id="reading-time-indicator">
+										<Icon icon="BookOpen" size={14} className="event-stat-icon" />
+										<span id="reading-time-text">Calculating...</span>
+									</div>
+								</div>
+								
+								<div class="flex justify-between items-center">
+									<a href="/events" class="event-back-button">
+										<Icon icon="ArrowLeft" size={16} />
+										<span>Back to Events</span>
+									</a>
+								</div>
+								
+								{allTagsWithCategories && allTagsWithCategories.length > 0 && (
+									<div class="event-tags-section">
+										<div class="event-tags-header">
+											<Icon icon="Tag" size={16} className="event-stat-icon" style={{ color: 'rgb(var(--gray))' }} />
+											<h2 class="event-tags-title">Tags</h2>
+										</div>
+										<div class="event-tags-grid">
+											{allTagsWithCategories.map((tagInfo) => (
+												<div class="event-tag" style={{ borderColor: tagInfo.color + '40', background: tagInfo.color + '08' }}>
+													<Icon icon={tagInfo.icon} size={14} className="event-tag-icon" style={{ color: tagInfo.color }} />
+													<span class="event-tag-text">{tagInfo.tag}</span>
+													<span class="event-tag-category" style={{ color: tagInfo.color }}>{tagInfo.category}</span>
+												</div>
+											))}
+										</div>
+									</div>
+								)}
+							</div>
+						)}
+						<div class="markdown-content">
+								<slot />
+							</div>
+						</div>
+					</div>
+				</div>
+			</article>
+		</main>
+		<Footer />
+		{showTOC && <script type="module" is:inline src={tableOfContentsScript}></script>}
+		<script type="module" is:inline src={headingAnchorsScript}></script>
+		<script type="module" is:inline src={copyCodeScript}></script>
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', () => {
+			  // Reading progress bar
+			  const progressBar = document.getElementById('reading-progress');
+			  
+			  function updateReadingProgress() {
+				  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+				  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				  const progress = (scrollTop / scrollHeight) * 100;
+				  progressBar.style.width = progress + '%';
+			  }
+			  
+			  window.addEventListener('scroll', updateReadingProgress);
+			  updateReadingProgress();
+			  
+			  // Calculate reading time
+				const markdownContent = document.querySelector('.markdown-content');
+				if (markdownContent) {
+				 const text = markdownContent.textContent || '';
+			   const wordsPerMinute = 200;
+			   const wordCount = text.trim().split(/\s+/).length;
+			   const readingTime = Math.ceil(wordCount / wordsPerMinute);
+			   
+			   const readingTimeText = document.getElementById('reading-time-text');
+			   if (readingTimeText) {
+			    readingTimeText.textContent = `${readingTime} min read`;
+			   }
+			  }
+			  
+				});
+		</script>
+	</body>
+</html>

@@ -12,11 +12,12 @@ const MobileNavigation: React.FC = () => {
     { href: '/', label: 'Home' },
     { href: '/members', label: 'Members' },
     { href: '/projects', label: 'Projects' },
+    { href: '/events', label: 'Events' },
     { href: '/contact', label: 'Contact' },
     { href: '/donate', label: 'Donate' }
   ];
 
-  const opportunitiesIndex = 3; // Position Opportunities after 'Projects' (index 2)
+  const opportunitiesInsertAfterHref = '/events';
 
   return (
     <>
@@ -98,30 +99,9 @@ const MobileNavigation: React.FC = () => {
                   role="navigation"
                   aria-label="Main navigation"
                 >
-                  {navigationLinks.map((link, index) => {
-                    // Insert Opportunities dropdown after Projects (index 2)
-                    if (index === opportunitiesIndex) {
-                      return (
-                        <React.Fragment key={`fragment-${index}`}>
-                          <Button
-                            key={link.href}
-                            variant="light"
-                            className="justify-start h-14 text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
-                            onPress={() => {
-                              window.location.href = link.href;
-                              onClose();
-                            }}
-                          >
-                            {link.label}
-                          </Button>
-                          <OpportunitiesDropdown className="w-full" onCloseModal={onClose} />
-                        </React.Fragment>
-                      );
-                    }
-                    
-                    return (
+                  {navigationLinks.map((link) => (
+                    <React.Fragment key={link.href}>
                       <Button
-                        key={link.href}
                         variant="light"
                         className="justify-start h-14 text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                         onPress={() => {
@@ -131,8 +111,11 @@ const MobileNavigation: React.FC = () => {
                       >
                         {link.label}
                       </Button>
-                    );
-                  })}
+                      {link.href === opportunitiesInsertAfterHref && (
+                        <OpportunitiesDropdown className="w-full" onCloseModal={onClose} />
+                      )}
+                    </React.Fragment>
+                  ))}
                 </nav>
               </ModalBody>
             </>

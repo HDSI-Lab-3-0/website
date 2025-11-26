@@ -26,4 +26,24 @@ const projects = defineCollection({
         }),
 });
 
-export const collections = { projects };
+const events = defineCollection({
+    // Load Markdown and MDX files in the `src/content/events/` directory.
+    loader: glob({ base: "./src/content/events", pattern: "**/*.{md,mdx}" }),
+    // Type-check frontmatter using a schema
+    schema: ({ image }) =>
+        z.object({
+            eventName: z.string(),
+            eventDescription: z.string(),
+            // Transform string to Date object
+            eventDateStart: z.coerce.date(),
+            eventDateEnd: z.coerce.date(),
+            eventStatus: z.enum(["upcoming", "ongoing", "completed", "cancelled"]),
+            eventLocation: z.string(),
+            eventFor: z.string(),
+            heroImage: image().optional(),
+            imageGif: image().optional(),
+            eventTags: z.array(z.string()).optional(),
+        }),
+});
+
+export const collections = { projects, events };

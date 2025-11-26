@@ -1,0 +1,300 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
+import EventPost from '../../layouts/EventPost.astro';
+import { Icon } from '../../components/ui/Icon.tsx';
+import { formatEventDateTimeRange, getEventAudience, getEventDuration, getEventLocation, getEventStatusBadgeProps } from '../../utils/eventHelpers.ts';
+import '../../styles/markdown.css';
+
+export async function getStaticPaths() {
+	const events = await getCollection('events');
+	console.log('Events in getStaticPaths:', events.map(e => ({ id: e.id, name: e.data.eventName })));
+	return events.map((event) => ({
+		params: { slug: event.id },
+		props: event,
+	}));
+}
+
+type Props = CollectionEntry<'events'>;
+
+const event = Astro.props;
+const { slug } = Astro.params;
+
+console.log('Dynamic route accessed with slug:', slug);
+console.log('Event props:', event);
+
+// Handle undefined slug case
+if (!slug || slug === 'undefined') {
+	console.log('Undefined slug detected, redirecting to /events');
+	return Astro.redirect('/events');
+}
+
+if (!event) {
+	console.log('No event found, redirecting to /events');
+	return Astro.redirect('/events');
+}
+
+const { Content } = await render(event);
+const eventData = event.data;
+const eventDateRange = formatEventDateTimeRange(eventData.eventDateStart, eventData.eventDateEnd);
+const eventDuration = getEventDuration(eventData.eventDateStart, eventData.eventDateEnd);
+const eventLocation = eventData.eventLocation?.trim() || getEventLocation(eventData.eventTags);
+const eventAudience = eventData.eventFor?.trim() || getEventAudience(eventData.eventTags);
+const statusBadgeProps = getEventStatusBadgeProps(eventData.eventStatus);
+const featuredTags = eventData.eventTags ? eventData.eventTags.slice(0, 4) : [];
+const heroStats = [
+	{ icon: 'Calendar', label: 'Date & Time', value: eventDateRange, helper: `≈ ${eventDuration}` },
+	{ icon: 'MapPin', label: 'Location', value: eventLocation, helper: 'Where we meet' },
+	{ icon: 'Users', label: 'Audience', value: eventAudience, helper: 'Best suited for' }
+];
+
+function getStatusIcon(status: string): string {
+	switch (status) {
+		case 'upcoming':
+			return 'Calendar';
+		case 'ongoing':
+			return 'PlayCircle';
+		case 'completed':
+			return 'CheckCircle';
+		case 'cancelled':
+			return 'XCircle';
+		default:
+			return 'Calendar';
+	}
+}
+
+const statusAccent = statusBadgeProps.className.includes('blue')
+	? '#2563eb'
+	: statusBadgeProps.className.includes('green')
+	? '#059669'
+	: statusBadgeProps.className.includes('red')
+	? '#dc2626'
+	: '#475569';
+const statusIcon = getStatusIcon(eventData.eventStatus);
+---
+
+<EventPost {...event.data}>
+	<section slot="hero" class="event-hero">
+		<div class="event-hero__glow" aria-hidden="true"></div>
+		<div class="event-hero__content">
+			<div class="event-hero__pill-row">
+				<div class="event-hero__pills">
+					<span class="event-hero__pill event-hero__pill--status" style={{ color: statusAccent, borderColor: statusAccent + '33', background: statusAccent + '12' }}>
+						<Icon icon={statusIcon} size={15} />
+						<span class="capitalize">{eventData.eventStatus}</span>
+					</span>
+					<span class="event-hero__pill event-hero__pill--muted">
+						<Icon icon="Clock" size={15} />
+						<span>{eventDuration}</span>
+					</span>
+				</div>
+				<a href="/events" class="event-hero__back-link">
+					<Icon icon="ArrowLeft" size={14} />
+					<span>All events</span>
+				</a>
+			</div>
+			<div class="event-hero__main">
+				<h1 class="event-hero__title">{eventData.eventName}</h1>
+				<p class="event-hero__subtitle">{eventData.eventDescription || 'Explore the highlights, schedule, and resources for this event.'}</p>
+			</div>
+			<div class="event-hero__stat-grid">
+				{heroStats.map((stat) => (
+					<div class="event-hero__stat-card">
+						<div class="event-hero__stat-icon">
+							<Icon icon={stat.icon} size={16} />
+						</div>
+						<div class="event-hero__stat-text">
+							<span>{stat.label}</span>
+							<strong>{stat.value}</strong>
+							<small>{stat.helper}</small>
+						</div>
+					</div>
+				))}
+			</div>
+			{featuredTags.length > 0 && (
+				<div class="event-hero__tags">
+					{featuredTags.map((tag) => (
+						<span class="event-hero__tag">{tag}</span>
+					))}
+				</div>
+			)}
+		</div>
+	</section>
+	<div class="markdown-content">
+		<Content />
+	</div>
+</EventPost>
+
+	<style>
+		.event-hero {
+			position: relative;
+			padding: clamp(1.25rem, 3vw, 2rem);
+			border-radius: 16px;
+			background: linear-gradient(120deg, rgba(219, 234, 254, 0.65), rgba(238, 242, 255, 0.9));
+			border: 1px solid rgba(148, 163, 184, 0.35);
+			box-shadow: 0 15px 35px -20px rgba(15, 23, 42, 0.4);
+			overflow: hidden;
+			margin-bottom: 1.5rem;
+		}
+
+		.event-hero__glow {
+			position: absolute;
+			top: -30px;
+			right: -40px;
+			width: 160px;
+			height: 160px;
+			border-radius: 50%;
+			background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+			opacity: 0.6;
+			filter: blur(10px);
+		}
+
+		.event-hero__content {
+			position: relative;
+			z-index: 1;
+			display: flex;
+			flex-direction: column;
+			gap: 1.25rem;
+		}
+
+		.event-hero__pill-row {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			gap: 0.75rem;
+			flex-wrap: wrap;
+		}
+
+		.event-hero__pills {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+
+		.event-hero__pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.35rem;
+			padding: 0.35rem 0.85rem;
+			border-radius: 999px;
+			font-size: 0.8rem;
+			font-weight: 600;
+			border: 1px solid rgba(148, 163, 184, 0.35);
+			background: rgba(255, 255, 255, 0.8);
+			color: #0f172a;
+		}
+
+		.event-hero__pill--muted {
+			color: #475569;
+		}
+
+		.event-hero__back-link {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.35rem;
+			font-size: 0.8rem;
+			font-weight: 600;
+			color: #2563eb;
+			text-decoration: none;
+			padding: 0.35rem 0.75rem;
+			border-radius: 999px;
+			background: rgba(37, 99, 235, 0.08);
+		}
+
+		.event-hero__main {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.event-hero__title {
+			font-size: clamp(1.75rem, 4vw, 2.3rem);
+			font-weight: 700;
+			margin: 0;
+			color: #0f172a;
+		}
+
+		.event-hero__subtitle {
+			margin: 0;
+			font-size: 1rem;
+			color: #334155;
+			max-width: 58ch;
+		}
+
+		.event-hero__stat-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+			gap: 0.75rem;
+		}
+
+		.event-hero__stat-card {
+			display: flex;
+			gap: 0.65rem;
+			padding: 0.85rem 0.9rem;
+			border-radius: 14px;
+			background: rgba(255, 255, 255, 0.9);
+			border: 1px solid rgba(148, 163, 184, 0.35);
+		}
+
+		.event-hero__stat-icon {
+			width: 32px;
+			height: 32px;
+			border-radius: 10px;
+			background: rgba(37, 99, 235, 0.1);
+			display: grid;
+			place-items: center;
+			color: #2563eb;
+		}
+
+		.event-hero__stat-text {
+			display: flex;
+			flex-direction: column;
+			gap: 0.1rem;
+			font-size: 0.92rem;
+			color: #0f172a;
+		}
+
+		.event-hero__stat-text span {
+			text-transform: uppercase;
+			font-size: 0.65rem;
+			letter-spacing: 0.08em;
+			color: #94a3b8;
+		}
+
+		.event-hero__stat-text strong {
+			font-weight: 600;
+		}
+
+		.event-hero__stat-text small {
+			font-size: 0.7rem;
+			color: #64748b;
+		}
+
+		.event-hero__tags {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem;
+		}
+
+		.event-hero__tag {
+			padding: 0.3rem 0.75rem;
+			border-radius: 999px;
+			font-size: 0.78rem;
+			background: rgba(15, 23, 42, 0.08);
+			color: #0f172a;
+		}
+
+		@media (max-width: 640px) {
+			.event-hero__pill-row {
+				flex-direction: column;
+				align-items: flex-start;
+			}
+
+			.event-hero__back-link {
+				width: fit-content;
+			}
+
+			.event-hero__stat-grid {
+				grid-template-columns: 1fr;
+			}
+		}
+	</style>
