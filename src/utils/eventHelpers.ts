@@ -62,17 +62,19 @@ export function getEventStatusBadgeProps(status: string) {
 	}
 }
 
-export function isEventUpcoming(startDate: Date): boolean {
-	return startDate > new Date();
+export function isEventUpcoming(startDate: Date, referenceDate?: Date): boolean {
+	const now = referenceDate || new Date();
+	return startDate > now;
 }
 
-export function isEventOngoing(startDate: Date, endDate: Date): boolean {
-	const now = new Date();
+export function isEventOngoing(startDate: Date, endDate: Date, referenceDate?: Date): boolean {
+	const now = referenceDate || new Date();
 	return startDate <= now && endDate >= now;
 }
 
-export function isEventPast(endDate: Date): boolean {
-	return endDate < new Date();
+export function isEventPast(endDate: Date, referenceDate?: Date): boolean {
+	const now = referenceDate || new Date();
+	return endDate < now;
 }
 
 export function getEventDuration(startDate: Date, endDate: Date): string {

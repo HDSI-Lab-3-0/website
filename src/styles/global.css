@@ -101,6 +101,36 @@ main.constrained-main {
   }
 }
 
+/* Auto-scrolling text animation for event cards */
+.animate-scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: scroll-text 18s linear infinite;
+  /* Hide scrollbar for all browsers */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.animate-scroll-text::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Ensure proper spacing for non-scrolling text */
+div:not(.animate-scroll-text) {
+  animation: none;
+}
+
 /* Small mobile screens */
 @media (max-width: 640px) {
   .projects-page .projects-page-main {

@@ -1,4 +1,4 @@
-import { Card, CardBody, Chip, Image } from "@heroui/react";
+import { Card, CardBody, Chip } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
 import { getImageSrc, getLocationFromTags } from "@/utils/projectHelpers.ts";
 
@@ -34,13 +34,10 @@ export default function ProjectGrid({
 					>
 						{/* Card header with image */}
 						<div className="relative h-48 overflow-hidden">
-							<Image
+							<img
 								src={displayImage}
 								alt={project.data.title}
 								className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-								classNames={{
-									wrapper: "w-full h-full",
-								}}
 							/>
 						</div>
 

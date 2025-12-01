@@ -26,11 +26,13 @@ export default function EventsApp({ events }: EventsAppProps) {
 
 	// Update event counts in the hero section
 	useEffect(() => {
-		const upcomingCount = events.filter(event => 
-			isEventUpcoming(event.data.eventDateStart)
+		// Use a fixed reference date to ensure server/client consistency
+		const referenceDate = typeof window !== 'undefined' ? new Date() : new Date('2025-01-01T00:00:00.000Z');
+		const upcomingCount = events.filter(event =>
+			isEventUpcoming(event.data.eventDateStart, referenceDate)
 		).length;
-		const pastCount = events.filter(event => 
-			isEventPast(event.data.eventDateEnd)
+		const pastCount = events.filter(event =>
+			isEventPast(event.data.eventDateEnd, referenceDate)
 		).length;
 		
 		const upcomingElement = document.getElementById("upcoming-count");

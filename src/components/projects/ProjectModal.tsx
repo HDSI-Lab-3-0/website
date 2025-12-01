@@ -2,7 +2,6 @@ import {
 	Modal,
 	ModalContent,
 	Button,
-	Image,
 } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
 import {
@@ -62,12 +61,9 @@ export default function ProjectModal({
 							{displayImage && (
 								<div className="absolute inset-0 z-0">
 									<div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/60 z-[1]"></div>
-									<Image
+									<img
 										src={displayImage}
 										alt={data.title}
-										classNames={{
-											wrapper: "w-full h-full z-0",
-										}}
 										className="w-full h-full object-cover shadow-2xl z-0"
 									/>
 								</div>
