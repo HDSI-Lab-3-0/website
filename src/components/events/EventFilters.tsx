@@ -105,20 +105,20 @@ export default function EventFilters({
 
 	return (
 		<div className="w-full">
-			<div className="lg:hidden mb-4 sticky top-20 z-20 bg-white/95 backdrop-blur-sm py-2">
+			<div className="lg:hidden mb-4">
 				<button
 					onClick={() => setIsOpen(!isOpen)}
-					className="w-full flex items-center justify-between bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/60 backdrop-blur-sm rounded-xl px-4 py-3 hover:shadow-md transition-all duration-300 shadow-sm"
+					className="w-full flex items-center justify-between border border-slate-200 rounded-2xl px-4 py-4 min-h-[48px] hover:border-slate-300 hover:bg-slate-50 transition-colors touch-manipulation"
 				>
-					<span className="font-semibold text-blue-800 text-sm">Event Filters</span>
+					<span className="font-semibold text-slate-900 text-base">Event Filters</span>
 					<div className="flex items-center gap-2">
 						{selectedTags.size > 0 && (
-							<span className="bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
+							<span className="bg-slate-900 text-white text-sm px-3 py-1.5 rounded-full min-h-[28px] flex items-center justify-center">
 								{selectedTags.size}
 							</span>
 						)}
 						<svg
-							className={`w-4 h-4 text-blue-600 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+							className={`w-5 h-5 text-slate-600 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
@@ -135,14 +135,14 @@ export default function EventFilters({
 			</div>
 
 			<div
-				className={`${isOpen ? "block" : "hidden"} lg:block bg-gradient-to-br from-blue-50/50 to-indigo-50/30 border border-blue-200/60 backdrop-blur-sm rounded-xl shadow-lg p-5 lg:relative lg:top-0`}
+				className={`${isOpen ? "block" : "hidden"} lg:block bg-white border border-slate-200 rounded-2xl shadow-sm p-5 lg:relative lg:top-0`}
 			>
 				<div className="flex items-center justify-between mb-4">
-					<h3 className="text-lg font-semibold text-blue-900">Filter Events</h3>
+					<h3 className="text-base font-semibold text-slate-900 tracking-tight">Filter Events</h3>
 					{selectedTags.size > 0 && (
 						<button
 							onClick={clearAllFilters}
-							className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
+							className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
 						>
 							Clear All
 						</button>
@@ -153,48 +153,29 @@ export default function EventFilters({
 					{orderedCategories.map(([category, tags]) => (
 						<div key={category} className="group">
 							<div className="flex items-center mb-3">
-								<div className="h-px bg-gradient-to-r from-blue-200 to-transparent flex-1 mr-3"></div>
-								<h3 className="!text-sm !font-bold !text-blue-700 !uppercase !tracking-wider !whitespace-nowrap !leading-none !m-0">
+								<div className="h-px bg-slate-200 flex-1 mr-3"></div>
+								<h3 className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-[0.2em] !whitespace-nowrap !leading-none !m-0">
 									{category}
 								</h3>
-								<div className="h-px bg-gradient-to-l from-blue-200 to-transparent flex-1 ml-3"></div>
+								<div className="h-px bg-slate-200 flex-1 ml-3"></div>
 							</div>
-							<div className="space-y-0.5">
+							<div className="flex flex-wrap gap-3">
 								{tags
 									.filter((tag) => tag.trim().length > 0)
 									.sort((a, b) => a.localeCompare(b))
 									.map((tag) => (
-										<label
+										<button
 											key={tag}
-											className="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-blue-50/80 group"
-										>
-											<div className="relative">
-												<input
-													type="checkbox"
-													checked={selectedTags.has(tag)}
-													onChange={() => toggleTag(tag)}
-													className="sr-only"
-												/>
-												<div className={`w-4 h-4 rounded border-2 transition-all duration-200 ${
-													selectedTags.has(tag)
-														? 'bg-blue-600 border-blue-600'
-														: 'border-blue-300 group-hover:border-blue-400'
-												}`}>
-													{selectedTags.has(tag) && (
-														<svg className="w-3 h-3 text-white mx-auto" fill="currentColor" viewBox="0 0 20 20">
-															<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-														</svg>
-													)}
-												</div>
-											</div>
-											<span className={`text-sm font-medium transition-colors duration-200 ${
+											type="button"
+											onClick={() => toggleTag(tag)}
+											className={`px-4 py-2 min-h-[44px] min-w-[44px] rounded-full border text-sm font-semibold tracking-wide transition-all duration-200 touch-manipulation ${
 												selectedTags.has(tag)
-													? 'text-blue-900'
-													: 'text-blue-700 group-hover:text-blue-900'
-											}`}>
-												{tag}
-											</span>
-										</label>
+													? "border-slate-900 bg-slate-900 text-white shadow-md transform scale-105"
+													: "border-slate-200 text-slate-600 hover:border-slate-400 hover:text-slate-900 hover:bg-slate-50 active:scale-95"
+											}`}
+										>
+											{tag}
+										</button>
 									))}
 							</div>
 						</div>

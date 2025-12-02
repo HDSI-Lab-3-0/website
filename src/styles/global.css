@@ -71,27 +71,25 @@ main.constrained-main {
 }
 
 /* ==========================================================================
-   Projects Page Sticky Filters
+   Projects Page Filters - Removed sticky behavior for mobile
    ========================================================================== */
 
 .projects-page .projects-page-main {
   position: relative;
 }
 
-.projects-page .lg\:sticky {
-  position: sticky;
-  top: 6rem; /* 24px = 1.5rem, adjusted for header height */
+/* Only apply sticky positioning on desktop screens */
+@media (min-width: 1024px) {
+  .projects-page .lg\:sticky {
+    position: sticky;
+    top: 6rem; /* 24px = 1.5rem, adjusted for header height */
+  }
 }
 
 /* Ensure proper spacing on mobile */
 @media (max-width: 1024px) {
   .projects-page .projects-page-main {
     padding-top: 1rem;
-  }
-  
-  /* Mobile filter improvements */
-  .projects-page .lg\\:sticky {
-    position: relative;
   }
   
   /* Ensure mobile filter dropdown doesn't interfere with content */
@@ -124,6 +122,21 @@ main.constrained-main {
   100% {
     transform: translateX(-50%);
   }
+}
+
+/* Marquee animation for text overflow using Tailwind utilities */
+@keyframes scroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll linear infinite;
+  will-change: transform;
 }
 
 /* Ensure proper spacing for non-scrolling text */

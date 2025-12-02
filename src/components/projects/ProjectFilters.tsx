@@ -88,6 +88,10 @@ export default function ProjectFilters({
 		setSelectedTags(newSelectedTags);
 	};
 
+	const clearAllFilters = () => {
+		setSelectedTags(new Set());
+	};
+
 
 	const orderedCategories = Object.entries(availableTagsByCategory).sort(
 		([a], [b]) => {
@@ -102,77 +106,77 @@ export default function ProjectFilters({
 
 	return (
 		<div className="w-full">
-			<div className="lg:hidden mb-4 sticky top-20 z-20 bg-white/95 backdrop-blur-sm py-2">
+			<div className="lg:hidden mb-4">
 				<button
 					onClick={() => setIsOpen(!isOpen)}
-					className="w-full flex items-center justify-between bg-gradient-to-r from-slate-50 to-white border border-slate-200/60 backdrop-blur-sm rounded-xl px-4 py-3 hover:shadow-md transition-all duration-300 shadow-sm"
+					className="w-full flex items-center justify-between border border-slate-200 rounded-2xl px-4 py-4 min-h-[48px] hover:border-slate-300 hover:bg-slate-50 transition-colors touch-manipulation"
 				>
-					<span className="font-semibold text-slate-800 text-sm">Filters</span>
-					<svg
-						className={`w-4 h-4 text-slate-600 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							strokeWidth={2}
-							d="M19 9l-7 7-7-7"
-						/>
-					</svg>
+					<span className="font-semibold text-slate-900 text-base">Project Filters</span>
+					<div className="flex items-center gap-2">
+						{selectedTags.size > 0 && (
+							<span className="bg-slate-900 text-white text-sm px-3 py-1.5 rounded-full min-h-[28px] flex items-center justify-center">
+								{selectedTags.size}
+							</span>
+						)}
+						<svg
+							className={`w-5 h-5 text-slate-600 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d="M19 9l-7 7-7-7"
+							/>
+						</svg>
+					</div>
 				</button>
 			</div>
 
 			<div
-				className={`${isOpen ? "block" : "hidden"} lg:block bg-gradient-to-br from-white to-slate-50/30 border border-slate-200/60 backdrop-blur-sm rounded-xl shadow-lg p-5 lg:relative lg:top-0`}
+				className={`${isOpen ? "block" : "hidden"} lg:block bg-white border border-slate-200 rounded-2xl shadow-sm p-5 lg:relative lg:top-0`}
 			>
+				<div className="flex items-center justify-between mb-4">
+					<h3 className="text-base font-semibold text-slate-900 tracking-tight">Filter Projects</h3>
+					{selectedTags.size > 0 && (
+						<button
+							onClick={clearAllFilters}
+							className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
+						>
+							Clear All
+						</button>
+					)}
+				</div>
+
 				<div className="space-y-5">
 					{orderedCategories.map(([category, tags]) => (
 						<div key={category} className="group">
 							<div className="flex items-center mb-3">
-								<div className="h-px bg-gradient-to-r from-slate-200 to-transparent flex-1 mr-3"></div>
-								<h3 className="!text-sm !font-bold !text-slate-600 !uppercase !tracking-wider !whitespace-nowrap !leading-none !m-0">
+								<div className="h-px bg-slate-200 flex-1 mr-3"></div>
+								<h3 className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-[0.2em] !whitespace-nowrap !leading-none !m-0">
 									{category}
 								</h3>
-								<div className="h-px bg-gradient-to-l from-slate-200 to-transparent flex-1 ml-3"></div>
+								<div className="h-px bg-slate-200 flex-1 ml-3"></div>
 							</div>
-							<div className="space-y-0.5">
+							<div className="flex flex-wrap gap-3">
 								{Array.from(tags)
 									.filter((tag) => tag.trim().length > 0)
 									.sort((a, b) => a.localeCompare(b))
 									.map((tag) => (
-										<label
+										<button
 											key={tag}
-											className="flex items-center gap-3 px-3 py-2 rounded-md cursor-pointer transition-all duration-200 hover:bg-slate-50/80 group"
-										>
-											<div className="relative">
-												<input
-													type="checkbox"
-													checked={selectedTags.has(tag)}
-													onChange={() => toggleTag(tag)}
-													className="sr-only"
-												/>
-												<div className={`w-4 h-4 rounded border-2 transition-all duration-200 ${
-													selectedTags.has(tag)
-														? 'bg-blue-600 border-blue-600'
-														: 'border-slate-300 group-hover:border-slate-400'
-												}`}>
-													{selectedTags.has(tag) && (
-														<svg className="w-3 h-3 text-white mx-auto" fill="currentColor" viewBox="0 0 20 20">
-															<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-														</svg>
-													)}
-												</div>
-											</div>
-											<span className={`text-sm font-medium transition-colors duration-200 ${
+											type="button"
+											onClick={() => toggleTag(tag)}
+											className={`px-4 py-2 min-h-[44px] min-w-[44px] rounded-full border text-sm font-semibold tracking-wide transition-all duration-200 touch-manipulation ${
 												selectedTags.has(tag)
-													? 'text-slate-900'
-													: 'text-slate-600 group-hover:text-slate-800'
-											}`}>
-												{tag}
-											</span>
-										</label>
+													? "border-slate-900 bg-slate-900 text-white shadow-md transform scale-105"
+													: "border-slate-200 text-slate-600 hover:border-slate-400 hover:text-slate-900 hover:bg-slate-50 active:scale-95"
+											}`}
+										>
+											{tag}
+										</button>
 									))}
 							</div>
 						</div>
@@ -181,13 +185,13 @@ export default function ProjectFilters({
 
 				{Object.keys(availableTagsByCategory).length === 0 && (
 					<div className="text-center py-8">
-						<div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-slate-100 mb-3">
-							<svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 mb-3">
+							<svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
 							</svg>
 						</div>
-						<p className="text-slate-500 text-sm font-medium">
-							No tags available
+						<p className="text-blue-500 text-sm font-medium">
+							No project tags available
 						</p>
 					</div>
 				)}

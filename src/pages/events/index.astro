@@ -5,30 +5,31 @@ import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
 import EventsApp from '@/components/events/EventsApp.tsx';
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts.ts';
+import tagsData from '@/data/tags.json';
 
 const events = (await getCollection('events')).sort(
 	(a, b) => b.data.eventDateStart.valueOf() - a.data.eventDateStart.valueOf(),
 );
+const schoolLevelsCount = tagsData.categories['School Level'].length;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<BaseHead title={`${SITE_TITLE} - Events`} description={`${SITE_DESCRIPTION} - Upcoming and past events`} />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@heroui/theme@latest/dist/index.min.css" />
 	</head>
 	<body class="events-page">
 		<Header />
 		
 		<!-- Hero Section -->
-		<header class="bg-gradient-to-r from-blue-50 to-indigo-100 border-b border-blue-200">
+		<header class="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
 			<div class="mx-auto w-full max-w-[1400px] px-6 py-12">
 				<div class="text-center mb-8">
-					<h1 class="text-4xl md:text-5xl font-bold text-blue-900 mb-4">
-						Events
+					<h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+						Events &amp; Programs
 					</h1>
-					<p class="text-lg text-blue-700 max-w-3xl mx-auto">
-						Discover upcoming events, workshops, and activities in our educational community
+					<p class="text-lg text-slate-600 max-w-3xl mx-auto">
+						Stay plugged into upcoming workshops, showcases, and happenings that power UC San Diego&apos;s HDSI Lab 3.0 community.
 					</p>
 				</div>
 				
@@ -36,15 +37,15 @@ const events = (await getCollection('events')).sort(
 				<div class="flex flex-wrap justify-center gap-8 text-center">
 					<div class="flex flex-col">
 						<span class="text-2xl font-bold text-blue-600">{events.length}</span>
-						<span class="text-sm text-blue-500">Total Events</span>
+						<span class="text-sm text-slate-500">Total Events</span>
 					</div>
 					<div class="flex flex-col">
-						<span class="text-2xl font-bold text-green-600" id="upcoming-count">0</span>
-						<span class="text-sm text-blue-500">Upcoming</span>
+						<span class="text-2xl font-bold text-blue-600" id="active-filters">0</span>
+						<span class="text-sm text-slate-500">Active Filters</span>
 					</div>
 					<div class="flex flex-col">
-						<span class="text-2xl font-bold text-gray-600" id="past-count">0</span>
-						<span class="text-sm text-blue-500">Past Events</span>
+						<span class="text-2xl font-bold text-blue-600">{schoolLevelsCount}</span>
+						<span class="text-sm text-slate-500">School Levels</span>
 					</div>
 				</div>
 			</div>

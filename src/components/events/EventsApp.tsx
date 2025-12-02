@@ -13,16 +13,16 @@ interface EventsAppProps {
 const EVENTS_PER_PAGE = 9;
 
 export default function EventsApp({ events }: EventsAppProps) {
-	console.log('EventsApp component loaded with', events.length, 'events');
 	const [selectedTags, setSelectedTags] = useState<string[]>([]);
 	const [currentPage, setCurrentPage] = useState(1);
+	const [eventStats, setEventStats] = useState({ upcoming: 0, past: 0 });
 
-	useEffect(() => {
-		const activeFiltersElement = document.getElementById("active-filters");
-		if (activeFiltersElement) {
-			activeFiltersElement.textContent = selectedTags.length.toString();
-		}
-	}, [selectedTags]);
+		useEffect(() => {
+			const activeFiltersElement = document.getElementById("active-filters");
+			if (activeFiltersElement) {
+				activeFiltersElement.textContent = selectedTags.length.toString();
+			}
+		}, [selectedTags]);
 
 	// Update event counts in the hero section
 	useEffect(() => {
@@ -35,6 +35,8 @@ export default function EventsApp({ events }: EventsAppProps) {
 			isEventPast(event.data.eventDateEnd, referenceDate)
 		).length;
 		
+		setEventStats({ upcoming: upcomingCount, past: pastCount });
+
 		const upcomingElement = document.getElementById("upcoming-count");
 		const pastElement = document.getElementById("past-count");
 		
@@ -69,11 +71,7 @@ export default function EventsApp({ events }: EventsAppProps) {
 	}, [filteredEvents, currentPage]);
 
 	const handleEventClick = useCallback((event: CollectionEntry<"events">) => {
-		// Navigate to event detail page
-		console.log('Event clicked:', event);
-		console.log('Event ID:', event.id);
 		if (!event.id) {
-			console.error('Event ID is undefined for event:', event);
 			// Fallback to events index page if ID is undefined
 			window.location.href = '/events';
 			return;
@@ -104,8 +102,7 @@ export default function EventsApp({ events }: EventsAppProps) {
 					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
 						<h2 className="text-2xl font-semibold text-slate-900">Available Events</h2>
 						<span className="text-sm text-slate-600">
-							Showing {paginatedEvents.length} of {filteredEvents.length} events
-							{filteredEvents.length !== events.length && ` (${events.length} total)`}
+							Showing {filteredEvents.length} of {events.length} events
 						</span>
 					</div>
 

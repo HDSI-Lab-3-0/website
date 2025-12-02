@@ -29,7 +29,7 @@ const MobileNavigation: React.FC = () => {
           aria-label="Toggle navigation menu"
           aria-expanded={isOpen}
           aria-controls="mobile-navigation-modal"
-          className="p-2"
+          className="p-3 min-h-[44px] min-w-[44px] touch-manipulation"
           onPress={handleOpen}
         >
           <div className="relative w-6 h-5">
@@ -95,7 +95,7 @@ const MobileNavigation: React.FC = () => {
               </ModalHeader>
               <ModalBody className="py-8">
                 <nav
-                  className="flex flex-col space-y-2"
+                  className="flex flex-col space-y-3"
                   role="navigation"
                   aria-label="Main navigation"
                 >
@@ -103,7 +103,7 @@ const MobileNavigation: React.FC = () => {
                     <React.Fragment key={link.href}>
                       <Button
                         variant="light"
-                        className="justify-start h-14 text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
+                        className="justify-start h-16 min-h-[44px] text-lg font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-all duration-200 touch-manipulation"
                         onPress={() => {
                           window.location.href = link.href;
                           onClose();

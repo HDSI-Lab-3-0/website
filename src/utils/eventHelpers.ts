@@ -77,6 +77,18 @@ export function isEventPast(endDate: Date, referenceDate?: Date): boolean {
 	return endDate < now;
 }
 
+export function getEventStatus(startDate: Date, endDate: Date, referenceDate?: Date): string {
+	const now = referenceDate || new Date();
+	
+	if (isEventOngoing(startDate, endDate, now)) {
+		return "ongoing";
+	} else if (isEventPast(endDate, now)) {
+		return "past";
+	} else {
+		return "upcoming";
+	}
+}
+
 export function getEventDuration(startDate: Date, endDate: Date): string {
 	const diffMs = endDate.getTime() - startDate.getTime();
 	const diffHours = Math.floor(diffMs / (1000 * 60 * 60));

@@ -2,7 +2,7 @@
 import { type CollectionEntry, getCollection, getEntry, render } from 'astro:content';
 import EventPost from '../../layouts/EventPost.astro';
 import { Icon } from '../../components/ui/Icon.tsx';
-import { formatEventDateTimeRange, getEventAudience, getEventDuration, getEventLocation, getEventStatusBadgeProps } from '../../utils/eventHelpers.ts';
+import { formatEventDateTimeRange, getEventAudience, getEventDuration, getEventLocation, getEventStatusBadgeProps, getEventStatus } from '../../utils/eventHelpers.ts';
 import '../../styles/markdown.css';
 
 export async function getStaticPaths() {
@@ -39,7 +39,8 @@ const eventDateRange = formatEventDateTimeRange(eventData.eventDateStart, eventD
 const eventDuration = getEventDuration(eventData.eventDateStart, eventData.eventDateEnd);
 const eventLocation = eventData.eventLocation?.trim() || getEventLocation(eventData.eventTags);
 const eventAudience = eventData.eventFor?.trim() || getEventAudience(eventData.eventTags);
-const statusBadgeProps = getEventStatusBadgeProps(eventData.eventStatus);
+const currentEventStatus = getEventStatus(eventData.eventDateStart, eventData.eventDateEnd);
+const statusBadgeProps = getEventStatusBadgeProps(currentEventStatus);
 const featuredTags = eventData.eventTags ? eventData.eventTags.slice(0, 4) : [];
 const heroStats = [
 	{ icon: 'Calendar', label: 'Date & Time', value: eventDateRange, helper: `≈ ${eventDuration}` },
@@ -69,7 +70,7 @@ const statusAccent = statusBadgeProps.className.includes('blue')
 	: statusBadgeProps.className.includes('red')
 	? '#dc2626'
 	: '#475569';
-const statusIcon = getStatusIcon(eventData.eventStatus);
+const statusIcon = getStatusIcon(currentEventStatus);
 ---
 
 <EventPost {...event.data}>
@@ -80,7 +81,7 @@ const statusIcon = getStatusIcon(eventData.eventStatus);
 				<div class="event-hero__pills">
 					<span class="event-hero__pill event-hero__pill--status" style={{ color: statusAccent, borderColor: statusAccent + '33', background: statusAccent + '12' }}>
 						<Icon icon={statusIcon} size={15} />
-						<span class="capitalize">{eventData.eventStatus}</span>
+						<span class="capitalize">{currentEventStatus}</span>
 					</span>
 					<span class="event-hero__pill event-hero__pill--muted">
 						<Icon icon="Clock" size={15} />
