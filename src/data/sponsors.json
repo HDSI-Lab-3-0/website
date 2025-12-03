@@ -1,0 +1,19 @@
+{
+    "sponsors": [
+        {
+            "name": "NSF TILOS",
+            "type": "government",
+            "description": "National Science Foundation - Transforming Integrative Life Sciences Opportunities"
+        },
+        {
+            "name": "NSF ENCORE", 
+            "type": "government",
+            "description": "National Science Foundation - Enhancing Cohorts and Opportunities for Research"
+        },
+        {
+            "name": "HDSI LAB 3.0",
+            "type": "academic",
+            "description": "Halıcıoğlu Data Science Institute - Laboratory for Advanced AI and Robotics"
+        }
+    ]
+}

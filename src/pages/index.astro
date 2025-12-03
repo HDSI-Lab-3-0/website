@@ -6,6 +6,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts.ts';
 import { Image } from 'astro:assets';
 import heroImage from '@/assets/home_group.jpg';
 import aboutImage from '@/assets/project-placeholder-about.jpg';
+import sponsors from '@/data/sponsors.json';
 ---
 
 <!doctype html>
@@ -127,31 +128,15 @@ import aboutImage from '@/assets/project-placeholder-about.jpg';
 			<section class="py-16 px-6 bg-gradient-to-b from-slate-50 to-white">
 				<div class="max-w-6xl mx-auto">
 					<h2 class="text-center text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-12 leading-tight">Our Sponsors</h2>
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-							<div>
-								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Technology Partner</h3>
-								<p class="text-base leading-relaxed text-slate-600 m-0">Leading provider of cutting-edge educational technology solutions</p>
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{sponsors.sponsors.map((sponsor) => (
+							<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+								<div>
+									<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">{sponsor.name}</h3>
+									<p class="text-base leading-relaxed text-slate-600 m-0">{sponsor.description}</p>
+								</div>
 							</div>
-						</div>
-						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-							<div>
-								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Research Foundation</h3>
-								<p class="text-base leading-relaxed text-slate-600 m-0">Supporting innovative educational research initiatives</p>
-							</div>
-						</div>
-						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-							<div>
-								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Industry Collaborator</h3>
-								<p class="text-base leading-relaxed text-slate-600 m-0">Bridging academic research with practical industry applications</p>
-							</div>
-						</div>
-						<div class="bg-white rounded-xl p-8 shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-							<div>
-								<h3 class="text-xl font-semibold text-slate-900 mb-4 leading-tight">Education Grant</h3>
-								<p class="text-base leading-relaxed text-slate-600 m-0">Funding transformative educational programs and initiatives</p>
-							</div>
-						</div>
+						))}
 					</div>
 				</div>
 			</section>
