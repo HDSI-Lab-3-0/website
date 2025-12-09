@@ -18,6 +18,7 @@
             "name": "Wan-Rong Leung",
             "role": "Senior Lab Fellow",
             "image": "/images/members/saura-naderi.jpg",
+            "sketch": "/images/sketches/Emma-sketch.png",
             "bio": "Lab Fellow contributing to robotics research and development.",
             "category": "senior-lab-fellow"
         },
@@ -25,6 +26,7 @@
             "name": "Charles Nguyen",
             "role": "Lab Fellow",
             "image": "/images/members/saura-naderi.jpg",
+            "sketch": "/images/sketches/charles-sketch.png",
             "bio": "Lab Fellow contributing to robotics research and development.",
             "category": "lab-fellow"
         },
@@ -39,6 +41,7 @@
             "name": "Hannah Gonzalez",
             "role": "Lab Fellow",
             "image": "/images/members/saura-naderi.jpg",
+            "sketch": "/images/sketches/Hannah-sketch.png",
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "lab-fellow"
         },
@@ -46,6 +49,7 @@
             "name": "Hana Tjendrawasi",
             "role": "Lab Fellow",
             "image": "/images/members/saura-naderi.jpg",
+            "sketch": "/images/sketches/Hana-sketch.png",
             "bio": "Lab Fellow specializing in robotics research and development.",
             "category": "lab-fellow"
         },
@@ -67,6 +71,7 @@
             "name": "Marcos Pascual Rodriguez",
             "role": "Lab Fellow",
             "image": "/images/members/saura-naderi.jpg",
+            "sketch": "/images/sketches/Marcos-sketch.png",
             "bio": "Lab Fellow specializing in robotics systems and applications.",
             "category": "lab-fellow"
         },
@@ -81,6 +86,7 @@
             "name": "Selina Zhang",
             "role": "Lab Fellow",
             "image": "/images/members/saura-naderi.jpg",
+            "sketch": "/images/sketches/selina-sketch.png",
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "lab-fellow"
         },
