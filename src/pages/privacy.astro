@@ -1,0 +1,160 @@
+---
+import BaseHead from "../components/layout/BaseHead.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead
+            title={`Privacy Policy - ${SITE_TITLE}`}
+            description={SITE_DESCRIPTION}
+        />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <!-- Header Section -->
+            <section class="py-16 px-6 bg-gradient-to-b from-slate-50 to-white">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1
+                        class="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight"
+                    >
+                        Privacy Policy
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-4">
+                        Last updated: {new Date().toLocaleDateString()}
+                    </p>
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section class="py-12 px-6 bg-white">
+                <div class="max-w-4xl mx-auto">
+                    <div
+                        class="prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed"
+                    >
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                1. Information Collection
+                            </h2>
+                            <p class="mb-6">
+                                We collect information from you when you visit
+                                our site, specifically standard web server logs
+                                which may include your IP address, browser type,
+                                and operating system. This information is used
+                                for internal analytics and to improve our
+                                website.
+                            </p>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                2. COPPA Compliance (Children's Online Privacy
+                                Protection Act)
+                            </h2>
+                            <div
+                                class="bg-amber-50 p-6 rounded-xl border border-amber-100 my-6"
+                            >
+                                <p class="mb-4 text-amber-900">
+                                    Our website is committed to complying with
+                                    the Children's Online Privacy Protection Act
+                                    (COPPA). We do not knowingly collect or
+                                    solicit personal information from anyone
+                                    under the age of 13. If you are under 13,
+                                    please do not send any information about
+                                    yourself to us.
+                                </p>
+                                <p class="m-0 text-amber-900">
+                                    In the event that we learn that we have
+                                    collected personal information from a child
+                                    under age 13 without verification of
+                                    parental consent, we will delete that
+                                    information as quickly as possible. If you
+                                    believe that we might have any information
+                                    from or about a child under 13, please
+                                    contact us.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                3. Media and Photo Policy
+                            </h2>
+                            <p class="mb-6">
+                                We respect the privacy of all individuals
+                                featured on our website.
+                            </p>
+                            <ul class="space-y-4">
+                                <li
+                                    class="relative pl-10 before:content-['✓'] before:absolute before:left-0 before:text-blue-500 before:font-bold"
+                                >
+                                    <strong class="text-slate-900"
+                                        >Permissions:</strong
+                                    > All photos posted on this website are used
+                                    with explicit permission from the subjects or
+                                    their legal guardians.
+                                </li>
+                                <li
+                                    class="relative pl-10 before:content-['✓'] before:absolute before:left-0 before:text-blue-500 before:font-bold"
+                                >
+                                    <strong class="text-slate-900"
+                                        >Minors:</strong
+                                    > For any individuals under the age of majority
+                                    featured in our content, a waiver granting permission
+                                    has been signed by a parent or legal guardian.
+                                </li>
+                                <li
+                                    class="relative pl-10 before:content-['✓'] before:absolute before:left-0 before:text-blue-500 before:font-bold"
+                                >
+                                    <strong class="text-slate-900"
+                                        >Protection:</strong
+                                    > If a waiver has not been obtained, images of
+                                    minors are either excluded or have been blurred
+                                    to protect their identity.
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                4. Third-Party Links
+                            </h2>
+                            <p class="mb-6">
+                                Our website may contain links to legal partners
+                                and other third-party sites. We are not
+                                responsible for the privacy practices or the
+                                content of these other websites.
+                            </p>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                5. Changes to This Privacy Policy
+                            </h2>
+                            <p class="mb-6">
+                                We may update our Privacy Policy from time to
+                                time. We will notify you of any changes by
+                                posting the new Privacy Policy on this page.
+                            </p>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                6. Contact Us
+                            </h2>
+                            <p class="mb-6">
+                                If you have any questions about this Privacy
+                                Policy, please contact us.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html>

@@ -1,0 +1,134 @@
+---
+import BaseHead from "../components/layout/BaseHead.astro";
+import Header from "../components/layout/Header.astro";
+import Footer from "../components/layout/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <BaseHead
+            title={`Terms of Service - ${SITE_TITLE}`}
+            description={SITE_DESCRIPTION}
+        />
+    </head>
+    <body>
+        <Header />
+        <main>
+            <!-- Header Section -->
+            <section class="py-16 px-6 bg-gradient-to-b from-slate-50 to-white">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1
+                        class="text-4xl sm:text-5xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight"
+                    >
+                        Terms of Service
+                    </h1>
+                    <p class="text-lg text-slate-600 mb-4">
+                        Last updated: {new Date().toLocaleDateString()}
+                    </p>
+                </div>
+            </section>
+
+            <!-- Content Section -->
+            <section class="py-12 px-6 bg-white">
+                <div class="max-w-4xl mx-auto">
+                    <div
+                        class="prose prose-lg prose-slate max-w-none text-slate-600 leading-relaxed"
+                    >
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                1. Acceptance of Terms
+                            </h2>
+                            <p class="mb-6">
+                                By accessing and using this website, you accept
+                                and agree to be bound by the terms and provision
+                                of this agreement. In addition, when using this
+                                website's particular services, you shall be
+                                subject to any posted guidelines or rules
+                                applicable to such services.
+                            </p>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                2. Intellectual Property
+                            </h2>
+                            <p class="mb-4">
+                                This website and its original content, features,
+                                and functionality are owned by HDSI Lab 3.0 and
+                                are protected by international copyright,
+                                trademark, patent, trade secret, and other
+                                intellectual property or proprietary rights
+                                laws.
+                            </p>
+                            <div
+                                class="bg-blue-50 p-6 rounded-xl border border-blue-100 my-6"
+                            >
+                                <h3
+                                    class="text-lg font-semibold text-blue-900 mb-2"
+                                >
+                                    HDSI and UCSD Branding
+                                </h3>
+                                <p class="text-blue-800 m-0">
+                                    We are authorized to use the logos,
+                                    trademarks, and branding of the Halıcıoğlu
+                                    Data Science Institute (HDSI) and the
+                                    University of California, San Diego (UCSD)
+                                    in connection with our official activities
+                                    and representation. Unauthorized use of
+                                    these marks by third parties is strictly
+                                    prohibited.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                3. User Conduct
+                            </h2>
+                            <p class="mb-6">
+                                You agree to use the site only for lawful
+                                purposes. You are prohibited from posting or
+                                transmitting to or from this site any unlawful,
+                                threatening, libelous, defamatory, obscene,
+                                pornographic, or other material that would
+                                violate any law.
+                            </p>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                4. Disclaimer
+                            </h2>
+                            <p class="mb-6">
+                                The materials on HDSI Lab 3.0's website are
+                                provided on an 'as is' basis. HDSI Lab 3.0 makes
+                                no warranties, expressed or implied, and hereby
+                                disclaims and negates all other warranties
+                                including, without limitation, implied
+                                warranties or conditions of merchantability,
+                                fitness for a particular purpose, or
+                                non-infringement of intellectual property or
+                                other violation of rights.
+                            </p>
+                        </div>
+
+                        <div class="mb-12">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-4">
+                                5. Governing Law
+                            </h2>
+                            <p class="mb-6">
+                                Any claim relating to HDSI Lab 3.0's website
+                                shall be governed by the laws of the State of
+                                California without regard to its conflict of law
+                                provisions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <Footer />
+    </body>
+</html>

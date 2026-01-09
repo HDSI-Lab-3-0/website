@@ -4,6 +4,11 @@ const today = new Date();
 
 <footer>
 	&copy; {today.getFullYear()} HDSI Lab 3.0. All rights reserved.
+	<div class="legal-links">
+		<a href="/terms">Terms of Service</a>
+		|
+		<a href="/privacy">Privacy Policy</a>
+	</div>
 </footer>
 <style>
 	footer {
@@ -11,5 +16,16 @@ const today = new Date();
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
 		text-align: center;
+	}
+	.legal-links {
+		margin-top: 1em;
+		font-size: 0.8em;
+	}
+	.legal-links a {
+		color: rgb(var(--gray));
+		text-decoration: none;
+	}
+	.legal-links a:hover {
+		color: rgb(var(--gray-dark));
 	}
 </style>
