@@ -41,7 +41,7 @@
         {
             "name": "Hannah Gonzalez",
             "role": "Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/hannah.jpg",
             "sketch": "/images/sketches/Hannah-sketch.png",
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "lab-fellow"
@@ -49,7 +49,7 @@
         {
             "name": "Hana Tjendrawasi",
             "role": "Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/hana.jpeg",
             "sketch": "/images/sketches/Hana-sketch.png",
             "bio": "Lab Fellow specializing in robotics research and development.",
             "category": "lab-fellow"
@@ -78,9 +78,10 @@
             "category": "lab-fellow"
         },
         {
-            "name": "Moniriddh Bunyay",
+            "name": "Moniriddh (Rudd) Bunyay",
             "role": "Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/rudd.jpeg",
+            "sketch": "/images/sketches/rudd-sketch.png",
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "lab-fellow"
         },
@@ -102,7 +103,8 @@
         {
             "name": "Yifei Chen",
             "role": "Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/yifei.jpg",
+            "sketch": "/images/sketches/yifei-sketch.jpg",
             "bio": "Lab Fellow specializing in robotics research and development.",
             "category": "lab-fellow"
         }
