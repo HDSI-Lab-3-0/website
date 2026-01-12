@@ -57,7 +57,8 @@
         {
             "name": "Jamera Fernando",
             "role": "Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/jamera.jpg",
+            "sketch": "/images/sketches/jamera-sketch.png",
             "bio": "Lab Fellow contributing to robotics research and development.",
             "category": "lab-fellow"
         },
