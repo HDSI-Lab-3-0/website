@@ -14,7 +14,6 @@ const MobileNavigation: React.FC = () => {
     { href: '/projects', label: 'Projects' },
     { href: '/events', label: 'Events' },
     { href: '/contact', label: 'Contact' },
-    { href: '/donate', label: 'Donate' }
   ];
 
   const opportunitiesInsertAfterHref = '/events';
@@ -34,19 +33,16 @@ const MobileNavigation: React.FC = () => {
         >
           <div className="relative w-6 h-5">
             <span
-              className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
-                isOpen ? 'top-2 rotate-45' : 'top-0'
-              }`}
+              className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isOpen ? 'top-2 rotate-45' : 'top-0'
+                }`}
             />
             <span
-              className={`absolute block h-0.5 w-6 bg-current top-2 transform transition-all duration-300 ease-in-out ${
-                isOpen ? 'opacity-0' : 'opacity-100'
-              }`}
+              className={`absolute block h-0.5 w-6 bg-current top-2 transform transition-all duration-300 ease-in-out ${isOpen ? 'opacity-0' : 'opacity-100'
+                }`}
             />
             <span
-              className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
-                isOpen ? 'top-2 -rotate-45' : 'top-4'
-              }`}
+              className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isOpen ? 'top-2 -rotate-45' : 'top-4'
+                }`}
             />
           </div>
         </Button>
