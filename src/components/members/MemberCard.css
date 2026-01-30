@@ -77,9 +77,42 @@
   font-size: 0.875rem;
   color: #667eea;
   font-weight: 500;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+.member-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.member-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.tag-year {
+  background-color: #ebf8ff;
+  color: #2c5282;
+}
+
+.tag-major {
+  background-color: #f0fff4;
+  color: #276749;
+}
+
+.tag-minor {
+  background-color: #fff5f5;
+  color: #9b2c2c;
 }
 
 .member-bio {
@@ -87,6 +120,7 @@
   color: #4a5568;
   line-height: 1.6;
   flex-grow: 1;
+  margin-top: 0.5rem;
 }
 
 .director-card {

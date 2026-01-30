@@ -8,6 +8,9 @@ interface Member {
   sketch?: string;
   bio: string;
   category: string;
+  majors?: string[];
+  minors?: string[];
+  graduatingYear?: number;
 }
 
 interface MemberCardProps {
@@ -47,6 +50,22 @@ export default function MemberCard({ member, isDirector = false }: MemberCardPro
       <div className="member-content">
         <h3 className="member-name">{member.name}</h3>
         <p className="member-role">{member.role}</p>
+        <div className="member-tags">
+          
+          {member.majors?.map((major, index) => (
+            <span key={`major-${index}`} className="member-tag tag-major">
+              Major in {major}
+            </span>
+          ))}
+          {member.minors?.map((minor, index) => (
+            <span key={`minor-${index}`} className="member-tag tag-minor">
+              Minor in {minor}
+            </span>
+          ))}
+          {member.graduatingYear && (
+            <span className="member-tag tag-year">Class of {member.graduatingYear}</span>
+          )}
+        </div>
         <p className="member-bio">{member.bio}</p>
       </div>
     </div>

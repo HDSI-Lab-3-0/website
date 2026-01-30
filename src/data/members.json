@@ -29,6 +29,8 @@
             "image": "/images/members/charles-nguyen.png",
             "sketch": "/images/sketches/charles-sketch.png",
             "bio": "Lab Fellow contributing to robotics research and development.",
+            "majors": ["Computer Science"],
+            "graduatingYear": 2026,
             "category": "lab-fellow"
         },
         {
@@ -44,6 +46,8 @@
             "role": "Lab Fellow",
             "image": "/images/members/hannah.jpg",
             "sketch": "/images/sketches/Hannah-sketch.png",
+            "majors": ["Data Science", "International Business"],
+            "graduatingYear": 2027,
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "lab-fellow"
         },
@@ -52,6 +56,8 @@
             "role": "Lab Fellow",
             "image": "/images/members/hana.jpeg",
             "sketch": "/images/sketches/Hana-sketch.png",
+            "majors": ["Data Science"],
+            "graduatingYear": 2026,
             "bio": "Lab Fellow specializing in robotics research and development.",
             "category": "lab-fellow"
         },
@@ -84,6 +90,8 @@
             "role": "Lab Fellow",
             "image": "/images/members/rudd.jpeg",
             "sketch": "/images/sketches/rudd-sketch.png",
+            "majors": ["Data Science"],
+            "graduatingYear": 2027,
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "lab-fellow"
         },
