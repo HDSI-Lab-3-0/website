@@ -3,7 +3,8 @@
         {
             "name": "Emmy Wei",
             "role": "Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/emmy.png",
+            "sketch": "/images/sketches/emmy-sketch.png",
             "bio": "Lab Fellow specializing in advanced robotics research and development.",
             "category": "lab-fellow"
         },
@@ -73,7 +74,7 @@
         {
             "name": "Marcos Pascual Rodriguez",
             "role": "Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/marcos.png",
             "sketch": "/images/sketches/Marcos-sketch.png",
             "bio": "Lab Fellow specializing in robotics systems and applications.",
             "category": "lab-fellow"
@@ -97,8 +98,9 @@
         {
             "name": "Saura Naderi",
             "role": "Director",
-            "image": "/images/members/saura-naderi.jpg",
-            "bio": "Leading innovative research in robotics and human-computer interaction, with a focus on accessible technology and interdisciplinary collaboration.",
+            "image": "/images/members/saura.png",
+            "sketch": "/images/sketches/saura-sketch.png",
+            "bio": "Saura Naderi is the K–14 Outreach Director at UC San Diego’s School of Computing, Information, and Data Science, where she creates hands-on robotics and data science experiences that connect undergraduates, researchers, and K–12 students. Her work blends engineering, creativity, and education to make STEM more accessible and inspiring.",
             "category": "director"
         },
         {

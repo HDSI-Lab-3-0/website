@@ -3,17 +3,20 @@
         {
             "name": "NSF TILOS",
             "type": "government",
-            "description": "National Science Foundation - Transforming Integrative Life Sciences Opportunities"
+            "description": "National Science Foundation - Transforming Integrative Life Sciences Opportunities",
+            "url": "https://tilos.ai/"
         },
         {
-            "name": "NSF ENCORE", 
+            "name": "NSF EnCORE",
             "type": "government",
-            "description": "National Science Foundation - Enhancing Cohorts and Opportunities for Research"
+            "description": "National Science Foundation - Enhancing Cohorts and Opportunities for Research",
+            "url": "https://encore.ucsd.edu/"
         },
         {
-            "name": "HDSI LAB 3.0",
+            "name": "School of Computing Information and Data Science",
             "type": "academic",
-            "description": "Halıcıoğlu Data Science Institute - Laboratory for Advanced AI and Robotics"
+            "description": "UC San Diego's School of Computing, Information, and Data Science",
+            "url": "https://scids.ucsd.edu/"
         }
     ]
 }
