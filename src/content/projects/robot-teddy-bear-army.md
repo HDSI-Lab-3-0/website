@@ -6,7 +6,7 @@ status: "First prototype complete; continuing improvements"
 audience: "Adaptable for K-12 visitors"
 engagementType: "Interactive experience + demo"
 location: "Campus"
-sponsor: "HDSI Lab 3.0"
+sponsor: "HDSI LAB 3.0"
 tags: ["at UCSD", "UCSD Undergraduate", "HDSI LAB 3.0"]
 estimated_time: 15
 ---

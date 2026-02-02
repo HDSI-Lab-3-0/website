@@ -6,8 +6,8 @@ status: "Prototype development"
 audience: "Demo-friendly (Middle School, High School)"
 engagementType: "Demo"
 location: "Campus / classroom"
-sponsor: "HDSI Lab 3, Professor Julio Barreiro"
-tags: ["at UCSD", "Middle School", "High School", "HDSI Lab 3", "Demo-friendly", "Free"]
+sponsor: "HDSI LAB 3.0, Professor Julio Barreiro"
+tags: ["at UCSD", "Middle School", "High School", "HDSI LAB 3.0", "Demo-friendly", "Free"]
 estimated_time: 30
 ---
 

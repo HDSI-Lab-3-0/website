@@ -6,8 +6,8 @@ status: "Prototype development"
 audience: "All ages (great outreach hook)"
 engagementType: "Demo / interactive booth"
 location: "Campus events / outreach"
-sponsor: "HDSI Lab 3"
-tags: ["at UCSD", "All ages", "HDSI Lab 3", "Demo-friendly", "Free"]
+sponsor: "HDSI LAB 3.0"
+tags: ["at UCSD", "All ages", "HDSI LAB 3.0", "Demo-friendly", "Free"]
 estimated_time: 15
 ---
 
