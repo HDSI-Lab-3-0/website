@@ -1,22 +1,29 @@
 ---
-title: "Robot Teddy Bear Army"
-description: "A creative campus-wide initiative where teddy bears equipped with RF technology guide students to hidden gems and collect engagement data."
-pubDate: 2024-12-03
-relevance: "The project fosters connection and exploration on campus, combining robotics, IoT, and social engagement to improve student well-being."
+title: "Robot Teddy Bear Army Scavenger Hunt & Parade"
+description: "A campus scavenger hunt where teams solve riddles and complete challenges, culminating in a robotic teddy bear parade."
+pubDate: 2026-02-02
+status: "First prototype complete; continuing improvements"
+audience: "Adaptable for K-12 visitors"
+engagementType: "Interactive experience + demo"
+location: "Campus"
+sponsor: "HDSI Lab 3.0"
 tags: ["at UCSD", "UCSD Undergraduate", "HDSI LAB 3.0"]
-sponsor: "HDSI LAB 3.0"
 estimated_time: 15
 ---
 
-# Robot Teddy Bear Army
+# Robot Teddy Bear Army Scavenger Hunt & Parade
 
-## Overview
+## Summary
 
-Despite its name, the "Robot Teddy Bear Army" is less about a military force and more about fostering connection and exploration. In this creative campus-wide initiative, teddy bears equipped with RF technology are assigned to responsible undergraduate students. Each bear offers its owner a series of interactive clues, guiding them to different destinations around campus. The journey culminates in a whimsical "March of the Teddy Bears," where all the bears autonomously gather and follow a lab director dressed as a regal queen teddy bear.
+A campus scavenger hunt where teams solve riddles and complete challenges, culminating in a robotic teddy bear parade.
 
-## Goals
+## K-12 Learning Goals
 
-1.  **Foster Campus Engagement**: Encourage students to explore campus landmarks, resources, and artwork in an interactive and fun way.
+Teamwork + playful intro to sensors, navigation, and interactive tech.
+
+## Undergraduates Learning
+
+Arduino + sensors for artifact verification, GPS/location logic, autonomous tracking, systems integration; collaboration with Theater/Dance on storytelling and design.
 2.  **Enhance Student Well-being**: Use the bears to identify and respond to emotional states such as loneliness or engagement.
 3.  **Promote Cross-Disciplinary Collaboration**: Combine elements of technology, art, and user experience design, encouraging teamwork among students from engineering, art, theater, and data science.
 4.  **Develop and Test Autonomous Technology**: Design bears capable of collecting data and ensuring the "March of the Teddy Bears" demonstrates successful autonomous navigation.

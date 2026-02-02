@@ -3,7 +3,6 @@ import { SITE_TITLE } from '../../consts';
 import HeaderLink from './HeaderLink.astro';
 import { Icon } from '../ui/Icon';
 import MobileNavigation from './MobileNavigation.tsx';
-import OpportunitiesDropdown from './OpportunitiesDropdown.tsx';
 ---
 
 <header class="sticky-header">
@@ -16,7 +15,7 @@ import OpportunitiesDropdown from './OpportunitiesDropdown.tsx';
 			<HeaderLink href="/members">Members</HeaderLink>
 			<HeaderLink href="/projects">Projects</HeaderLink>
 			<HeaderLink href="/events">Events</HeaderLink>
-			<OpportunitiesDropdown client:load />
+			<HeaderLink href="/opportunities">Opportunities</HeaderLink>
 			<HeaderLink href="/contact">Contact</HeaderLink>
 			<HeaderLink href="/donate">Donate</HeaderLink>
 		</div>

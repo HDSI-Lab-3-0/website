@@ -1,9 +1,8 @@
-import { useState, useMemo, useCallback, useEffect } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { HeroUIProvider } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
 import ProjectFilters from "@/components/projects/ProjectFilters.tsx";
 import ProjectGrid from "@/components/projects/ProjectGrid.tsx";
-import ProjectModal from "@/components/projects/ProjectModal.tsx";
 
 interface ProjectsAppProps {
 	projects: CollectionEntry<"projects">[];
@@ -12,9 +11,6 @@ interface ProjectsAppProps {
 export default function ProjectsApp({ projects }: ProjectsAppProps) {
 	console.log('ProjectsApp component loaded with', projects.length, 'projects');
 	const [selectedTags, setSelectedTags] = useState<string[]>([]);
-	const [selectedProject, setSelectedProject] =
-		useState<CollectionEntry<"projects"> | null>(null);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
 		const activeFiltersElement = document.getElementById("active-filters");
@@ -36,17 +32,6 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 		});
 	}, [projects, selectedTags]);
 
-	const handleProjectClick = useCallback((project: CollectionEntry<"projects">) => {
-		setSelectedProject(project);
-		setIsModalOpen(true);
-	}, []);
-
-	const handleModalClose = useCallback(() => {
-		setIsModalOpen(false);
-		// Delay clearing the project to avoid flicker while the modal closes
-		setTimeout(() => setSelectedProject(null), 200);
-	}, []);
-
 	return (
 		<HeroUIProvider>
 			<div className="flex flex-col lg:flex-row gap-10 items-start">
@@ -65,14 +50,8 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 						</span>
 					</div>
 
-					<ProjectGrid projects={filteredProjects} onProjectClick={handleProjectClick} />
+					<ProjectGrid projects={filteredProjects} />
 				</section>
-
-				<ProjectModal
-					isOpen={isModalOpen}
-					onClose={handleModalClose}
-					project={selectedProject}
-				/>
 			</div>
 		</HeroUIProvider>
 	);

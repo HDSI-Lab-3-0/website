@@ -1,0 +1,422 @@
+---
+import BaseHead from '../../components/layout/BaseHead.astro';
+import Footer from '../../components/layout/Footer.astro';
+import Header from '../../components/layout/Header.astro';
+import headingAnchorsScript from '../../scripts/heading-anchors.js?url';
+import copyCodeScript from '../../scripts/copy-code.js?url';
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title="Opportunities" description="Discover programs and resources for students, parents, teachers, faculty, and staff to get involved with robotics education and outreach." />
+		<style>
+			/* Custom animation for fade-in effect */
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(10px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+			
+			.tab-pane.active {
+				animation: fadeIn 0.3s ease-in-out;
+			}
+			
+			/* Reading progress bar */
+			.reading-progress {
+				position: fixed;
+				top: 0;
+				left: 0;
+				height: 3px;
+				background: rgb(var(--gray));
+				z-index: 1000;
+				transition: width 0.1s ease;
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<!-- Reading Progress Bar -->
+		
+		<main class="w-[calc(100%-2em)] max-w-full m-0">
+			<article>
+				<div class="flex flex-col lg:flex-row gap-12 max-w-[1400px] mx-auto relative py-8 px-4">
+					<div class="flex-1 min-w-0 overflow-hidden">
+						<div class="w-full max-w-[calc(100%-2em)] mx-auto py-8 px-4 text-[rgb(var(--gray-dark))]">
+							<div class="mb-8 pb-6 text-center leading-[1.2]">
+								<div class="markdown-content">
+									<div class="max-w-5xl mx-auto px-8 sm:px-4 md:px-6 lg:px-8">
+										<header class="text-center mb-12 ">
+											<h1 class="text-4xl sm:text-3xl md:text-5xl font-bold text-[rgb(var(--black))] mb-5 tracking-tight leading-[1.1]">Opportunities</h1>
+											<p class="text-lg text-[rgba(var(--text-color),0.7)] max-w-lg mx-auto leading-relaxed font-normal">
+												Discover programs and resources for students, parents, teachers, faculty, and staff to get involved with robotics education and outreach.
+											</p>
+										</header>
+
+										<section class="mb-10">
+											<p class="text-base text-[rgba(var(--text-color),0.75)] text-center max-w-2xl mx-auto mb-10 leading-relaxed p-6 bg-[rgba(var(--gray-light),0.2)] rounded-xl border border-[rgba(var(--gray),0.08)]">
+												We offer a wide range of opportunities for different audiences to engage with robotics education. Find the programs that match your interests and goals below.
+											</p>
+										</section>
+
+										<!-- Tab Navigation -->
+										<div class="flex justify-center gap-2 mb-12 p-4 bg-[rgba(var(--gray-light),0.15)] rounded-2xl flex-wrap">
+											<button class="tab-button active px-6 py-3 bg-[rgb(var(--white))] text-[rgba(var(--text-color),0.7)] border border-[rgba(var(--gray),0.15)] rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 whitespace-nowrap hover:bg-[rgba(var(--gray-light),0.3)] hover:text-[rgba(var(--text-color),0.9)] hover:border-[rgba(var(--gray),0.25)]" data-tab="k12-students">K-12 Students</button>
+											<button class="tab-button px-6 py-3 bg-[rgb(var(--white))] text-[rgba(var(--text-color),0.7)] border border-[rgba(var(--gray),0.15)] rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 whitespace-nowrap hover:bg-[rgba(var(--gray-light),0.3)] hover:text-[rgba(var(--text-color),0.9)] hover:border-[rgba(var(--gray),0.25)]" data-tab="k12-teachers">K-12 Teachers</button>
+											<button class="tab-button px-6 py-3 bg-[rgb(var(--white))] text-[rgba(var(--text-color),0.7)] border border-[rgba(var(--gray),0.15)] rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 whitespace-nowrap hover:bg-[rgba(var(--gray-light),0.3)] hover:text-[rgba(var(--text-color),0.9)] hover:border-[rgba(var(--gray),0.25)]" data-tab="k12-parents">K-12 Parents</button>
+											<button class="tab-button px-6 py-3 bg-[rgb(var(--white))] text-[rgba(var(--text-color),0.7)] border border-[rgba(var(--gray),0.15)] rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 whitespace-nowrap hover:bg-[rgba(var(--gray-light),0.3)] hover:text-[rgba(var(--text-color),0.9)] hover:border-[rgba(var(--gray),0.25)]" data-tab="ucsd-students">UCSD Students</button>
+											<button class="tab-button px-6 py-3 bg-[rgb(var(--white))] text-[rgba(var(--text-color),0.7)] border border-[rgba(var(--gray),0.15)] rounded-lg text-sm font-medium cursor-pointer transition-all duration-200 whitespace-nowrap hover:bg-[rgba(var(--gray-light),0.3)] hover:text-[rgba(var(--text-color),0.9)] hover:border-[rgba(var(--gray),0.25)]" data-tab="ucsd-faculty">UCSD Faculty & Staff</button>
+										</div>
+
+								
+										<!-- Tab Content -->
+										<div class="relative">
+											<!-- K12 Students Tab -->
+											<div class="tab-pane active" id="k12-students">
+												<section class="m-0 p-0 border-t-0">
+													<header class="mb-8 text-center">
+														<h2 class="text-2xl sm:text-xl md:text-3xl font-semibold text-[rgb(var(--black))] mb-3 tracking-tight">K-12 Students</h2>
+														<p class="text-base text-[rgba(var(--text-color),0.7)] max-w-md mx-auto leading-relaxed">
+															Discover exciting robotics programs designed to spark your curiosity and develop valuable skills in technology and engineering.
+														</p>
+													</header>
+
+													<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+														<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-md hover:border-[rgba(var(--gray),0.2)] hover:bg-[rgba(var(--gray-light),0.05)] transition-all duration-250 hover:-translate-y-0.5">
+															<h3 class="mt-0 mb-3.5 text-xl font-semibold text-[rgb(var(--black))]">Elementary</h3>
+															<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+																Introduction to robotics through fun, hands-on activities designed for young learners. Our elementary programs focus on creativity and basic engineering concepts.
+															</p>
+														</div>
+
+														<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-md hover:border-[rgba(var(--gray),0.2)] hover:bg-[rgba(var(--gray-light),0.05)] transition-all duration-250 hover:-translate-y-0.5">
+															<h3 class="mt-0 mb-3.5 text-xl font-semibold text-[rgb(var(--black))]">Middle</h3>
+															<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+																Intermediate robotics projects that build on foundational knowledge. Middle school students engage with more complex challenges and begin coding their own robots.
+															</p>
+														</div>
+
+														<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-md hover:border-[rgba(var(--gray),0.2)] hover:bg-[rgba(var(--gray-light),0.05)] transition-all duration-250 hover:-translate-y-0.5">
+															<h3 class="mt-0 mb-3.5 text-xl font-semibold text-[rgb(var(--black))]">High School</h3>
+															<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+																Advanced robotics and engineering opportunities for high school students. Participants work on sophisticated projects and may prepare for competitions or college-level studies.
+															</p>
+														</div>
+													</div>
+
+													<div class="flex flex-col gap-6">
+														<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-[0_4px_10px_rgba(var(--gray),0.1)] hover:border-[rgba(var(--gray),0.15)] hover:bg-[rgba(var(--gray-light),0.03)] transition-all duration-250 hover:-translate-y-px">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-[rgb(var(--black))]">How to Get Started</h3>
+															<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+																Most of our programs require advance registration. Check our events calendar for upcoming dates and registration deadlines. All participants under 18 will need parental consent forms completed before joining any of our programs. Most programs provide all necessary materials, but participants should bring a notebook, pen, and enthusiasm for learning!
+															</p>
+														</div>
+
+														<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-[0_4px_10px_rgba(var(--gray),0.1)] hover:border-[rgba(var(--gray),0.15)] hover:bg-[rgba(var(--gray-light),0.03)] transition-all duration-250 hover:-translate-y-px">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-[rgb(var(--black))]">Success Stories</h3>
+															<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+																Our high school team took first place in the regional robotics competition, qualifying for nationals. Three of our senior participants received full STEM scholarships to top engineering programs. Middle school students designed and built assistive devices for local community members with disabilities.
+															</p>
+														</div>
+													</div>
+												</section>
+											</div>
+
+											<!-- K12 Teachers Tab -->
+											<div class="tab-pane" id="k12-teachers">
+												<section class="m-0 p-0 border-t-0">
+													<header class="mb-8 text-center">
+														<h2 class="text-2xl sm:text-xl md:text-3xl font-semibold text-[rgb(var(--black))] mb-3 tracking-tight">K-12 Teachers</h2>
+														<p class="text-base text-[rgba(var(--text-color),0.7)] max-w-md mx-auto leading-relaxed">
+															Resources and support for educators to bring robotics education to their classrooms and inspire the next generation of innovators.
+														</p>
+													</header>
+
+													<div class="flex flex-col gap-6">
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Available Programs</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																Classroom Projects: Ready-to-implement robotics projects designed for classroom settings with curriculum alignment, lesson plans, and materials lists for various grade levels. Professional Development: Workshops and training sessions to help teachers build confidence in teaching robotics and technology. Pilot New Projects: Opportunity to test and provide feedback on our latest educational robotics projects before they're widely released.
+															</p>
+														</div>
+
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Teacher Resources</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																Curriculum Guides: Detailed curriculum guides that align with state and national standards. Assessment Tools: Rubrics and assessment tools designed specifically for robotics projects. Video Tutorials: Step-by-step video tutorials that you can use in your classroom or for your own professional development.
+															</p>
+														</div>
+
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Professional Development Workshops</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																Introduction to Classroom Robotics: A beginner-friendly workshop covering the fundamentals of teaching robotics. Advanced Robotics Pedagogy: For experienced educators looking to deepen their practice. Integrating Robotics Across Subjects: Learn how to incorporate robotics into math, science, art, and even language arts.
+															</p>
+														</div>
+
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Teacher Community</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																Online Forum: Join our online community to share ideas, ask questions, and collaborate with other educators. Monthly Meetups: Virtual and in-person gatherings where teachers share successes, challenges, and best practices. Teacher Ambassador Program: Become a teacher ambassador and help shape our educational programs.
+															</p>
+														</div>
+													</div>
+												</section>
+											</div>
+
+											<!-- K12 Parents Tab -->
+											<div class="tab-pane" id="k12-parents">
+												<section class="audience-section">
+													<header class="audience-header">
+														<h2 class="text-3xl font-bold text-[rgb(var(--black))] mb-3 tracking-tight">K-12 Parents</h2>
+														<p class="text-lg text-[rgba(var(--text-color),0.7)] max-w-md mx-auto leading-relaxed">
+															Programs and resources for parents to support their children's journey into robotics and technology education.
+														</p>
+													</header>
+
+													<div class="opportunity-list">
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Available Programs</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																Robotic Arts and Crafts workshop: A creative program that combines artistic expression with robotics fundamentals. Summer Day Camp: Immersive week-long summer experience where students dive deep into robotics projects. Girl Scouts: Specialized robotics programs aligned with Girl Scout badges and achievements.
+															</p>
+														</div>
+
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Parent Involvement</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																Parent Volunteer Program: Join our volunteer team to help with events, workshops, and competitions. Parent Information Sessions: Monthly sessions designed to help parents understand robotics education. Family Robotics Days: Special events where families can work together on robotics projects.
+															</p>
+														</div>
+
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Enrollment Information</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																Registration Process: Step-by-step guide to registering your child for our programs. Consent Forms: All participating students need parental consent forms completed before attending any program. Scholarship Opportunities: Financial assistance is available for families who need support with program fees.
+															</p>
+														</div>
+
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Support Resources</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																Home Robotics Activities: Simple robotics projects you can do at home with common household materials. Recommended Learning Resources: Curated list of books, websites, videos, and apps. Career Pathways Guide: Information about STEM careers and educational pathways.
+															</p>
+														</div>
+													</div>
+												</section>
+											</div>
+
+											<!-- UCSD Students Tab -->
+											<div class="tab-pane" id="ucsd-students">
+												<section class="m-0 p-0 border-t-0">
+													<header class="mb-8 text-center">
+														<h2 class="text-2xl sm:text-xl md:text-3xl font-semibold text-[rgb(var(--black))] mb-3 tracking-tight">UCSD Students</h2>
+														<p class="text-base text-[rgba(var(--text-color),0.7)] max-w-md mx-auto leading-relaxed">
+															Get involved with our lab through fellowships, events, and volunteer opportunities that complement your academic experience.
+														</p>
+													</header>
+
+													<div class="flex flex-col gap-6">
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Core Opportunities</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																Lab Fellows: Paid positions for students to contribute to our educational mission while developing technical skills, teaching experience, and leadership abilities. Robot Teddy Bear Army Scavenger Hunt: Join our flagship annual event where teams navigate campus solving challenges with custom-built robot teddy bears. Volunteer Opportunities: Contribute your time and skills to support our workshops, events, and outreach programs.
+															</p>
+														</div>
+
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Lab Fellows Program</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																Lab Fellows work 10-15 hours per week during academic quarters, developing educational content, mentoring K-12 students, and supporting our outreach events. Fellows receive competitive compensation, professional development opportunities, teaching experience, and the chance to build their technical portfolio. Applications are accepted at the beginning of each quarter.
+															</p>
+														</div>
+
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Events & Competitions</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																Robot Teddy Bear Army Scavenger Hunt: Our annual campus-wide competition where teams build and program robot teddy bears to complete challenges across campus. Robotics Showcase: Quarterly events where students can demonstrate their robotics projects. Workshop Series: Hands-on workshops covering topics from basic electronics to advanced machine learning.
+															</p>
+														</div>
+
+														<div class="bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="mt-0 mb-3.5 text-lg font-semibold text-black">Volunteer Opportunities</h3>
+															<p class="mb-0 text-sm leading-relaxed text-gray-600">
+																K-12 Workshop Support: Help facilitate our weekend workshops for K-12 students. Event Staffing: Support our larger events like the Robot Teddy Bear Army Scavenger Hunt. Content Development: Help create educational materials, tutorials, and documentation for our robotics projects.
+															</p>
+														</div>
+													</div>
+												</section>
+											</div>
+
+											<!-- UCSD Faculty/Staff Tab -->
+											<div class="tab-pane" id="ucsd-faculty">
+												<section class="m-0 p-0 border-t-0">
+													<header class="mb-8 text-center">
+														<h2 class="text-3xl font-bold text-[rgb(var(--black))] mb-3 tracking-tight">UCSD Faculty & Staff</h2>
+														<p class="text-lg text-[rgba(var(--text-color),0.7)] max-w-md mx-auto leading-relaxed">
+															Collaborative opportunities for UCSD faculty and staff to integrate research with educational outreach and broader impacts.
+														</p>
+													</header>
+
+													<div class="opportunity-list">
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Grant & Research Support</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																Grant Support: We provide infrastructure, expertise, and educational context for grant proposals requiring broader impacts components. TILOS: Collaborative projects that integrate research with educational outreach. EnCORE: Engineering education research opportunities. CAREER Grant: Support for NSF CAREER award proposals through our established educational programs.
+															</p>
+														</div>
+
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Research Collaboration</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																Joint Research Proposals: Partner with us to develop interdisciplinary research proposals. Broader Impacts Implementation: Leverage our established programs and expertise to fulfill broader impacts requirements for federal research grants. Educational Research Studies: Conduct research on learning outcomes, pedagogical approaches, and technology education.
+															</p>
+														</div>
+
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Resources for Faculty</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																Curriculum Development: Assistance in developing robotics and technology components for your courses. Student Research Projects: Mentor undergraduate and graduate students through research projects. Teaching Innovation: Collaborate on innovative teaching approaches that incorporate hands-on robotics.
+															</p>
+														</div>
+
+														<div class="opportunity-item bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 hover:bg-gray-50 transition-all duration-250 hover:-translate-y-px p-7">
+															<h3 class="text-lg font-semibold text-black">Success Stories</h3>
+															<p class="text-sm leading-relaxed text-gray-600">
+																NSF Grant Collaboration: Partnered with Computer Science faculty on a $1.2M NSF grant to develop adaptive learning systems for robotics education. CAREER Award Support: Provided broader impacts implementation for multiple NSF CAREER awards across engineering departments. Interdisciplinary Course Development: Co-developed a cross-listed course combining robotics, cognitive science, and education research.
+															</p>
+														</div>
+													</div>
+												</section>
+											</div>
+
+											<!-- CTA Section -->
+											<section class="my-16 p-12 bg-[rgb(var(--white))] rounded-2xl text-center border border-[rgba(var(--gray),0.15)] shadow-[0_2px_8px_rgba(var(--gray),0.06)]">
+												<div>
+													<h2 class="text-2xl sm:text-xl md:text-3xl font-semibold text-[rgb(var(--black))] mb-5 tracking-tight">Ready to Get Started?</h2>
+													<p class="text-base max-w-md mx-auto mb-8 leading-relaxed text-[rgba(var(--text-color),0.7)]">
+														We're excited to have you join our community! Fill out our interest form to let us know about your background, skills, and what opportunities interest you most.
+													</p>
+													<a href="https://forms.gle/ZJpHG1mCB6ShiYJy9" class="inline-block px-8 py-4 bg-[rgba(var(--gray),0.9)] text-white no-underline rounded-lg font-medium text-base transition-all duration-250 shadow-[0_2px_4px_rgba(var(--gray),0.2)] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(var(--gray),0.25)] hover:bg-[rgb(var(--gray))]" target="_blank" rel="noopener noreferrer">
+														Fill Out Interest Form
+													</a>
+												</div>
+											</section>
+
+											<!-- FAQ Section -->
+											<section class="mb-10">
+												<h2 class="text-3xl sm:text-2xl md:text-4xl font-semibold text-[rgb(var(--black))] mb-8 text-center tracking-tight">Frequently Asked Questions</h2>
+												
+												<div class="flex flex-col gap-6">
+													<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-[0_4px_10px_rgba(var(--gray),0.1)] hover:border-[rgba(var(--gray),0.15)] hover:bg-[rgba(var(--gray-light),0.03)] transition-all duration-250 hover:-translate-y-px">
+														<h3 class="mt-0 mb-3.5 text-lg font-semibold text-[rgb(var(--black))]">Do I need prior experience?</h3>
+														<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+															No prior experience is necessary! Our programs are designed for all skill levels, from complete beginners to those with some robotics background.
+														</p>
+													</div>
+
+													<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-[0_4px_10px_rgba(var(--gray),0.1)] hover:border-[rgba(var(--gray),0.15)] hover:bg-[rgba(var(--gray-light),0.03)] transition-all duration-250 hover:-translate-y-px">
+														<h3 class="mt-0 mb-3.5 text-lg font-semibold text-[rgb(var(--black))]">Are there any costs involved?</h3>
+														<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+															Most of our programs are free thanks to generous grants and donations. Some specialized programs may have a small materials fee. Financial assistance is available for families who need support with program fees.
+														</p>
+													</div>
+
+													<div class="p-7 bg-[rgb(var(--white))] rounded-xl border border-[rgba(var(--gray),0.1)] shadow-sm hover:shadow-[0_4px_10px_rgba(var(--gray),0.1)] hover:border-[rgba(var(--gray),0.15)] hover:bg-[rgba(var(--gray-light),0.03)] transition-all duration-250 hover:-translate-y-px">
+														<h3 class="mt-0 mb-3.5 text-lg font-semibold text-[rgb(var(--black))]">What safety measures are in place?</h3>
+														<p class="mb-0 text-sm leading-relaxed text-[rgba(var(--text-color),0.75)]">
+															All our programs follow strict safety protocols. Staff are trained in first aid, all equipment is age-appropriate, and student-to-instructor ratios are maintained at optimal levels.
+														</p>
+													</div>
+												</div>
+											</section>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</article>
+		</main>
+		<Footer />
+		<script type="module" is:inline src={headingAnchorsScript}></script>
+		<script type="module" is:inline src={copyCodeScript}></script>
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', () => {
+			  // Reading progress bar
+			  const progressBar = document.getElementById('reading-progress');
+			  
+			  function updateReadingProgress() {
+				  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+				  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				  const progress = (scrollTop / scrollHeight) * 100;
+				  progressBar.style.width = progress + '%';
+			  }
+			  
+			  window.addEventListener('scroll', updateReadingProgress);
+			  updateReadingProgress();
+			  
+			  // Calculate reading time
+			  const markdownContent = document.querySelector('.markdown-content');
+			  if (markdownContent) {
+			   const text = markdownContent.textContent || '';
+			   const wordsPerMinute = 200;
+			   const wordCount = text.trim().split(/\s+/).length;
+			   const readingTime = Math.ceil(wordCount / wordsPerMinute);
+			   
+			   const readingTimeText = document.getElementById('reading-time-text');
+			   if (readingTimeText) {
+			    readingTimeText.textContent = `${readingTime} min read`;
+			   }
+			  }
+			  
+				});
+		</script>
+		<script>
+			document.addEventListener('DOMContentLoaded', function() {
+				// Tab functionality
+				const tabButtons = document.querySelectorAll('.tab-button');
+				const tabPanes = document.querySelectorAll('.tab-pane');
+
+				function switchTab(targetTab: string) {
+					// Hide all tab panes
+					tabPanes.forEach(pane => {
+						pane.style.display = 'none';
+						pane.classList.remove('active');
+					});
+
+					// Reset all button styles
+					tabButtons.forEach(button => {
+						button.classList.remove('bg-[rgba(var(--gray),0.1)]', 'text-[rgb(var(--black))]', 'border-[rgba(var(--gray),0.2)]', 'font-semibold');
+						button.classList.add('bg-[rgb(var(--white))]', 'text-[rgba(var(--text-color),0.7)]', 'border-[rgba(var(--gray),0.15)]', 'font-medium');
+					});
+
+					// Show selected tab pane and activate button
+					const activePane = document.getElementById(targetTab);
+					const activeButton = document.querySelector(`[data-tab="${targetTab}"]`);
+					
+					if (activePane && activeButton) {
+						activePane.style.display = 'block';
+						activePane.classList.add('active');
+						
+						// Update button styles
+						activeButton.classList.remove('bg-[rgb(var(--white))]', 'text-[rgba(var(--text-color),0.7)]', 'border-[rgba(var(--gray),0.15)]', 'font-medium');
+						activeButton.classList.add('bg-[rgba(var(--gray),0.1)]', 'text-[rgb(var(--black))]', 'border-[rgba(var(--gray),0.2)]', 'font-semibold');
+					}
+				}
+
+				// Add click event listeners to tab buttons
+				tabButtons.forEach(button => {
+					button.addEventListener('click', (event: Event) => {
+						const targetTab = (event.target as HTMLElement).getAttribute('data-tab');
+						if (targetTab) {
+							switchTab(targetTab);
+						}
+					});
+				});
+
+				// Initialize with first tab active
+				switchTab('k12-students');
+			});
+		</script>
+	</body>
+</html>

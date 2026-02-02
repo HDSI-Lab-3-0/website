@@ -1,17 +1,12 @@
-import { Card, CardBody, Chip } from "@heroui/react";
+import { Chip } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
 import { getImageSrc, getLocationFromTags } from "@/utils/projectHelpers.ts";
 
 interface ProjectGridProps {
 	projects: CollectionEntry<"projects">[];
-	onProjectClick: (project: CollectionEntry<"projects">) => void;
 }
 
-
-export default function ProjectGrid({
-	projects,
-	onProjectClick,
-}: ProjectGridProps) {
+export default function ProjectGrid({ projects }: ProjectGridProps) {
 	return (
 		<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
 			{projects.map((project) => {
@@ -19,18 +14,12 @@ export default function ProjectGrid({
 					getImageSrc(project.data.imageGif) ||
 					getImageSrc(project.data.heroImage) ||
 					"/assets/project-placeholder-1.jpg";
-				const handleProjectSelect = () => {
-					onProjectClick(project);
-				};
 
 				return (
-					<Card
+					<a
 						key={project.id}
-						isPressable
-						isHoverable
-						onPress={handleProjectSelect}
-						role="button"
-						className="group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-slate-200 bg-white"
+						href={`/projects/${project.id}`}
+						className="group block transition-all duration-300 hover:shadow-xl hover:-translate-y-1 rounded-xl border border-slate-200 bg-white overflow-hidden"
 					>
 						{/* Card header with image */}
 						<div className="relative h-48 overflow-hidden">
@@ -42,7 +31,7 @@ export default function ProjectGrid({
 						</div>
 
 						{/* Card body */}
-						<CardBody className="p-5">
+						<div className="p-5">
 							<h3 className="text-xl font-semibold text-slate-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
 								{project.data.title}
 							</h3>
@@ -116,8 +105,8 @@ export default function ProjectGrid({
 									View Details →
 								</span>
 							</div>
-						</CardBody>
-					</Card>
+						</div>
+					</a>
 				);
 			})}
 		</div>

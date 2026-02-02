@@ -1,27 +1,29 @@
 ---
 title: "3D Fiber Optic Display"
-description: "An innovative project merging art, technology, and data science to create dynamic, interactive visualizations using fiber optic cables controlled by servo motors."
-pubDate: 2024-12-03
-relevance: "The project highlights the creative potential of data science through a visually stunning and interactive demonstration, serving as both an artistic installation and an educational tool."
-tags: ["at UCSD", "UCSD Undergraduate", "HDSI LAB 3.0"]
-sponsor: "HDSI LAB 3.0"
+description: "A dynamically controlled fiber optic display made of 400 rods, designed to visualize images driven by computer vision."
+pubDate: 2026-02-02
+status: "Prototype development"
+audience: "All ages (demo-friendly)"
+engagementType: "Inspirational demo"
+location: "On campus / Lab"
+sponsor: "Professor Haojian Jin"
+tags: ["at UCSD", "UCSD Undergraduate", "All ages", "Demo-friendly"]
 estimated_time: 15
 ---
 
 # 3D Fiber Optic Display
 
-## Overview
+## Summary
 
-The 3D Fiber Optic Display is an innovative project that merges art, technology, and data science to create dynamic, interactive visualizations. Using fiber optic cables controlled by servo motors, the display translates software-generated patterns into captivating three-dimensional images. By integrating precise hardware control with data-driven software, the display serves as both an artistic installation and an educational tool, inspiring students and audiences to explore the intersections of data and creativity.
+A dynamically controlled fiber optic display made of 400 rods, designed to visualize images driven by computer vision.
 
-## Goals
+## K-12 Learning Goals
 
-The project focuses on four main objectives:
+Inspire curiosity about computing, perception, and robotics through a striking visual demo.
 
-1.  **Create a Captivating Visual Experience**: Use fiber optics and servo motors to generate intricate, three-dimensional images and explore the artistic possibilities of combining motion and light.
-2.  **Highlight the Creativity in Data Science**: Demonstrate how data-driven algorithms can produce dynamic visual effects and inspire audiences by showcasing the interdisciplinary applications of data science.
-3.  **Develop an Interactive Platform**: Design software that allows users to interact with and influence the display, enabling real-time visualization of data or user-generated patterns.
-4.  **Educational Outreach**: Use the display as a teaching tool to engage students in topics like data visualization, programming, and robotics.
+## Undergraduates Learning
+
+Mechanical + electrical build, prototype iteration, and the connection between computer vision and physical output.
 
 ## Specifications
 

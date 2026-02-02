@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalContent, ModalBody, ModalHeader } from '@heroui/react';
-import OpportunitiesDropdown from './OpportunitiesDropdown';
 
 const MobileNavigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,10 +12,9 @@ const MobileNavigation: React.FC = () => {
     { href: '/members', label: 'Members' },
     { href: '/projects', label: 'Projects' },
     { href: '/events', label: 'Events' },
+    { href: '/opportunities', label: 'Opportunities' },
     { href: '/contact', label: 'Contact' },
   ];
-
-  const opportunitiesInsertAfterHref = '/events';
 
   return (
     <>
@@ -107,9 +105,6 @@ const MobileNavigation: React.FC = () => {
                       >
                         {link.label}
                       </Button>
-                      {link.href === opportunitiesInsertAfterHref && (
-                        <OpportunitiesDropdown className="w-full" onCloseModal={onClose} />
-                      )}
                     </React.Fragment>
                   ))}
                 </nav>

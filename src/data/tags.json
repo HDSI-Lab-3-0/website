@@ -3,12 +3,24 @@
         "Location": ["in classroom", "out of classroom", "at UCSD"],
         "School Level": [
             "Elementary",
+            "Grades 4-6",
             "Middle School",
             "High School",
             "UCSD Undergraduate",
             "Community College"
         ],
-        "Sponsor": ["NSF TILOS", "NSF ENCORE", "HDSI LAB 3.0"],
+        "Sponsor": [
+            "NSF TILOS",
+            "NSF ENCORE",
+            "HDSI LAB 3.0",
+            "HDSI Lab 3.0",
+            "HDSI Lab 3",
+            "EnCORE",
+            "TILOS",
+            "Professor Haojian Jin",
+            "Victor Minces",
+            "Professor Julio Barreiro"
+        ],
         "Cost": ["Free", "Paid", "Offers Sponsorship"],
         "Type": [
             "Professional Development for Teachers",

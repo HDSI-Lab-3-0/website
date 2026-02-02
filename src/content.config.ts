@@ -6,24 +6,29 @@ const projects = defineCollection({
     loader: glob({ base: "./src/content/projects", pattern: "**/*.{md,mdx}" }),
     // Type-check frontmatter using a schema
     schema: ({ image }) =>
-        z.object({
-            title: z.string(),
-            description: z.string(),
-            // Transform string to Date object
-            pubDate: z.coerce.date(),
-            updatedDate: z.coerce.date().optional(),
-            heroImage: image().optional(),
-            imageGif: image().optional(),
-            links: z
-                .object({
-                    lessonPlan: z.string().optional(),
-                    materials: z.string().optional(),
-                })
-                .optional(),
-            relevance: z.string().optional(),
-            tags: z.array(z.string()).optional(),
-            estimated_time: z.number().optional(),
-        }),
+    z.object({
+        title: z.string(),
+        description: z.string(),
+        // Transform string to Date object
+        pubDate: z.coerce.date(),
+        updatedDate: z.coerce.date().optional(),
+        heroImage: image().optional(),
+        imageGif: image().optional(),
+        links: z
+            .object({
+                lessonPlan: z.string().optional(),
+                materials: z.string().optional(),
+            })
+            .optional(),
+        relevance: z.string().optional(),
+        tags: z.array(z.string()).optional(),
+        estimated_time: z.number().optional(),
+        sponsor: z.string().optional(),
+        status: z.string().optional(),
+        audience: z.string().optional(),
+        engagementType: z.string().optional(),
+        location: z.string().optional(),
+    }),
 });
 
 const events = defineCollection({

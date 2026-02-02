@@ -1,8 +1,12 @@
 ---
-title: "Robotic Flower: Interactive Machine Learning Experience"
-description: "An interactive robotic flower that blooms when you smile — blending computer vision, TensorFlow, machine learning, and robotics into a real-time, expressive experience."
-pubDate: 2024-11-14
-
+title: "AI-Driven Robotic Flower"
+description: "Students build a smile-recognition model in Python and use it to control a robotic arm they assemble and design."
+pubDate: 2026-02-02
+status: "Ongoing"
+audience: "High school"
+engagementType: "Hands-on workshop or activity"
+location: "In classroom or lunch-time program"
+sponsor: "TILOS"
 heroImage: "../../assets/project-placeholder-3.jpg"
 imageGif: "../../assets/project-placeholder-1.jpg"
 tags:
@@ -10,14 +14,25 @@ tags:
         "in classroom",
         "High School",
         "UCSD Undergraduate",
-        "HDSI LAB 3.0",
+        "TILOS",
         "Free",
     ]
 estimated_time: 240
-relevance: "This project demonstrates the practical intersection of AI, computer vision, and robotics while teaching students fundamental concepts in machine learning, facial recognition, and hardware integration through a creative, hands-on experience."
 ---
 
-# Robotic Flower: Interactive Machine Learning Experience
+# AI-Driven Robotic Flower
+
+## Summary
+
+Students build a smile-recognition model in Python and use it to control a robotic arm they assemble and design.
+
+## K-12 Learning Goals
+
+Basics of ML + human-centered AI; training/testing models and using AI to control physical systems.
+
+## Undergraduates Learning
+
+Prototype build + ongoing curriculum development/support.
 
 ## Project Overview
 
