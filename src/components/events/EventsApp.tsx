@@ -13,16 +13,41 @@ interface EventsAppProps {
 const EVENTS_PER_PAGE = 9;
 
 export default function EventsApp({ events }: EventsAppProps) {
-	const [selectedTags, setSelectedTags] = useState<string[]>([]);
+	const [selectedAudience, setSelectedAudience] = useState<Set<string>>(
+		new Set([])
+	);
+	const [selectedType, setSelectedType] = useState<Set<string>>(new Set([]));
+	const [selectedLocation, setSelectedLocation] = useState<Set<string>>(
+		new Set([])
+	);
+	const [selectedTopic, setSelectedTopic] = useState<Set<string>>(new Set([]));
+	const [selectedOther, setSelectedOther] = useState<Set<string>>(new Set([]));
 	const [currentPage, setCurrentPage] = useState(1);
 	const [eventStats, setEventStats] = useState({ upcoming: 0, past: 0 });
 
-		useEffect(() => {
-			const activeFiltersElement = document.getElementById("active-filters");
-			if (activeFiltersElement) {
-				activeFiltersElement.textContent = selectedTags.length.toString();
-			}
-		}, [selectedTags]);
+	useEffect(() => {
+		const activeFiltersElement = document.getElementById("active-filters");
+		if (activeFiltersElement) {
+			const totalSelected =
+				selectedAudience.size +
+				selectedType.size +
+				selectedLocation.size +
+				selectedTopic.size +
+				selectedOther.size;
+			activeFiltersElement.textContent = totalSelected.toString();
+		}
+	}, [selectedAudience, selectedType, selectedLocation, selectedTopic, selectedOther]);
+
+	// Helper function to check if an event's tags match any selected tags in a category
+	const matchesCategory = (
+		eventTags: string[],
+		selectedTags: Set<string>
+	): boolean => {
+		if (selectedTags.size === 0) return true;
+		return Array.from(selectedTags).some((selectedTag) =>
+			eventTags.some((et) => et.toLowerCase() === selectedTag.toLowerCase())
+		);
+	};
 
 	// Update event counts in the hero section
 	useEffect(() => {
@@ -45,22 +70,35 @@ export default function EventsApp({ events }: EventsAppProps) {
 	}, [events]);
 
 	const filteredEvents = useMemo(() => {
-		if (selectedTags.length === 0) {
-			return events;
-		}
-
 		return events.filter((event) => {
 			const eventTags = event.data.eventTags || [];
-			return selectedTags.some((tag) =>
-				eventTags.some((et) => et.toLowerCase() === tag.toLowerCase())
+			return (
+				matchesCategory(eventTags, selectedAudience) &&
+				matchesCategory(eventTags, selectedType) &&
+				matchesCategory(eventTags, selectedLocation) &&
+				matchesCategory(eventTags, selectedTopic) &&
+				matchesCategory(eventTags, selectedOther)
 			);
 		});
-	}, [events, selectedTags]);
+	}, [
+		events,
+		selectedAudience,
+		selectedType,
+		selectedLocation,
+		selectedTopic,
+		selectedOther,
+	]);
 
 	// Reset to page 1 when filters change
 	useEffect(() => {
 		setCurrentPage(1);
-	}, [selectedTags]);
+	}, [
+		selectedAudience,
+		selectedType,
+		selectedLocation,
+		selectedTopic,
+		selectedOther,
+	]);
 
 	// Calculate pagination
 	const totalPages = Math.ceil(filteredEvents.length / EVENTS_PER_PAGE);
@@ -94,7 +132,19 @@ export default function EventsApp({ events }: EventsAppProps) {
 				{/* Filters at the top */}
 				<section className="w-full">
 					<EventFilters
-						onFiltersChange={setSelectedTags}
+						onFiltersChange={(
+							audience,
+							type,
+							location,
+							topic,
+							other
+						) => {
+							setSelectedAudience(audience);
+							setSelectedType(type);
+							setSelectedLocation(location);
+							setSelectedTopic(topic);
+							setSelectedOther(other);
+						}}
 						availableEvents={events}
 					/>
 				</section>
@@ -126,13 +176,29 @@ export default function EventsApp({ events }: EventsAppProps) {
 							</div>
 							<h3 className="text-xl font-semibold text-slate-900 mb-2">No events found</h3>
 							<p className="text-slate-600 mb-4">
-								{selectedTags.length > 0
+								{selectedAudience.size +
+									selectedType.size +
+									selectedLocation.size +
+									selectedTopic.size +
+									selectedOther.size >
+								0
 									? "No events match your selected filters. Try adjusting your filters."
 									: "No events are available at the moment."}
 							</p>
-							{selectedTags.length > 0 && (
+							{selectedAudience.size +
+								selectedType.size +
+								selectedLocation.size +
+								selectedTopic.size +
+								selectedOther.size >
+								0 && (
 								<button
-									onClick={() => setSelectedTags([])}
+									onClick={() => {
+										setSelectedAudience(new Set<string>());
+										setSelectedType(new Set<string>());
+										setSelectedLocation(new Set<string>());
+										setSelectedTopic(new Set<string>());
+										setSelectedOther(new Set<string>());
+									}}
 									className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
 								>
 									Clear all filters

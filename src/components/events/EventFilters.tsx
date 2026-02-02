@@ -3,7 +3,13 @@ import type { CollectionEntry } from "astro:content";
 import { Select, SelectItem } from "@heroui/react";
 
 interface EventFiltersProps {
-	onFiltersChange: (selectedTags: string[]) => void;
+	onFiltersChange: (
+		selectedAudience: Set<string>,
+		selectedType: Set<string>,
+		selectedLocation: Set<string>,
+		selectedTopic: Set<string>,
+		selectedOther: Set<string>
+	) => void;
 	availableEvents: CollectionEntry<"events">[];
 }
 
@@ -43,7 +49,6 @@ function getAvailableTagsByCategory(
 						)
 					) {
 						tagsByCategory[category].add(tag);
-						break;
 					}
 				}
 			});
@@ -99,16 +104,15 @@ export default function EventFilters({
 
 	const availableTagsByCategory = getAvailableTagsByCategory(availableEvents);
 
-	// Combine all selected tags and trigger callback
+	// Trigger callback with all selected sets
 	useEffect(() => {
-		const allSelectedTags = [
-			...Array.from(selectedAudience),
-			...Array.from(selectedType),
-			...Array.from(selectedLocation),
-			...Array.from(selectedTopic),
-			...Array.from(selectedOther),
-		];
-		onFiltersChange(allSelectedTags);
+		onFiltersChange(
+			selectedAudience,
+			selectedType,
+			selectedLocation,
+			selectedTopic,
+			selectedOther
+		);
 	}, [
 		selectedAudience,
 		selectedType,

@@ -4,7 +4,14 @@ import type { CollectionEntry } from "astro:content";
 import tagsData from "@/data/tags.json";
 
 interface ProjectFiltersProps {
-	onFiltersChange: (selectedTags: string[]) => void;
+	onFiltersChange: (
+		selectedSchoolLevel: Set<string>,
+		selectedLocation: Set<string>,
+		selectedType: Set<string>,
+		selectedSponsor: Set<string>,
+		selectedCost: Set<string>,
+		selectedOther: Set<string>
+	) => void;
 	availableProjects: CollectionEntry<"projects">[];
 }
 
@@ -82,17 +89,16 @@ export default function ProjectFilters({
 
 	const availableTagsByCategory = getAvailableTagsByCategory(availableProjects);
 
-	// Combine all selected tags and trigger callback
+	// Trigger callback with all selected sets
 	useEffect(() => {
-		const allSelectedTags = [
-			...Array.from(selectedSchoolLevel),
-			...Array.from(selectedLocation),
-			...Array.from(selectedType),
-			...Array.from(selectedSponsor),
-			...Array.from(selectedCost),
-			...Array.from(selectedOther),
-		];
-		onFiltersChange(allSelectedTags);
+		onFiltersChange(
+			selectedSchoolLevel,
+			selectedLocation,
+			selectedType,
+			selectedSponsor,
+			selectedCost,
+			selectedOther
+		);
 	}, [
 		selectedSchoolLevel,
 		selectedLocation,

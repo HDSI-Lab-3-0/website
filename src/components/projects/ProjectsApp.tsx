@@ -10,33 +10,74 @@ interface ProjectsAppProps {
 
 export default function ProjectsApp({ projects }: ProjectsAppProps) {
 	console.log("ProjectsApp component loaded with", projects.length, "projects");
-	const [selectedTags, setSelectedTags] = useState<string[]>([]);
+	const [selectedSchoolLevel, setSelectedSchoolLevel] = useState<Set<string>>(
+		new Set([])
+	);
+	const [selectedLocation, setSelectedLocation] = useState<Set<string>>(new Set([]));
+	const [selectedType, setSelectedType] = useState<Set<string>>(new Set([]));
+	const [selectedSponsor, setSelectedSponsor] = useState<Set<string>>(new Set([]));
+	const [selectedCost, setSelectedCost] = useState<Set<string>>(new Set([]));
+	const [selectedOther, setSelectedOther] = useState<Set<string>>(new Set([]));
 
+	// Helper function to check if a project's tags match any selected tags in a category
+	const matchesCategory = (
+		projectTags: string[],
+		selectedTags: Set<string>
+	): boolean => {
+		if (selectedTags.size === 0) return true;
+		return Array.from(selectedTags).some((selectedTag) =>
+			projectTags.some((pt) => pt.toLowerCase() === selectedTag.toLowerCase())
+		);
+	};
+
+	const filteredProjects = useMemo(() => {
+		return projects.filter((project) => {
+			const projectTags = project.data.tags || [];
+			return (
+				matchesCategory(projectTags, selectedSchoolLevel) &&
+				matchesCategory(projectTags, selectedLocation) &&
+				matchesCategory(projectTags, selectedType) &&
+				matchesCategory(projectTags, selectedSponsor) &&
+				matchesCategory(projectTags, selectedCost) &&
+				matchesCategory(projectTags, selectedOther)
+			);
+		});
+	}, [projects, selectedSchoolLevel, selectedLocation, selectedType, selectedSponsor, selectedCost, selectedOther]);
+
+	// Update active filters count in the hero section
 	useEffect(() => {
 		const activeFiltersElement = document.getElementById("active-filters");
 		if (activeFiltersElement) {
-			activeFiltersElement.textContent = selectedTags.length.toString();
+			const totalSelected =
+				selectedSchoolLevel.size +
+				selectedLocation.size +
+				selectedType.size +
+				selectedSponsor.size +
+				selectedCost.size +
+				selectedOther.size;
+			activeFiltersElement.textContent = totalSelected.toString();
 		}
-	}, [selectedTags]);
-
-	const filteredProjects = useMemo(() => {
-		if (selectedTags.length === 0) {
-			return projects;
-		}
-
-		return projects.filter((project) => {
-			const projectTags = project.data.tags || [];
-			return selectedTags.some((tag) =>
-				projectTags.some((pt) => pt.toLowerCase() === tag.toLowerCase())
-			);
-		});
-	}, [projects, selectedTags]);
+	}, [selectedSchoolLevel, selectedLocation, selectedType, selectedSponsor, selectedCost, selectedOther]);
 
 	return (
 		<HeroUIProvider>
 			<div className="flex flex-col gap-8">
 				<ProjectFilters
-					onFiltersChange={setSelectedTags}
+					onFiltersChange={(
+						schoolLevel,
+						location,
+						type,
+						sponsor,
+						cost,
+						other
+					) => {
+						setSelectedSchoolLevel(schoolLevel);
+						setSelectedLocation(location);
+						setSelectedType(type);
+						setSelectedSponsor(sponsor);
+						setSelectedCost(cost);
+						setSelectedOther(other);
+					}}
 					availableProjects={projects}
 				/>
 

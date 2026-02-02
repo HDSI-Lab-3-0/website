@@ -176,6 +176,28 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 					display: none;
 				}
 			}
+			
+			/* Header two-column layout */
+			.header-metadata-grid {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 2rem;
+				margin-top: 1rem;
+			}
+			
+			.header-metadata-left,
+			.header-metadata-right {
+				display: flex;
+				flex-direction: column;
+				gap: 1.5rem;
+			}
+			
+			@media (max-width: 768px) {
+				.header-metadata-grid {
+					grid-template-columns: 1fr;
+					gap: 1.5rem;
+				}
+			}
 		</style>
 	</head>
 
@@ -246,50 +268,63 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 										<p>{relevance}</p>
 									</div>
 								)}
-								{sponsorList && sponsorList.length > 0 && (
-									<div class="my-8 py-6 border-t border-[rgba(var(--gray-light),0.5)]">
-										<div class="flex items-center mb-4 gap-2">
-											<Icon icon="Building" size={20} className="flex-shrink-0" style={{ color: '#8b5cf6' }} />
-											<h2 class="m-0 text-[1.25em] font-semibold text-[rgb(var(--gray-dark))]">Sponsor</h2>
-										</div>
-										<ul class="list-none p-0 m-0 flex flex-wrap gap-3">
-											{sponsorList.map((s) => (
-												<li class="inline-flex items-center gap-[0.4em] py-[0.5em] px-[0.9em] bg-[rgba(139,92,246,0.1)] border border-[rgba(139,92,246,0.3)] rounded-lg text-[0.95em] font-medium text-[rgb(var(--gray-dark))]">
-													<span class="whitespace-nowrap">{s}</span>
-												</li>
-											))}
-										</ul>
-									</div>
-								)}
-								{allTagsWithCategories && allTagsWithCategories.length > 0 && (
-									<div class="my-10 py-6 border-t border-[rgba(var(--gray-light),0.5)]">
-										<div class="flex items-center mb-6 gap-2">
-											<Icon icon="Tag" size={20} className="flex-shrink-0 opacity-80" style={{ color: 'rgb(var(--gray))' }} />
-											<h2 class="m-0 text-[1.25em] font-semibold text-[rgb(var(--gray-dark))]">Tags</h2>
-										</div>
-										<div class="flex flex-wrap gap-3 mt-2">
-											{allTagsWithCategories.map((tagInfo) => (
-												<div class="inline-flex items-center gap-[0.4em] py-[0.4em] px-[0.9em] bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.15)] rounded-full text-[0.9em] font-medium text-[rgb(var(--gray-dark))] transition-all duration-200 hover:bg-[rgba(var(--gray-light),0.3)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--gray),0.1)]" style={{ borderColor: tagInfo.color + '40', background: tagInfo.color + '10' }}>
-													<Icon icon={tagInfo.icon} size={14} className="flex-shrink-0 opacity-80" style={{ color: tagInfo.color }} />
-													<span class="whitespace-nowrap">{tagInfo.tag}</span>
-													<span class="w-px h-[1em] bg-[rgba(var(--gray),0.2)] mx-1"></span>
-													<span class="text-[0.75em] opacity-70 uppercase tracking-wider" style={{ color: tagInfo.color }}>{tagInfo.category}</span>
+								{/* Two-column header layout */}
+								{(sponsorList.length > 0 || allTagsWithCategories.length > 0 || estimated_time) && (
+									<div class="header-metadata-grid">
+										{/* Left column: Sponsor information and reading time */}
+										<div class="header-metadata-left">
+											{sponsorList && sponsorList.length > 0 && (
+												<div class="pt-4 border-t border-[rgba(var(--gray-light),0.5)]">
+													<div class="flex items-center mb-3 gap-2">
+														<Icon icon="Building" size={18} className="flex-shrink-0" style={{ color: '#8b5cf6' }} />
+														<h2 class="m-0 text-[1.1em] font-semibold text-[rgb(var(--gray-dark))]">Sponsor</h2>
+													</div>
+													<ul class="list-none p-0 m-0 flex flex-wrap gap-2">
+														{sponsorList.map((s) => (
+															<li class="inline-flex items-center gap-[0.4em] py-[0.4em] px-[0.8em] bg-[rgba(139,92,246,0.1)] border border-[rgba(139,92,246,0.3)] rounded-lg text-[0.9em] font-medium text-[rgb(var(--gray-dark))]">
+																<span class="whitespace-nowrap">{s}</span>
+															</li>
+														))}
+													</ul>
 												</div>
-											))}
+											)}
+											
+											{(estimated_time || true) && (
+												<div class="py-2 border-t border-[rgba(var(--gray-light),0.5)] flex flex-wrap gap-2 items-center">
+													{estimated_time && (
+														<div class="inline-flex items-center gap-[0.4em] py-1.5 px-3 bg-[rgba(var(--accent),0.1)] border border-[rgba(var(--accent),0.3)] rounded-full text-[0.85em] font-medium text-[var(--accent)] transition-all duration-200 hover:bg-[rgba(var(--accent),0.15)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--accent),0.2)]">
+															<Icon icon="Clock" size={14} className="flex-shrink-0 opacity-90" />
+															<span>{estimated_time} min project</span>
+														</div>
+													)}
+													<div class="inline-flex items-center gap-[0.4em] py-1.5 px-3 bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.2)] rounded-full text-[0.85em] font-medium text-[rgb(var(--gray-dark))]" id="reading-time-indicator">
+														<Icon icon="BookOpen" size={14} className="flex-shrink-0 opacity-90" />
+														<span id="reading-time-text">Calculating...</span>
+													</div>
+												</div>
+											)}
 										</div>
-									</div>
-								)}
-								{estimated_time && (
-									<div class="my-6 flex flex-wrap gap-3 items-center">
-										{estimated_time && (
-											<div class="inline-flex items-center gap-[0.4em] py-2 px-4 bg-[rgba(var(--accent),0.1)] border border-[rgba(var(--accent),0.3)] rounded-full text-[0.9em] font-medium text-[var(--accent)] transition-all duration-200 hover:bg-[rgba(var(--accent),0.15)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--accent),0.2)]">
-												<Icon icon="Clock" size={16} className="flex-shrink-0 opacity-90" />
-												<span>{estimated_time} min project</span>
-											</div>
-										)}
-										<div class="inline-flex items-center gap-[0.4em] py-2 px-4 bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.2)] rounded-full text-[0.9em] font-medium text-[rgb(var(--gray-dark))]" id="reading-time-indicator">
-											<Icon icon="BookOpen" size={16} className="flex-shrink-0 opacity-90" />
-											<span id="reading-time-text">Calculating...</span>
+										
+										{/* Right column: Tags only */}
+										<div class="header-metadata-right">
+											{allTagsWithCategories && allTagsWithCategories.length > 0 && (
+												<div class="py-4 border-t border-[rgba(var(--gray-light),0.5)]">
+													<div class="flex items-center mb-3 gap-2">
+														<Icon icon="Tag" size={18} className="flex-shrink-0 opacity-80" style={{ color: 'rgb(var(--gray))' }} />
+														<h2 class="m-0 text-[1.1em] font-semibold text-[rgb(var(--gray-dark))]">Tags</h2>
+													</div>
+													<div class="flex flex-wrap gap-2">
+														{allTagsWithCategories.map((tagInfo) => (
+															<div class="inline-flex items-center gap-[0.4em] py-[0.35em] px-[0.8em] bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.15)] rounded-full text-[0.85em] font-medium text-[rgb(var(--gray-dark))] transition-all duration-200 hover:bg-[rgba(var(--gray-light),0.3)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--gray),0.1)]" style={{ borderColor: tagInfo.color + '40', background: tagInfo.color + '10' }}>
+																<Icon icon={tagInfo.icon} size={12} className="flex-shrink-0 opacity-80" style={{ color: tagInfo.color }} />
+																<span class="whitespace-nowrap">{tagInfo.tag}</span>
+																<span class="w-px h-[1em] bg-[rgba(var(--gray),0.2)] mx-1"></span>
+																<span class="text-[0.7em] opacity-70 uppercase tracking-wider" style={{ color: tagInfo.color }}>{tagInfo.category}</span>
+															</div>
+														))}
+													</div>
+												</div>
+											)}
 										</div>
 									</div>
 								)}
