@@ -18,6 +18,14 @@ type Props = CollectionEntry<'projects'>['data'] & {
 
 const { title, description, pubDate, updatedDate, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true } = Astro.props;
 
+// Extract cost from tags
+function getCostFromTags(projectTags: string[] | undefined): string | null {
+	if (!projectTags) return null;
+	const costTags = tagsData.categories.Cost || [];
+	const cost = projectTags.find(tag => costTags.includes(tag));
+	return cost || null;
+}
+
 // Get icon for each category
 function getCategoryIcon(category: string): string {
 	switch (category) {
@@ -106,12 +114,104 @@ function getAllTagsWithCategories(projectTags: string[] | undefined) {
 // Split sponsor by commas if present
 const sponsorList = sponsor ? sponsor.split(',').map(s => s.trim()) : [];
 const allTagsWithCategories = getAllTagsWithCategories(tags);
+
+// Get primary tags (Location, School Level)
+const primaryTags = allTagsWithCategories.filter(t =>
+	t.category === 'Location' || t.category === 'School Level'
+);
+
+// Get secondary tags (Sponsor, Cost, Type, Other - excluding Location and School Level)
+const secondaryTags = allTagsWithCategories.filter(t =>
+	!['Location', 'School Level'].includes(t.category)
+);
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
+			/* New header styles */
+			.text-muted {
+				color: rgb(var(--gray));
+			}
+
+			/* Header layout */
+			.project-header {
+				text-align: left;
+				padding-bottom: 0;
+			}
+
+			.header-metadata-row {
+				margin-bottom: 0.5rem;
+			}
+
+			.header-title-row {
+				gap: 1rem;
+			}
+
+			@media (max-width: 768px) {
+				.header-title-row {
+					flex-direction: column;
+					gap: 1rem;
+				}
+
+				.header-actions {
+					width: 100%;
+					justify-content: flex-start;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.header-actions {
+					flex-direction: column;
+					align-items: stretch;
+				}
+
+				.cta-primary,
+				.cta-secondary {
+					width: 100%;
+					justify-content: center;
+				}
+			}
+
+			/* Tag pills */
+			.tag-pill {
+				font-size: 0.875rem;
+				padding: 0.5rem 1rem;
+				cursor: pointer;
+			}
+
+			.tag-pill:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			}
+
+			.tag-pill-secondary {
+				font-size: 0.75rem;
+				padding: 0.375rem 0.75rem;
+				color: rgba(var(--gray-dark), 0.7);
+			}
+
+			/* CTA buttons */
+			.cta-primary {
+				background: rgb(var(--accent));
+				border: none;
+			}
+
+			.cta-primary:hover {
+				background: rgba(var(--accent), 0.85);
+			}
+
+			.cta-secondary {
+				background: transparent;
+				border: 1px solid rgba(var(--gray), 0.3);
+				transition: all 0.2s ease;
+			}
+
+			.cta-secondary:hover {
+				background: rgba(var(--gray-light), 0.2);
+			}
+
 			/* Responsive layout adjustments */
 			@media (min-width: 1200px) {
 				.w-\[800px\] {
@@ -176,28 +276,6 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 					display: none;
 				}
 			}
-			
-			/* Header two-column layout */
-			.header-metadata-grid {
-				display: grid;
-				grid-template-columns: 1fr 1fr;
-				gap: 2rem;
-				margin-top: 1rem;
-			}
-			
-			.header-metadata-left,
-			.header-metadata-right {
-				display: flex;
-				flex-direction: column;
-				gap: 1.5rem;
-			}
-			
-			@media (max-width: 768px) {
-				.header-metadata-grid {
-					grid-template-columns: 1fr;
-					gap: 1.5rem;
-				}
-			}
 		</style>
 	</head>
 
@@ -228,106 +306,89 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 									<Image width={1020} height={510} src={imageGif} alt="" class="block mx-auto rounded-xl shadow-[var(--box-shadow)]" />
 								</div>
 							)}
-							<div class="mb-8 pb-6 text-center leading-[1.2]">
-								<div class="mb-3 text-[rgb(var(--gray))] text-[0.95rem] leading-[1.6]">
-									<FormattedDate date={pubDate} />
-									{
-										updatedDate && (
-											<div class="italic mt-2 text-[0.9rem]">
-												Last updated on <FormattedDate date={updatedDate} />
-											</div>
-										)
-									}
+							{/* New header section */}
+							<div class="project-header mb-[3.5rem]">
+								{/* Metadata row - Date, duration, cost */}
+								<div class="header-metadata-row mb-2">
+									<span class="text-muted text-xs font-medium">
+										<FormattedDate date={pubDate} />
+										{estimated_time && (
+											<> · {estimated_time} min</>
+										)}
+										{secondaryTags.length > 0 && secondaryTags.find(t => t.category === 'Cost') && (
+											<> · {secondaryTags.find(t => t.category === 'Cost')?.tag}</>
+										)}
+									</span>
 								</div>
-								{showTitle && <h1 class="m-0 mb-3 text-[2.5rem] leading-[1.1]">{title}</h1>}
-								<hr />
-								{links && (links.lessonPlan || links.materials) && (
-									<div class="my-8 p-6 bg-[rgba(var(--accent-light),0.1)] rounded-xl border border-[rgba(var(--accent),0.1)]">
-										<h2 class="mt-0 mb-4 text-[1.3em] text-[rgb(var(--black))]">Resources</h2>
-										<ul class="list-none p-0 m-0">
-											{links.lessonPlan && (
-												<li class="my-3">
-													<a href={links.lessonPlan} target="_blank" rel="noopener noreferrer" class="text-[rgb(var(--accent))] no-underline hover:underline">
-														<Icon icon="FileText" size={16} style={{ display: 'inline', marginRight: '0.5em' }} /> Lesson Plan
-													</a>
-												</li>
-											)}
-											{links.materials && (
-												<li class="my-3 last:mb-0">
-													<a href={links.materials} target="_blank" rel="noopener noreferrer" class="text-[rgb(var(--accent))] no-underline hover:underline">
-														<Icon icon="Package" size={16} style={{ display: 'inline', marginRight: '0.5em' }} /> Materials
-													</a>
-												</li>
-											)}
-										</ul>
-									</div>
-								)}
-								{relevance && (
-									<div class="my-6 p-4 bg-[rgba(var(--gray-light),0.1)] rounded-lg italic">
-										<h2 class="mt-0 text-[1.2em] not-italic">Relevance</h2>
-										<p>{relevance}</p>
-									</div>
-								)}
-								{/* Two-column header layout */}
-								{(sponsorList.length > 0 || allTagsWithCategories.length > 0 || estimated_time) && (
-									<div class="header-metadata-grid">
-										{/* Left column: Sponsor information and reading time */}
-										<div class="header-metadata-left">
-											{sponsorList && sponsorList.length > 0 && (
-												<div class="pt-4 border-t border-[rgba(var(--gray-light),0.5)]">
-													<div class="flex items-center mb-3 gap-2">
-														<Icon icon="Building" size={18} className="flex-shrink-0" style={{ color: '#8b5cf6' }} />
-														<h2 class="m-0 text-[1.1em] font-semibold text-[rgb(var(--gray-dark))]">Sponsor</h2>
-													</div>
-													<ul class="list-none p-0 m-0 flex flex-wrap gap-2">
-														{sponsorList.map((s) => (
-															<li class="inline-flex items-center gap-[0.4em] py-[0.4em] px-[0.8em] bg-[rgba(139,92,246,0.1)] border border-[rgba(139,92,246,0.3)] rounded-lg text-[0.9em] font-medium text-[rgb(var(--gray-dark))]">
-																<span class="whitespace-nowrap">{s}</span>
-															</li>
-														))}
-													</ul>
-												</div>
-											)}
-											
-											{(estimated_time || true) && (
-												<div class="py-2 border-t border-[rgba(var(--gray-light),0.5)] flex flex-wrap gap-2 items-center">
-													{estimated_time && (
-														<div class="inline-flex items-center gap-[0.4em] py-1.5 px-3 bg-[rgba(var(--accent),0.1)] border border-[rgba(var(--accent),0.3)] rounded-full text-[0.85em] font-medium text-[var(--accent)] transition-all duration-200 hover:bg-[rgba(var(--accent),0.15)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--accent),0.2)]">
-															<Icon icon="Clock" size={14} className="flex-shrink-0 opacity-90" />
-															<span>{estimated_time} min project</span>
-														</div>
-													)}
-													<div class="inline-flex items-center gap-[0.4em] py-1.5 px-3 bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.2)] rounded-full text-[0.85em] font-medium text-[rgb(var(--gray-dark))]" id="reading-time-indicator">
-														<Icon icon="BookOpen" size={14} className="flex-shrink-0 opacity-90" />
-														<span id="reading-time-text">Calculating...</span>
-													</div>
-												</div>
-											)}
-										</div>
+
+								{/* Title with CTA */}
+								<div class="header-title-row mb-6">
+									<div class="flex items-start justify-between">
+										<h1 class="m-0 text-[2.5rem] leading-[1.2] text-[rgb(var(--black))]">{title}</h1>
 										
-										{/* Right column: Tags only */}
-										<div class="header-metadata-right">
-											{allTagsWithCategories && allTagsWithCategories.length > 0 && (
-												<div class="py-4 border-t border-[rgba(var(--gray-light),0.5)]">
-													<div class="flex items-center mb-3 gap-2">
-														<Icon icon="Tag" size={18} className="flex-shrink-0 opacity-80" style={{ color: 'rgb(var(--gray))' }} />
-														<h2 class="m-0 text-[1.1em] font-semibold text-[rgb(var(--gray-dark))]">Tags</h2>
-													</div>
-													<div class="flex flex-wrap gap-2">
-														{allTagsWithCategories.map((tagInfo) => (
-															<div class="inline-flex items-center gap-[0.4em] py-[0.35em] px-[0.8em] bg-[rgba(var(--gray-light),0.15)] border border-[rgba(var(--gray),0.15)] rounded-full text-[0.85em] font-medium text-[rgb(var(--gray-dark))] transition-all duration-200 hover:bg-[rgba(var(--gray-light),0.3)] hover:-translate-y-px hover:shadow-[0_2px_4px_rgba(var(--gray),0.1)]" style={{ borderColor: tagInfo.color + '40', background: tagInfo.color + '10' }}>
-																<Icon icon={tagInfo.icon} size={12} className="flex-shrink-0 opacity-80" style={{ color: tagInfo.color }} />
-																<span class="whitespace-nowrap">{tagInfo.tag}</span>
-																<span class="w-px h-[1em] bg-[rgba(var(--gray),0.2)] mx-1"></span>
-																<span class="text-[0.7em] opacity-70 uppercase tracking-wider" style={{ color: tagInfo.color }}>{tagInfo.category}</span>
-															</div>
-														))}
-													</div>
+									</div>
+								</div>
+
+								{/* Sponsor display - below title */}
+								{sponsorList.length > 0 && (
+									<div class="header-sponsor mb-8">
+										<span class="text-sm text-[rgb(var(--gray))]">
+											Sponsored by <span class="font-medium" style={{ color: '#8b5cf6' }}>{sponsorList.join(', ')}</span>
+										</span>
+									</div>
+								)}
+
+								{/* Primary tags - Location, School Level */}
+								{primaryTags.length > 0 && (
+									<div class="header-tags-primary mb-6">
+										<div class="flex flex-wrap gap-3">
+											{primaryTags.map((tagInfo) => (
+												<div
+													class="tag-pill inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
+													style={{
+														background: tagInfo.color + '15',
+														border: `1px solid ${tagInfo.color}40`,
+														color: tagInfo.color
+													}}
+												>
+													<Icon icon={tagInfo.icon} size={14} className="opacity-70 flex-shrink-0" style={{ color: tagInfo.color }} />
+													<span class="whitespace-nowrap">{tagInfo.tag}</span>
 												</div>
-											)}
+											))}
 										</div>
 									</div>
 								)}
+
+								{/* Secondary tags - Sponsor, Cost, Type, Other (subtle) */}
+								{secondaryTags.length > 0 && (
+									<div class="header-tags-secondary">
+										<div class="flex flex-wrap gap-2">
+											{secondaryTags.map((tagInfo) => (
+												<div
+													class="tag-pill-secondary inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all hover:bg-[rgba(var(--gray-light),0.25)]"
+													style={{
+														background: tagInfo.color + '08',
+														border: `1px solid ${tagInfo.color}25`,
+														color: 'rgba(var(--gray-dark),0.7)'
+													}}
+												>
+													<Icon icon={tagInfo.icon} size={11} className="opacity-60 flex-shrink-0" style={{ color: tagInfo.color }} />
+													<span class="whitespace-nowrap">{tagInfo.tag}</span>
+												</div>
+											))}
+										</div>
+									</div>
+								)}
+
+								{/* Relevance section */}
+								{relevance && (
+									<div class="my-8 p-5 bg-[rgba(var(--gray-light),0.1)] rounded-lg border border-[rgba(var(--gray-light),0.3)]">
+										<h2 class="mt-0 mb-3 text-[1.1rem] font-semibold text-[rgb(var(--gray-dark))]">Relevance</h2>
+										<p class="m-0 text-[rgb(var(--gray))] leading-[1.6]">{relevance}</p>
+									</div>
+								)}
+							</div>
+
 							</div>
 							<div class="markdown-content">
 								<slot />
