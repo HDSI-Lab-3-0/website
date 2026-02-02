@@ -9,7 +9,7 @@ interface ProjectsAppProps {
 }
 
 export default function ProjectsApp({ projects }: ProjectsAppProps) {
-	console.log('ProjectsApp component loaded with', projects.length, 'projects');
+	console.log("ProjectsApp component loaded with", projects.length, "projects");
 	const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
 	useEffect(() => {
@@ -34,17 +34,17 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 
 	return (
 		<HeroUIProvider>
-			<div className="flex flex-col lg:flex-row gap-10 items-start">
-				<aside className="w-full lg:w-64 lg:flex-none lg:sticky lg:top-24 lg:h-fit lg:z-10">
-					<ProjectFilters
-						onFiltersChange={setSelectedTags}
-						availableProjects={projects}
-					/>
-				</aside>
+			<div className="flex flex-col gap-8">
+				<ProjectFilters
+					onFiltersChange={setSelectedTags}
+					availableProjects={projects}
+				/>
 
 				<section className="flex-1 min-w-0 w-full">
 					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-						<h2 className="text-2xl font-semibold text-slate-900">Available Projects</h2>
+						<h2 className="text-2xl font-semibold text-slate-900">
+							Available Projects
+						</h2>
 						<span className="text-sm text-slate-600">
 							Showing {filteredProjects.length} of {projects.length} projects
 						</span>

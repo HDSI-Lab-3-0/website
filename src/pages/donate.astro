@@ -19,18 +19,71 @@ import { SITE_DESCRIPTION } from '../consts.ts';
           <h1>Donate</h1>
           <p class="page-description">Support our work and help us continue our mission</p>
         </header>
-        
-        <div class="content-section">
-          <p class="lead-text">Your generous donations help us continue our research and educational initiatives. We appreciate your support in advancing our mission.</p>
-          
-          <div class="donation-info">
-            <h2>How to Donate</h2>
-            <p>Donation mechanisms and information will be available here soon.</p>
-          </div>
+
+        <div class="donate-container ">
+          <p>
+            Your generous donations help us continue our research and educational
+            initiatives. We appreciate your support in advancing our mission.
+          </p>
+
+          <a
+            href="https://scids.ucsd.edu/giving/index.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="donate-button"
+          >
+            Donate via UCSD Giving Page
+          </a>
         </div>
       </div>
     </main>
 
     <Footer />
+
+    <style>
+      .donate-container {
+        margin-top: 2rem;
+        text-align: center;
+      }
+
+      .donate-container p {
+        font-size: 1.125rem;
+        line-height: 1.75;
+        color: rgb(71, 85, 105);
+        margin-bottom: 2rem;
+        text-align: center;
+        
+      }
+
+      .donate-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem 2rem;
+        background-color: rgb(37, 99, 235);
+        color: white;
+        text-decoration: none;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: background-color 0.2s, transform 0.2s;
+      }
+
+      .donate-button:hover {
+        background-color: rgb(29, 78, 216);
+      }
+
+      @media (max-width: 640px) {
+        .donate-container p {
+          font-size: 1rem;
+        }
+
+        .donate-button {
+          width: 100%;
+          padding: 0.875rem 1.5rem;
+          font-size: 1rem;
+        }
+      }
+    </style>
   </body>
 </html>

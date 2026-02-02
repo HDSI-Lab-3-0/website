@@ -1,59 +1,77 @@
 import { useState, useEffect } from "react";
 import type { CollectionEntry } from "astro:content";
+import { Select, SelectItem } from "@heroui/react";
 
 interface EventFiltersProps {
 	onFiltersChange: (selectedTags: string[]) => void;
 	availableEvents: CollectionEntry<"events">[];
 }
 
-// Get all unique tags from available events
-function getAvailableTags(events: CollectionEntry<"events">[]): Set<string> {
-	const tags = new Set<string>();
+// Get all unique tags from available events, organized by category
+function getAvailableTagsByCategory(
+	events: CollectionEntry<"events">[]
+): Record<string, Set<string>> {
+	const tagsByCategory: Record<string, Set<string>> = {};
 
-	events.forEach((event) => {
-		if (event.data.eventTags) {
-			event.data.eventTags.forEach((tag) => tags.add(tag));
-		}
-	});
-
-	return tags;
-}
-
-// Categorize tags for better organization
-function categorizeTags(tags: Set<string>): Record<string, string[]> {
-	const categorized: Record<string, string[]> = {};
-	
 	// Define categories
 	const categories = {
-		"Audience": ["K-12 Students", "K-12 Teachers", "UCSD Students", "UCSD Faculty", "General Public"],
-		"Type": ["Workshop", "Seminar", "Exhibition", "Competition", "Conference", "Training"],
-		"Location": ["in classroom", "out of classroom", "at UCSD", "online", "hybrid"],
-		"Topic": ["STEM", "Engineering", "Science", "Mathematics", "Technology", "Arts"],
+		Audience: [
+			"K-12 Students",
+			"K-12 Teachers",
+			"UCSD Students",
+			"UCSD Faculty",
+			"General Public",
+		],
+		Type: ["Workshop", "Seminar", "Exhibition", "Competition", "Conference", "Training"],
+		Location: ["in classroom", "out of classroom", "at UCSD", "online", "hybrid"],
+		Topic: ["STEM", "Engineering", "Science", "Mathematics", "Technology", "Arts"],
 	};
 
-	// Categorize tags
-	const usedTags = new Set<string>();
-	
-	Object.entries(categories).forEach(([categoryName, categoryTags]) => {
-		const matchingTags = Array.from(tags).filter((tag) =>
-			categoryTags.some((catTag) => catTag.toLowerCase() === tag.toLowerCase())
-		);
-		
-		if (matchingTags.length > 0) {
-			categorized[categoryName] = matchingTags;
-			matchingTags.forEach((tag) => usedTags.add(tag.toLowerCase()));
+	// Initialize category sets
+	Object.keys(categories).forEach((cat) => {
+		tagsByCategory[cat] = new Set();
+	});
+
+	// Categorize tags from all events
+	events.forEach((event) => {
+		if (event.data.eventTags) {
+			event.data.eventTags.forEach((tag) => {
+				for (const [category, categoryTags] of Object.entries(categories)) {
+					if (
+						categoryTags.some(
+							(catTag) => catTag.toLowerCase() === tag.toLowerCase()
+						)
+					) {
+						tagsByCategory[category].add(tag);
+						break;
+					}
+				}
+			});
 		}
 	});
 
 	// Add remaining tags to "Other" category
-	const otherTags = Array.from(tags).filter(
-		(tag) => !usedTags.has(tag.toLowerCase())
-	);
-	if (otherTags.length > 0) {
-		categorized["Other"] = otherTags;
+	const usedTags = new Set<string>();
+	Object.values(tagsByCategory).forEach((tags) => {
+		tags.forEach((tag) => usedTags.add(tag.toLowerCase()));
+	});
+
+	const otherTags = new Set<string>();
+	events.forEach((event) => {
+		if (event.data.eventTags) {
+			event.data.eventTags.forEach((tag) => {
+				if (!usedTags.has(tag.toLowerCase())) {
+					otherTags.add(tag);
+				}
+			});
+		}
+	});
+
+	if (otherTags.size > 0) {
+		tagsByCategory["Other"] = otherTags;
 	}
 
-	return categorized;
+	return tagsByCategory;
 }
 
 const CATEGORY_PRIORITY = [
@@ -68,133 +86,146 @@ export default function EventFilters({
 	onFiltersChange,
 	availableEvents,
 }: EventFiltersProps) {
-	const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
-	const [isOpen, setIsOpen] = useState(true);
-
-	const availableTags = getAvailableTags(availableEvents);
-	const categorizedTags = categorizeTags(availableTags);
-
-	useEffect(() => {
-		onFiltersChange(Array.from(selectedTags));
-	}, [selectedTags, onFiltersChange]);
-
-	const toggleTag = (tag: string) => {
-		const newSelectedTags = new Set(selectedTags);
-		if (newSelectedTags.has(tag)) {
-			newSelectedTags.delete(tag);
-		} else {
-			newSelectedTags.add(tag);
-		}
-		setSelectedTags(newSelectedTags);
-	};
-
-	const clearAllFilters = () => {
-		setSelectedTags(new Set());
-	};
-
-	const orderedCategories = Object.entries(categorizedTags).sort(
-		([a], [b]) => {
-			const indexA = CATEGORY_PRIORITY.indexOf(a);
-			const indexB = CATEGORY_PRIORITY.indexOf(b);
-			if (indexA === -1 && indexB === -1) return a.localeCompare(b);
-			if (indexA === -1) return 1;
-			if (indexB === -1) return -1;
-			return indexA - indexB;
-		}
+	// State for each category
+	const [selectedAudience, setSelectedAudience] = useState<Set<string>>(
+		new Set([])
 	);
+	const [selectedType, setSelectedType] = useState<Set<string>>(new Set([]));
+	const [selectedLocation, setSelectedLocation] = useState<Set<string>>(
+		new Set([])
+	);
+	const [selectedTopic, setSelectedTopic] = useState<Set<string>>(new Set([]));
+	const [selectedOther, setSelectedOther] = useState<Set<string>>(new Set([]));
+
+	const availableTagsByCategory = getAvailableTagsByCategory(availableEvents);
+
+	// Combine all selected tags and trigger callback
+	useEffect(() => {
+		const allSelectedTags = [
+			...Array.from(selectedAudience),
+			...Array.from(selectedType),
+			...Array.from(selectedLocation),
+			...Array.from(selectedTopic),
+			...Array.from(selectedOther),
+		];
+		onFiltersChange(allSelectedTags);
+	}, [
+		selectedAudience,
+		selectedType,
+		selectedLocation,
+		selectedTopic,
+		selectedOther,
+		onFiltersChange,
+	]);
+
+	const hasFilters =
+		selectedAudience.size +
+			selectedType.size +
+			selectedLocation.size +
+			selectedTopic.size +
+			selectedOther.size >
+		0;
+
+	const renderCategoryDropdown = (
+		category: string,
+		tags: Set<string>,
+		selected: Set<string>,
+		setSelected: (s: Set<string>) => Set<string>
+	) => {
+		const sortedTags = Array.from(tags)
+			.filter((tag) => tag.trim().length > 0)
+			.sort((a, b) => a.localeCompare(b));
+
+		if (sortedTags.length === 0) return null;
+
+		return (
+			<div key={category} className="flex-1 min-w-[200px]">
+				<Select
+					placeholder={`Select ${category.toLowerCase()}...`}
+					selectionMode="multiple"
+					selectedKeys={selected}
+					onSelectionChange={(keys) => setSelected(new Set(keys))}
+					label={category}
+					classNames={{
+						base: "w-full",
+						trigger: "min-h-[44px]",
+					}}
+					disallowEmptySelection={false}
+				>
+					{sortedTags.map((tag) => (
+						<SelectItem key={tag} textValue={tag}>
+							{tag}
+						</SelectItem>
+					))}
+				</Select>
+			</div>
+		);
+	};
 
 	return (
 		<div className="w-full">
-			<div className="lg:hidden mb-4">
-				<button
-					onClick={() => setIsOpen(!isOpen)}
-					className="w-full flex items-center justify-between border border-slate-200 rounded-2xl px-4 py-4 min-h-[48px] hover:border-slate-300 hover:bg-slate-50 transition-colors touch-manipulation"
-				>
-					<span className="font-semibold text-slate-900 text-base">Event Filters</span>
-					<div className="flex items-center gap-2">
-						{selectedTags.size > 0 && (
-							<span className="bg-slate-900 text-white text-sm px-3 py-1.5 rounded-full min-h-[28px] flex items-center justify-center">
-								{selectedTags.size}
-							</span>
-						)}
-						<svg
-							className={`w-5 h-5 text-slate-600 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								strokeWidth={2}
-								d="M19 9l-7 7-7-7"
-							/>
-						</svg>
-					</div>
-				</button>
-			</div>
-
-			<div
-				className={`${isOpen ? "block" : "hidden"} lg:block bg-white border border-slate-200 rounded-2xl shadow-sm p-5 lg:relative lg:top-0`}
-			>
-				<div className="flex items-center justify-between mb-4">
-					<h3 className="text-base font-semibold text-slate-900 tracking-tight">Filter Events</h3>
-					{selectedTags.size > 0 && (
+			<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+				<div>
+					<h3 className="text-lg font-semibold text-slate-900">Filter Events</h3>
+					{hasFilters && (
 						<button
-							onClick={clearAllFilters}
+							onClick={() => {
+								setSelectedAudience(new Set<string>());
+								setSelectedType(new Set<string>());
+								setSelectedLocation(new Set<string>());
+								setSelectedTopic(new Set<string>());
+								setSelectedOther(new Set<string>());
+							}}
 							className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
 						>
-							Clear All
+							Clear all filters
 						</button>
 					)}
 				</div>
-
-				<div className="space-y-5">
-					{orderedCategories.map(([category, tags]) => (
-						<div key={category} className="group">
-							<div className="flex items-center mb-3">
-								<div className="h-px bg-slate-200 flex-1 mr-3"></div>
-								<h3 className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-[0.2em] !whitespace-nowrap !leading-none !m-0">
-									{category}
-								</h3>
-								<div className="h-px bg-slate-200 flex-1 ml-3"></div>
-							</div>
-							<div className="flex flex-wrap gap-3">
-								{tags
-									.filter((tag) => tag.trim().length > 0)
-									.sort((a, b) => a.localeCompare(b))
-									.map((tag) => (
-										<button
-											key={tag}
-											type="button"
-											onClick={() => toggleTag(tag)}
-											className={`px-4 py-2 min-h-[44px] min-w-[44px] rounded-full border text-sm font-semibold tracking-wide transition-all duration-200 touch-manipulation ${
-												selectedTags.has(tag)
-													? "border-slate-900 bg-slate-900 text-white shadow-md transform scale-105"
-													: "border-slate-200 text-slate-600 hover:border-slate-400 hover:text-slate-900 hover:bg-slate-50 active:scale-95"
-											}`}
-										>
-											{tag}
-										</button>
-									))}
-							</div>
-						</div>
-					))}
-				</div>
-
-				{availableTags.size === 0 && (
-					<div className="text-center py-8">
-						<div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 mb-3">
-							<svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-							</svg>
-						</div>
-						<p className="text-blue-500 text-sm font-medium">
-							No event tags available
-						</p>
-					</div>
-				)}
 			</div>
+
+			{Object.keys(availableTagsByCategory).length > 0 ? (
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+					{CATEGORY_PRIORITY.map((category) => {
+						const tags = availableTagsByCategory[category];
+						if (!tags || tags.size === 0) return null;
+
+						let selected: Set<string>;
+						let setSelected: (s: Set<string>) => Set<string>;
+
+						switch (category) {
+							case "Audience":
+								selected = selectedAudience;
+								setSelected = setSelectedAudience;
+								break;
+							case "Type":
+								selected = selectedType;
+								setSelected = setSelectedType;
+								break;
+							case "Location":
+								selected = selectedLocation;
+								setSelected = setSelectedLocation;
+								break;
+							case "Topic":
+								selected = selectedTopic;
+								setSelected = setSelectedTopic;
+								break;
+							case "Other":
+								selected = selectedOther;
+								setSelected = setSelectedOther;
+								break;
+							default:
+								return null;
+						}
+
+						return renderCategoryDropdown(category, tags, selected, setSelected);
+					})}
+				</div>
+			) : (
+				<div className="text-center py-8 bg-slate-50 rounded-2xl">
+					<p className="text-slate-500 text-sm">No event tags available</p>
+				</div>
+			)}
 		</div>
 	);
 }

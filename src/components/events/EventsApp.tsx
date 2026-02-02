@@ -90,14 +90,16 @@ export default function EventsApp({ events }: EventsAppProps) {
 
 	return (
 		<HeroUIProvider>
-			<div className="flex flex-col lg:flex-row gap-10 items-start">
-				<aside className="w-full lg:w-64 lg:flex-none lg:sticky lg:top-24 lg:h-fit lg:z-10">
+			<div className="flex flex-col gap-8">
+				{/* Filters at the top */}
+				<section className="w-full">
 					<EventFilters
 						onFiltersChange={setSelectedTags}
 						availableEvents={events}
 					/>
-				</aside>
+				</section>
 
+				{/* Events grid */}
 				<section className="flex-1 min-w-0 w-full">
 					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
 						<h2 className="text-2xl font-semibold text-slate-900">Available Events</h2>

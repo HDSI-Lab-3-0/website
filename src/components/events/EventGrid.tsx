@@ -11,6 +11,7 @@ import {
 	getEventAudience,
 	getEventDuration,
 	getEventStatus,
+	getEventStatusLabel,
 } from "@/utils/eventHelpers.ts";
 
 interface EventGridProps {
@@ -56,6 +57,7 @@ export default function EventGrid({
 				const duration = getEventDuration(event.data.eventDateStart, event.data.eventDateEnd);
 					const tags = event.data.eventTags ?? [];
 
+				const statusLabel = getEventStatusLabel(event.data.eventDateStart, event.data.eventDateEnd, referenceDate);
 				let computedStatus = getEventStatus(event.data.eventDateStart, event.data.eventDateEnd, referenceDate);
 				if (computedStatus === "past") {
 					computedStatus = "completed";
@@ -132,6 +134,12 @@ export default function EventGrid({
 
 							{/* Card body */}
 								<CardBody className="px-4 py-3.5 flex flex-col overflow-hidden gap-3">
+									{/* Status tag prominently displayed */}
+									<div className="mb-1">
+										<Chip size="sm" {...statusBadgeProps} className="font-semibold text-xs px-3 py-1">
+											{statusLabel}
+										</Chip>
+									</div>
 									<div className="flex flex-col gap-3 flex-grow">
 										<h3 className="text-base font-semibold text-slate-900 line-clamp-2 group-hover:text-blue-700 transition-colors leading-tight">
 										{event.data.eventName}
