@@ -3,41 +3,48 @@ import { SITE_TITLE } from '../../consts';
 import HeaderLink from './HeaderLink.astro';
 import { Icon } from '../ui/Icon';
 import MobileNavigation from './MobileNavigation.tsx';
+import WIPBanner from './WIPBanner.astro';
 ---
 
-<header class="sticky-header">
-	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
-		
-		<!-- Desktop Navigation -->
-		<div class="internal-links desktop-only">
-			<HeaderLink href="/">Home</HeaderLink>
-			<HeaderLink href="/members">Members</HeaderLink>
-			<HeaderLink href="/projects">Projects</HeaderLink>
-			<HeaderLink href="/events">Events</HeaderLink>
-			<HeaderLink href="/opportunities">Opportunities</HeaderLink>
-			<HeaderLink href="/contact">Contact</HeaderLink>
-			<HeaderLink href="/donate">Donate</HeaderLink>
-		</div>
-		
-		<!-- Mobile Navigation -->
-		<div class="mobile-nav-container">
-			<MobileNavigation client:load />
-		</div>
-		
-		<div class="social-links desktop-only">
-			<a href="https://github.com/HDSI-Lab-3-0/website" target="_blank">
-				<span class="sr-only">Go to HDSI Lab GitHub repo</span>
-				<Icon icon="Github" size={20} className="text-gray-600 hover:text-gray-900" />
-			</a>
-		</div>
-	</nav>
-</header>
+<div class="sticky-container">
+	<header class="sticky-header">
+		<nav>
+			<h2><a href="/">{SITE_TITLE}</a></h2>
+			
+			<!-- Desktop Navigation -->
+			<div class="internal-links desktop-only">
+				<HeaderLink href="/">Home</HeaderLink>
+				<HeaderLink href="/members">Members</HeaderLink>
+				<HeaderLink href="/projects">Projects</HeaderLink>
+				<HeaderLink href="/events">Events</HeaderLink>
+				<HeaderLink href="/opportunities">Opportunities</HeaderLink>
+				<HeaderLink href="/contact">Contact</HeaderLink>
+				<HeaderLink href="/donate">Donate</HeaderLink>
+			</div>
+			
+			<!-- Mobile Navigation -->
+			<div class="mobile-nav-container">
+				<MobileNavigation client:load />
+			</div>
+			
+			<div class="social-links desktop-only">
+				<a href="https://github.com/HDSI-Lab-3-0/website" target="_blank">
+					<span class="sr-only">Go to HDSI Lab GitHub repo</span>
+					<Icon icon="Github" size={20} className="text-gray-600 hover:text-gray-900" />
+				</a>
+			</div>
+		</nav>
+	</header>
+	<WIPBanner />
+</div>
 <style>
-	.sticky-header {
+	.sticky-container {
 		position: sticky;
 		top: 0;
 		z-index: 100;
+	}
+
+	.sticky-header {
 		margin: 0;
 		padding: 0 1em;
 		background: white;
@@ -128,6 +135,16 @@ import MobileNavigation from './MobileNavigation.tsx';
 			bottom: 0.9rem;
 			left: 0.25rem;
 			right: 0.25rem;
+		}
+
+		.sticky-container {
+			top: 0;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.sticky-container {
+			top: 0;
 		}
 	}
 </style>
