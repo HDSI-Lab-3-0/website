@@ -18,14 +18,6 @@ type Props = CollectionEntry<'projects'>['data'] & {
 
 const { title, description, pubDate, updatedDate, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true } = Astro.props;
 
-// Extract cost from tags
-function getCostFromTags(projectTags: string[] | undefined): string | null {
-	if (!projectTags) return null;
-	const costTags = tagsData.categories.Cost || [];
-	const cost = projectTags.find(tag => costTags.includes(tag));
-	return cost || null;
-}
-
 // Get icon for each category
 function getCategoryIcon(category: string): string {
 	switch (category) {
@@ -41,24 +33,6 @@ function getCategoryIcon(category: string): string {
 			return 'Tag';
 		default:
 			return 'MoreHorizontal';
-	}
-}
-
-// Get color for each category
-function getCategoryColor(category: string): string {
-	switch (category) {
-		case 'Location':
-			return '#10b981'; // emerald-500
-		case 'School Level':
-			return '#3b82f6'; // blue-500
-		case 'Sponsor':
-			return '#8b5cf6'; // violet-500
-		case 'Cost':
-			return '#f59e0b'; // amber-500
-		case 'Type':
-			return '#ef4444'; // red-500
-		default:
-			return '#6b7280'; // gray-500
 	}
 }
 
@@ -95,15 +69,14 @@ function getAllTagsWithCategories(projectTags: string[] | undefined) {
 	if (!projectTags || projectTags.length === 0) return [];
 	
 	const categorized = categorizeTags(projectTags);
-	const allTags: Array<{ tag: string; category: string; icon: string; color: string }> = [];
+	const allTags: Array<{ tag: string; category: string; icon: string }> = [];
 	
 	for (const [category, categoryTags] of Object.entries(categorized)) {
 		for (const tag of categoryTags) {
 			allTags.push({
 				tag,
 				category,
-				icon: getCategoryIcon(category),
-				color: getCategoryColor(category)
+				icon: getCategoryIcon(category)
 			});
 		}
 	}
@@ -114,169 +87,245 @@ function getAllTagsWithCategories(projectTags: string[] | undefined) {
 // Split sponsor by commas if present
 const sponsorList = sponsor ? sponsor.split(',').map(s => s.trim()) : [];
 const allTagsWithCategories = getAllTagsWithCategories(tags);
-
-// Get primary tags (Location, School Level)
-const primaryTags = allTagsWithCategories.filter(t =>
-	t.category === 'Location' || t.category === 'School Level'
-);
-
-// Get secondary tags (Sponsor, Cost, Type, Other - excluding Location and School Level)
-const secondaryTags = allTagsWithCategories.filter(t =>
-	!['Location', 'School Level'].includes(t.category)
-);
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			/* New header styles */
-			.text-muted {
-				color: rgb(var(--gray));
+			/* Document-style layout */
+			:root {
+				--paper-bg: #fefdfb;
+				--paper-border: #e8e6e1;
+				--text-primary: #1a1a1a;
+				--text-secondary: #5c5c5c;
+				--text-muted: #8a8a8a;
+				--accent-underline: #2563eb;
+				--divider: #e5e5e5;
 			}
 
-			/* Header layout */
-			.project-header {
-				text-align: left;
-				padding-bottom: 0;
+			body {
+				background: #f8f7f5;
 			}
 
-			.header-metadata-row {
-				margin-bottom: 0.5rem;
+			/* Main container */
+			.doc-container {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 2rem 1.5rem;
 			}
 
-			.header-title-row {
-				gap: 1rem;
+			.doc-wrapper {
+				display: flex;
+				gap: 3rem;
+				align-items: flex-start;
 			}
 
-			@media (max-width: 768px) {
-				.header-title-row {
-					flex-direction: column;
-					gap: 1rem;
-				}
-
-				.header-actions {
-					width: 100%;
-					justify-content: flex-start;
-				}
+			/* Table of Contents */
+			.doc-toc {
+				flex-shrink: 0;
+				width: 220px;
+				position: sticky;
+				top: 6rem;
 			}
 
-			@media (max-width: 480px) {
-				.header-actions {
-					flex-direction: column;
-					align-items: stretch;
-				}
-
-				.cta-primary,
-				.cta-secondary {
-					width: 100%;
-					justify-content: center;
-				}
+			.doc-toc-inner {
+				font-size: 0.8125rem;
+				color: var(--text-secondary);
 			}
 
-			/* Tag pills */
-			.tag-pill {
-				font-size: 0.8rem;
-				padding: 0.35rem 0.85rem;
-				cursor: pointer;
-				border-radius: 6px;
-				letter-spacing: 0.01em;
+			.doc-toc-title {
+				font-size: 0.6875rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-muted);
+				margin-bottom: 1rem;
+				padding-bottom: 0.5rem;
+				border-bottom: 1px solid var(--divider);
 			}
 
-			.tag-pill:hover {
-				transform: translateY(-1px);
-				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+			/* Main content area */
+			.doc-main {
+				flex: 1;
+				min-width: 0;
+				max-width: 960px;
 			}
 
-			.tag-pill-secondary {
-				font-size: 0.75rem;
-				padding: 0.25rem 0.65rem;
+			.doc-paper {
+				background: var(--paper-bg);
+				border: 1px solid var(--paper-border);
 				border-radius: 4px;
-				color: rgba(var(--gray-dark), 0.7);
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 			}
 
-			/* CTA buttons */
-			.cta-primary {
-				background: rgb(var(--accent));
-				border: none;
+			/* Hero image */
+			.doc-hero {
+				border-bottom: 1px solid var(--paper-border);
 			}
 
-			.cta-primary:hover {
-				background: rgba(var(--accent), 0.85);
+			.doc-hero img {
+				width: 100%;
+				height: auto;
+				display: block;
 			}
 
-			.cta-secondary {
-				background: transparent;
-				border: 1px solid rgba(var(--gray), 0.3);
-				transition: all 0.2s ease;
+			/* Document header */
+			.doc-header {
+				padding: 2.5rem 3rem 2rem;
+				border-bottom: 1px solid var(--divider);
 			}
 
-			.cta-secondary:hover {
-				background: rgba(var(--gray-light), 0.2);
+			.doc-title {
+				font-family: "Atkinson", -apple-system, BlinkMacSystemFont, "Georgia", serif;
+				font-size: 2.25rem;
+				font-weight: 700;
+				line-height: 1.2;
+				color: var(--text-primary);
+				margin: 0 0 1rem;
+				letter-spacing: -0.02em;
 			}
 
-			/* Responsive layout adjustments */
-			@media (min-width: 1200px) {
-				.w-\[800px\] {
-					width: 900px;
-					padding: 2.5em 1.5em;
-				}
+			.doc-meta {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.5rem 1rem;
+				font-size: 0.8125rem;
+				color: var(--text-secondary);
+				margin-bottom: 1.25rem;
 			}
-			
-			@media (min-width: 1600px) {
-				.w-\[800px\] {
-					width: 1000px;
-					padding: 3em 2em;
-				}
+
+			.doc-meta-item {
+				display: flex;
+				align-items: center;
+				gap: 0.35rem;
 			}
-			
+
+			.doc-meta-divider {
+				color: var(--text-muted);
+			}
+
+			.doc-meta-sponsor {
+				color: #7c3aed;
+				font-weight: 500;
+			}
+
+			/* Tags */
+			.doc-tags {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+
+			.doc-tag {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				padding: 0.35rem 0.75rem;
+				background: #f5f5f4;
+				border: 1px solid #e7e5e4;
+				border-radius: 3px;
+				font-size: 0.75rem;
+				color: var(--text-secondary);
+				transition: all 0.15s ease;
+			}
+
+			.doc-tag:hover {
+				background: #ebebe9;
+				border-color: #d6d3d1;
+			}
+
+			.doc-tag svg {
+				width: 12px;
+				height: 12px;
+				opacity: 0.6;
+			}
+
+			/* Relevance callout */
+			.doc-callout {
+				margin: 1.5rem 0 0;
+				padding: 1.25rem 1.5rem;
+				background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+				border-left: 3px solid #ca8a04;
+				border-radius: 0 4px 4px 0;
+			}
+
+			.doc-callout-title {
+				font-size: 0.6875rem;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: #a16207;
+				margin: 0 0 0.5rem;
+			}
+
+			.doc-callout p {
+				margin: 0;
+				font-size: 0.875rem;
+				line-height: 1.6;
+				color: #713f12;
+			}
+
+			/* Content area */
+			.doc-content {
+				padding: 2rem 3rem 3rem;
+			}
+
+			/* Responsive */
 			@media (max-width: 1024px) {
-				.flex.gap-12 {
+				.doc-wrapper {
 					flex-direction: column;
-					gap: 2rem;
-					padding: 1.5rem 1rem;
 				}
-				
-				.flex-shrink-0.w-\[250px\] {
+
+				.doc-toc {
+					position: static;
 					width: 100%;
-					order: 1;
+					margin-bottom: 1.5rem;
 				}
-				
-				.flex-1.min-w-0.order-1 {
-					order: -1;
+
+				.doc-toc-inner {
+					display: none;
 				}
-				
-				.w-\[800px\] {
-					padding: 1.5em 1em;
+
+				.doc-main {
+					max-width: 100%;
 				}
 			}
-			
+
 			@media (max-width: 768px) {
-				.flex.gap-12 {
-					padding: 1rem 0.5rem;
+				.doc-container {
+					padding: 1rem;
 				}
-				
-				.w-\[800px\] {
-					padding: 1em 0.5em;
+
+				.doc-header {
+					padding: 1.5rem 1.25rem 1.5rem;
 				}
-				
-				.m-0.mb-3.text-\[2\.5rem\] {
-					font-size: 2rem;
-				}
-			}
-			
-			@media (max-width: 480px) {
-				.mb-8.pb-6 {
-					padding: 1em 0;
-					margin-bottom: 1.5em;
-				}
-				
-				.m-0.mb-3.text-\[2\.5rem\] {
+
+				.doc-title {
 					font-size: 1.75rem;
 				}
-				
-				.text-\[0\.75em\].opacity-70.uppercase.tracking-wider {
-					display: none;
+
+				.doc-content {
+					padding: 1.5rem 1.25rem 2rem;
+				}
+
+				.doc-meta {
+					font-size: 0.75rem;
+				}
+			}
+
+			@media (max-width: 480px) {
+				.doc-title {
+					font-size: 1.5rem;
+				}
+
+				.doc-header {
+					padding: 1.25rem 1rem 1.25rem;
+				}
+
+				.doc-content {
+					padding: 1.25rem 1rem 1.5rem;
 				}
 			}
 		</style>
@@ -284,111 +333,76 @@ const secondaryTags = allTagsWithCategories.filter(t =>
 
 	<body>
 		<Header />
-		<!-- Reading Progress Bar -->
-		<div class="reading-progress" id="reading-progress"></div>
 		
-		<main class="w-[calc(100%-2em)] max-w-full m-0">
+		<main class="doc-container">
 			<article>
-				<div class="flex gap-8 max-w-[1600px] mx-auto relative py-8 px-4">
+				<div class="doc-wrapper">
 					{showTOC && (
-						<aside class="flex-shrink-0 w-[200px] -order-1">
-							<div class="table-of-contents">
-								<div class="toc-header">
-									<span class="toc-title">Contents</span>
-								</div>
-								<div class="toc-content">
-									<!-- Table of contents will be generated by JavaScript -->
+						<aside class="doc-toc">
+							<div class="doc-toc-inner">
+								<div class="table-of-contents">
+									<div class="toc-header">
+										<span class="doc-toc-title">Contents</span>
+									</div>
+									<div class="toc-content">
+										<!-- Table of contents will be generated by JavaScript -->
+									</div>
 								</div>
 							</div>
 						</aside>
 					)}
-					<div class="flex-1 min-w-0 order-1 overflow-hidden">
-						<div class="w-full max-w-none mx-auto py-6 px-2 xtext-[rgb(var(--gray-dark))]">
+					
+					<div class="doc-main">
+						<div class="doc-paper">
 							{imageGif && (
-								<div class="w-full my-8">
-									<Image width={1020} height={510} src={imageGif} alt="" class="block mx-auto rounded-xl shadow-[var(--box-shadow)]" />
+								<div class="doc-hero">
+									<Image width={960} height={480} src={imageGif} alt={title} />
 								</div>
 							)}
-							{/* New header section */}
-							<div class="project-header mb-8 text-center">
+							
+							<header class="doc-header">
+								<h1 class="doc-title">{title}</h1>
 								
-
-								{/* Title with CTA */}
-								<div class="header-title-row mb-6">
-									<div class="flex items-start justify-center">
-										<h1 class="m-0 text-[2.5rem] leading-[1.2] text-[rgb(var(--black))]">{title}</h1>
-										
-									</div>
-								</div>
-								{/* Metadata row - Date, duration, cost */}
-							<div class="header-metadata-row mb-2 text-center">
-								<span class="text-muted text-xs font-medium">
-									<FormattedDate date={pubDate} />
+								<div class="doc-meta">
+									<span class="doc-meta-item">
+										<FormattedDate date={pubDate} />
+									</span>
 									{estimated_time && (
-										<> · {estimated_time} min</>
-									)}
-									{secondaryTags.length > 0 && secondaryTags.find(t => t.category === 'Cost') && (
-										<> · {secondaryTags.find(t => t.category === 'Cost')?.tag}</>
+										<>
+											<span class="doc-meta-divider">·</span>
+											<span class="doc-meta-item">{estimated_time} min read</span>
+										</>
 									)}
 									{sponsorList.length > 0 && (
-	<> · Sponsored by <span class="font-medium" style={{ color: '#8b5cf6' }}>{sponsorList.join(', ')}</span></>
-)}
-								</span>
-							</div>
+										<>
+											<span class="doc-meta-divider">·</span>
+											<span class="doc-meta-item">
+												Sponsored by <span class="doc-meta-sponsor">{sponsorList.join(', ')}</span>
+											</span>
+										</>
+									)}
+								</div>
 
-								{/* Primary tags - Location, School Level */}
-								{primaryTags.length > 0 && (
-									<div class="header-tags-primary mb-6">
-										<div class="flex flex-wrap gap-3 justify-center">
-											{primaryTags.map((tagInfo) => (
-												<div
-													class="tag-pill inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all hover:-translate-y-px hover:shadow-[0_2px_8px_rgba(0,0,0,0.1)]"
-													style={{
-														background: tagInfo.color + '15',
-														border: `1px solid ${tagInfo.color}40`,
-														color: tagInfo.color
-													}}
-												>
-													<Icon icon={tagInfo.icon} size={14} className="opacity-70 flex-shrink-0" style={{ color: tagInfo.color }} />
-													<span class="whitespace-nowrap">{tagInfo.tag}</span>
-												</div>
-											))}
-										</div>
+								{allTagsWithCategories.length > 0 && (
+									<div class="doc-tags">
+										{allTagsWithCategories.map((tagInfo) => (
+											<span class="doc-tag">
+												<Icon icon={tagInfo.icon} size={12} />
+												{tagInfo.tag}
+											</span>
+										))}
 									</div>
 								)}
 
-								{/* Secondary tags - Sponsor, Cost, Type, Other (subtle) */}
-								{secondaryTags.length > 0 && (
-									<div class="header-tags-secondary">
-										<div class="flex flex-wrap gap-2 justify-center">
-											{secondaryTags.map((tagInfo) => (
-												<div
-													class="tag-pill-secondary inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all hover:bg-[rgba(var(--gray-light),0.25)]"
-													style={{
-														background: tagInfo.color + '08',
-														border: `1px solid ${tagInfo.color}25`,
-														color: 'rgba(var(--gray-dark),0.7)'
-													}}
-												>
-													<Icon icon={tagInfo.icon} size={11} className="opacity-60 flex-shrink-0" style={{ color: tagInfo.color }} />
-													<span class="whitespace-nowrap">{tagInfo.tag}</span>
-												</div>
-											))}
-										</div>
-									</div>
-								)}
-
-								{/* Relevance section */}
 								{relevance && (
-									<div class="my-8 p-5 bg-[rgba(var(--gray-light),0.1)] rounded-lg border border-[rgba(var(--gray-light),0.3)]">
-										<h2 class="mt-0 mb-3 text-[1.1rem] font-semibold text-[rgb(var(--gray-dark))]">Relevance</h2>
-										<p class="m-0 text-[rgb(var(--gray))] leading-[1.6]">{relevance}</p>
+									<div class="doc-callout">
+										<div class="doc-callout-title">Why This Matters</div>
+										<p>{relevance}</p>
 									</div>
 								)}
-							</div>
+							</header>
 
-							</div>
-							<div class="markdown-content">
+							<div class="doc-content markdown-content">
 								<slot />
 							</div>
 						</div>
@@ -396,52 +410,23 @@ const secondaryTags = allTagsWithCategories.filter(t =>
 				</div>
 			</article>
 		</main>
+		
 		<Footer />
+		
 		{showTOC && <script type="module" is:inline src={tableOfContentsScript}></script>}
 		<script type="module" is:inline src={headingAnchorsScript}></script>
 		<script type="module" is:inline src={copyCodeScript}></script>
 		<script is:inline define:vars={{ title }}>
 			document.addEventListener('DOMContentLoaded', () => {
-			  // Remove redundant H1 if it matches the page title
-			  const markdownContent = document.querySelector('.markdown-content');
-			  if (markdownContent) {
-			    const firstH1 = markdownContent.querySelector('h1');
-			    if (firstH1 && firstH1.textContent.trim().toLowerCase() === title.toLowerCase()) {
-			      firstH1.remove();
-			    }
-			  }
-
-			  // Reading progress bar
-			  const progressBar = document.getElementById('reading-progress');
-			  
-			  function updateReadingProgress() {
-				  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-				  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-				  const progress = (scrollTop / scrollHeight) * 100;
-				  progressBar.style.width = progress + '%';
-			  }
-			  
-			  window.addEventListener('scroll', updateReadingProgress);
-			  updateReadingProgress();
-			  
-			  // Calculate reading time
-			  // Re-use markdownContent selector from above if possible, otherwise query again if scope issues prevent it.
-			  // Since we are in the same block scope, we can just use the existing variable or check if it's null and query if needed, 
-              // but here we just declared it above with const. 
-              // The previous code had a second const declaration. We'll just use the existing one.
-			  if (markdownContent) {
-			   const text = markdownContent.textContent || '';
-			   const wordsPerMinute = 200;
-			   const wordCount = text.trim().split(/\s+/).length;
-			   const readingTime = Math.ceil(wordCount / wordsPerMinute);
-			   
-			   const readingTimeText = document.getElementById('reading-time-text');
-			   if (readingTimeText) {
-			    readingTimeText.textContent = `${readingTime} min read`;
-			   }
-			  }
-			  
-				});
+				// Remove redundant H1 if it matches the page title
+				const markdownContent = document.querySelector('.markdown-content');
+				if (markdownContent) {
+					const firstH1 = markdownContent.querySelector('h1');
+					if (firstH1 && firstH1.textContent.trim().toLowerCase() === title.toLowerCase()) {
+						firstH1.remove();
+					}
+				}
+			});
 		</script>
 	</body>
 </html>

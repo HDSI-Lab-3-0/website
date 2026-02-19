@@ -10,7 +10,7 @@ import tagsData from '../data/tags.json';
 import tableOfContentsScript from '../scripts/table-of-contents.js?url';
 import headingAnchorsScript from '../scripts/heading-anchors.js?url';
 import copyCodeScript from '../scripts/copy-code.js?url';
-import { formatEventDateTimeRange, getEventStatusBadgeProps, getEventLocation, getEventAudience } from '../utils/eventHelpers.ts';
+import { formatEventDateTimeRange, getEventDuration, getEventStatusBadgeProps, getEventLocation, getEventAudience, getEventStatus } from '../utils/eventHelpers.ts';
 
 type Props = CollectionEntry<'events'>['data'] & {
 	showTitle?: boolean;
@@ -21,10 +21,12 @@ const { eventName, eventDescription, eventDateStart, eventDateEnd, eventStatus, 
 const hasHeroSlot = Astro.slots.has('hero');
 
 // Get status color and icon from utility functions
-const statusBadgeProps = getEventStatusBadgeProps(eventStatus);
+const currentEventStatus = getEventStatus(eventDateStart, eventDateEnd);
+const statusBadgeProps = getEventStatusBadgeProps(currentEventStatus);
 const resolvedEventLocation = eventLocation?.trim() || getEventLocation(eventTags);
 const resolvedEventAudience = eventFor?.trim() || getEventAudience(eventTags);
 const eventDateRange = formatEventDateTimeRange(eventDateStart, eventDateEnd);
+const eventDuration = getEventDuration(eventDateStart, eventDateEnd);
 const heroVisual = imageGif || eventImage;
 
 // Get status icon
@@ -61,24 +63,6 @@ function getCategoryIcon(category: string): string {
 	}
 }
 
-// Get color for each category
-function getCategoryColor(category: string): string {
-	switch (category) {
-		case 'Location':
-			return '#10b981'; // emerald-500
-		case 'School Level':
-			return '#3b82f6'; // blue-500
-		case 'Sponsor':
-			return '#8b5cf6'; // violet-500
-		case 'Cost':
-			return '#f59e0b'; // amber-500
-		case 'Type':
-			return '#ef4444'; // red-500
-		default:
-			return '#6b7280'; // gray-500
-	}
-}
-
 // Categorize tags based on tags.json
 function categorizeTags(eventTags: string[] | undefined) {
 	if (!eventTags || eventTags.length === 0) return {};
@@ -112,15 +96,14 @@ function getAllTagsWithCategories(eventTags: string[] | undefined) {
 	if (!eventTags || eventTags.length === 0) return [];
 	
 	const categorized = categorizeTags(eventTags);
-	const allTags: Array<{ tag: string; category: string; icon: string; color: string }> = [];
+	const allTags: Array<{ tag: string; category: string; icon: string }> = [];
 	
 	for (const [category, categoryTags] of Object.entries(categorized)) {
 		for (const tag of categoryTags) {
 			allTags.push({
 				tag,
 				category,
-				icon: getCategoryIcon(category),
-				color: getCategoryColor(category)
+				icon: getCategoryIcon(category)
 			});
 		}
 	}
@@ -129,414 +112,287 @@ function getAllTagsWithCategories(eventTags: string[] | undefined) {
 }
 
 const allTagsWithCategories = getAllTagsWithCategories(eventTags);
-const statusIcon = getStatusIcon(eventStatus);
-const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
-                   statusBadgeProps.className.includes('green') ? '#10b981' :
-                   statusBadgeProps.className.includes('red') ? '#ef4444' : '#6b7280';
+const statusIcon = getStatusIcon(currentEventStatus);
+const statusColor = statusBadgeProps.className.includes('blue') ? '#2563eb' :
+                   statusBadgeProps.className.includes('green') ? '#059669' :
+                   statusBadgeProps.className.includes('red') ? '#dc2626' : '#475569';
 ---
 
 <html lang="en">
 	<head>
 		<BaseHead title={eventName} description={eventDescription} />
-			<style>
-			/* Ultra-compact, professional event header styling */
-			.event-header {
-				background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
-				border: 1px solid rgba(0, 0, 0, 0.04);
-				border-radius: 8px;
-				padding: 1rem;
-				margin-bottom: 0.875rem;
-				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.04);
+		<style>
+			/* Document-style layout - clean, simple, light mode only */
+			:root {
+				--paper-bg: #fefdfb;
+				--paper-border: #e8e6e1;
+				--text-primary: #1a1a1a;
+				--text-secondary: #5c5c5c;
+				--text-muted: #8a8a8a;
+				--accent-underline: #2563eb;
+				--divider: #e5e5e5;
 			}
-			
-			.event-title {
-				font-size: 1.875rem;
+
+			body {
+				background: #f8f7f5;
+			}
+
+			/* Main container */
+			.doc-container {
+				max-width: 1400px;
+				margin: 0 auto;
+				padding: 2rem 1.5rem;
+			}
+
+			.doc-wrapper {
+				display: flex;
+				gap: 3rem;
+				align-items: flex-start;
+			}
+
+			/* Table of Contents */
+			.doc-toc {
+				flex-shrink: 0;
+				width: 220px;
+				position: sticky;
+				top: 6rem;
+			}
+
+			.doc-toc-inner {
+				font-size: 0.8125rem;
+				color: var(--text-secondary);
+			}
+
+			.doc-toc-title {
+				font-size: 0.6875rem;
 				font-weight: 600;
-				line-height: 1.2;
-				letter-spacing: -0.025em;
-				margin-bottom: 0.75rem;
-				color: #0a0a0a;
-				background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-				background-clip: text;
-			}
-			
-			.event-meta-container {
-				display: flex;
-				flex-direction: column;
-				gap: 0.75rem;
-				margin-bottom: 0.75rem;
-			}
-			
-			.event-status-section {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-muted);
+				margin-bottom: 1rem;
 				padding-bottom: 0.5rem;
-				border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+				border-bottom: 1px solid var(--divider);
 			}
-			
-			.event-status-row {
+
+			/* Main content area */
+			.doc-main {
+				flex: 1;
+				min-width: 0;
+				max-width: 960px;
+			}
+
+			.doc-paper {
+				background: var(--paper-bg);
+				border: 1px solid var(--paper-border);
+				border-radius: 4px;
+				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+			}
+
+			/* Hero image */
+			.doc-hero {
+				border-bottom: 1px solid var(--paper-border);
+			}
+
+			.doc-hero img {
+				width: 100%;
+				height: auto;
+				display: block;
+			}
+
+			/* Document header */
+			.doc-header {
+				padding: 2.5rem 3rem 2rem;
+				border-bottom: 1px solid var(--divider);
+			}
+
+			.doc-title {
+				font-family: "Atkinson", -apple-system, BlinkMacSystemFont, "Georgia", serif;
+				font-size: 2.25rem;
+				font-weight: 700;
+				line-height: 1.2;
+				color: var(--text-primary);
+				margin: 0 0 1rem;
+				letter-spacing: -0.02em;
+			}
+
+			.doc-meta {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				gap: 0.5rem 1rem;
+				font-size: 0.8125rem;
+				color: var(--text-secondary);
+				margin-bottom: 1.25rem;
+			}
+
+			.doc-meta-item {
 				display: flex;
 				align-items: center;
-				gap: 0.5rem;
-				flex-wrap: wrap;
+				gap: 0.35rem;
 			}
-			
-			.event-status-badge {
+
+			.doc-meta-divider {
+				color: var(--text-muted);
+			}
+
+			/* Event status badge */
+			.doc-status-badge {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.1875rem;
-				padding: 0.1875rem 0.5rem;
-				border-radius: 6px;
+				gap: 0.25rem;
+				padding: 0.25rem 0.625rem;
+				border-radius: 3px;
 				font-size: 0.6875rem;
-				font-weight: 500;
+				font-weight: 600;
 				text-transform: uppercase;
 				letter-spacing: 0.05em;
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 			}
-			
-			.event-stats-grid {
+
+			/* Event details grid */
+			.doc-event-details {
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
-				gap: 0.375rem;
+				gap: 1rem;
+				margin-bottom: 1.25rem;
+				padding-bottom: 1.25rem;
+				border-bottom: 1px solid var(--divider);
 			}
-			
-			.event-stat-card {
-				display: flex;
-				align-items: flex-start;
-				gap: 0.375rem;
-				padding: 0.4375rem;
-				background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
-				border: 1px solid rgba(0, 0, 0, 0.03);
-				border-radius: 6px;
-				min-height: 2.5rem;
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
-				transition: all 0.15s ease;
-			}
-			
-			.event-stat-card:hover {
-				transform: translateY(-1px);
-				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-			}
-			
-			.event-stat-icon {
-				flex-shrink: 0;
-				width: 14px;
-				height: 14px;
-				opacity: 0.6;
-			}
-			
-			.event-stat-content {
+
+			.doc-event-detail {
 				display: flex;
 				flex-direction: column;
-				gap: 0.0625rem;
-				min-width: 0;
-			}
-			
-			.event-stat-label {
-				font-size: 0.5625rem;
-				font-weight: 500;
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-				opacity: 0.5;
-				line-height: 1;
-			}
-			
-			.event-stat-value {
-				font-size: 0.75rem;
-				font-weight: 500;
-				line-height: 1.3;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
-				word-break: break-word;
-			}
-			
-			.event-controls {
-				display: flex;
-				justify-content: flex-start;
-				align-items: center;
-				margin-bottom: 0.75rem;
-				padding-top: 0.5rem;
-				border-top: 1px solid rgba(0, 0, 0, 0.05);
-			}
-			
-			.event-back-button {
-				display: inline-flex;
-				align-items: center;
 				gap: 0.25rem;
-				padding: 0.3125rem 0.5625rem;
-				background: linear-gradient(135deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.02) 100%);
-				border: 1px solid rgba(0, 0, 0, 0.05);
-				border-radius: 6px;
-				font-size: 0.75rem;
-				font-weight: 500;
-				color: #0a0a0a;
-				text-decoration: none;
-				transition: all 0.2s ease;
-				box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
 			}
-			
-			.event-back-button:hover {
-				background: linear-gradient(135deg, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.04) 100%);
-				transform: translateY(-1px);
-				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-			}
-			
-			.event-reading-time {
-				display: inline-flex;
-				align-items: center;
-				gap: 0.25rem;
-				padding: 0.25rem 0.5rem;
-				background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%);
-				border: 1px solid rgba(59, 130, 246, 0.1);
-				border-radius: 4px;
+
+			.doc-event-detail-label {
 				font-size: 0.6875rem;
-				font-weight: 500;
-				color: #3b82f6;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+				color: var(--text-muted);
 			}
-			
-			.event-tags-section {
-				padding-top: 0.625rem;
-				border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+			.doc-event-detail-value {
+				font-size: 0.875rem;
+				color: var(--text-primary);
+				line-height: 1.4;
 			}
-			
-			.event-tags-header {
-				display: flex;
-				align-items: center;
-				gap: 0.375rem;
-				margin-bottom: 0.4375rem;
-			}
-			
-			.event-tags-title {
-				font-size: 0.75rem;
-				font-weight: 500;
-				margin: 0;
-				color: #374151;
-			}
-			
-			.event-tags-grid {
+
+			/* Tags */
+			.doc-tags {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.1875rem;
+				gap: 0.5rem;
 			}
-			
-			.event-tag {
+
+			.doc-tag {
 				display: inline-flex;
 				align-items: center;
-				gap: 0.1875rem;
-				padding: 0.15625rem 0.4375rem;
-				background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(249, 250, 251, 0.8) 100%);
-				border: 1px solid rgba(0, 0, 0, 0.04);
-				border-radius: 5px;
-				font-size: 0.625rem;
-				font-weight: 500;
-				color: #374151;
+				gap: 0.35rem;
+				padding: 0.35rem 0.75rem;
+				background: #f5f5f4;
+				border: 1px solid #e7e5e4;
+				border-radius: 3px;
+				font-size: 0.75rem;
+				color: var(--text-secondary);
 				transition: all 0.15s ease;
 			}
-			
-			.event-tag:hover {
-				background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%);
-				border-color: rgba(59, 130, 246, 0.2);
-				transform: translateY(-1px);
+
+			.doc-tag:hover {
+				background: #ebebe9;
+				border-color: #d6d3d1;
 			}
-			
-			.event-tag-icon {
-				flex-shrink: 0;
-				width: 10px;
-				height: 10px;
+
+			.doc-tag svg {
+				width: 12px;
+				height: 12px;
 				opacity: 0.6;
 			}
-			
-			.event-tag-text {
-				white-space: nowrap;
+
+			/* Content area */
+			.doc-content {
+				padding: 2rem 3rem 3rem;
 			}
-			
-			.event-tag-category {
-				font-size: 0.5rem;
-				font-weight: 500;
-				text-transform: uppercase;
-				letter-spacing: 0.05em;
-				opacity: 0.5;
-				margin-left: 0.0625rem;
+
+			/* Back link */
+			.doc-back-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.35rem;
+				font-size: 0.8125rem;
+				color: var(--text-secondary);
+				text-decoration: none;
+				margin-bottom: 1.5rem;
+				transition: color 0.15s ease;
 			}
-			
-			/* Responsive layout adjustments */
-			@media (min-width: 1200px) {
-				.w-\[800px\] {
-					width: 900px;
-					padding: 2.5em 1.5em;
-				}
+
+			.doc-back-link:hover {
+				color: var(--text-primary);
 			}
-			
-			@media (min-width: 1600px) {
-				.w-\[800px\] {
-					width: 1000px;
-					padding: 3em 2em;
-				}
-			}
-			
+
+			/* Responsive */
 			@media (max-width: 1024px) {
-				.flex.gap-12 {
+				.doc-wrapper {
 					flex-direction: column;
-					gap: 2rem;
-					padding: 1.5rem 1rem;
 				}
-				
-				.flex-shrink-0.w-\[250px\] {
+
+				.doc-toc {
+					position: static;
 					width: 100%;
-					order: 1;
+					margin-bottom: 1.5rem;
 				}
-				
-				.flex-1.min-w-0.order-1 {
-					order: -1;
+
+				.doc-toc-inner {
+					display: none;
 				}
-				
-				.w-\[800px\] {
-					padding: 1.5em 1em;
+
+				.doc-main {
+					max-width: 100%;
 				}
-				
-				.event-header {
-					padding: 0.875rem;
-				}
-				
-				.event-stats-grid {
+
+				.doc-event-details {
 					grid-template-columns: 1fr;
-					gap: 0.375rem;
+					gap: 0.75rem;
 				}
 			}
-			
+
 			@media (max-width: 768px) {
-				.flex.gap-12 {
-					padding: 1rem 0.5rem;
+				.doc-container {
+					padding: 1rem;
 				}
-				
-				.w-\[800px\] {
-					padding: 1em 0.5em;
+
+				.doc-header {
+					padding: 1.5rem 1.25rem 1.5rem;
 				}
-				
-				.event-header {
-					padding: 0.75rem;
+
+				.doc-title {
+					font-size: 1.75rem;
 				}
-				
-				.event-title {
-					font-size: 1.5rem;
-					margin-bottom: 0.625rem;
+
+				.doc-content {
+					padding: 1.5rem 1.25rem 2rem;
 				}
-				
-				.event-meta-container {
-					gap: 0.625rem;
+
+				.doc-meta {
+					font-size: 0.75rem;
 				}
-				
-				.event-stats-grid {
-					gap: 0.25rem;
-				}
-				
-				.event-stat-card {
-					padding: 0.375rem;
-				}
-				
-				.event-controls {
-					flex-direction: column;
-					align-items: stretch;
-					gap: 0.5rem;
-				}
-				
-				.event-tags-section {
-					padding-top: 0.625rem;
+
+				.doc-event-details {
+					grid-template-columns: 1fr;
 				}
 			}
-			
+
 			@media (max-width: 480px) {
-				.event-header {
-					padding: 0.625rem;
-					margin-bottom: 0.875rem;
+				.doc-title {
+					font-size: 1.5rem;
 				}
-				
-				.event-title {
-					font-size: 1.375rem;
-					margin-bottom: 0.5rem;
+
+				.doc-header {
+					padding: 1.25rem 1rem 1.25rem;
 				}
-				
-				.event-meta-container {
-					gap: 0.5rem;
-				}
-				
-				.event-status-row {
-					flex-direction: column;
-					align-items: flex-start;
-					gap: 0.375rem;
-				}
-				
-				.event-status-badge {
-					padding: 0.1875rem 0.625rem;
-					font-size: 0.6875rem;
-				}
-				
-				.event-stats-grid {
-					gap: 0.1875rem;
-				}
-				
-				.event-stat-card {
-					padding: 0.3125rem;
-					min-height: 2.25rem;
-				}
-				
-				.event-stat-icon {
-					width: 14px;
-					height: 14px;
-				}
-				
-				.event-stat-label {
-					font-size: 0.5625rem;
-				}
-				
-				.event-stat-value {
-					font-size: 0.75rem;
-				}
-				
-				.event-back-button {
-					padding: 0.3125rem 0.625rem;
-					font-size: 0.75rem;
-				}
-				
-				.event-reading-time {
-					padding: 0.25rem 0.625rem;
-					font-size: 0.6875rem;
-				}
-				
-				.event-tags-section {
-					padding-top: 0.5rem;
-				}
-				
-				.event-tags-header {
-					margin-bottom: 0.375rem;
-				}
-				
-				.event-tags-title {
-					font-size: 0.75rem;
-				}
-				
-				.event-tags-grid {
-					gap: 0.1875rem;
-				}
-				
-				.event-tag {
-					padding: 0.125rem 0.375rem;
-					font-size: 0.625rem;
-				}
-				
-				.event-tag-icon {
-					width: 10px;
-					height: 10px;
-				}
-				
-				.event-tag-category {
-					font-size: 0.5rem;
+
+				.doc-content {
+					padding: 1.25rem 1rem 1.5rem;
 				}
 			}
 		</style>
@@ -544,114 +400,78 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 
 	<body>
 		<Header />
-		<!-- Reading Progress Bar -->
-		<div class="reading-progress" id="reading-progress"></div>
 		
-		<main class="w-[calc(100%-2em)] max-w-full m-0">
+		<main class="doc-container">
 			<article>
-				<div class="flex gap-12 max-w-[1400px] mx-auto relative py-8 px-4">
+				<div class="doc-wrapper">
 					{showTOC && (
-						<aside class="flex-shrink-0 w-[250px] -order-1">
-							<div class="table-of-contents">
-								<div class="toc-header">
-									<span class="toc-title">Contents</span>
-								</div>
-								<div class="toc-content">
-									<!-- Table of contents will be generated by JavaScript -->
+						<aside class="doc-toc">
+							<div class="doc-toc-inner">
+								<div class="table-of-contents">
+									<div class="toc-header">
+										<span class="doc-toc-title">Contents</span>
+									</div>
+									<div class="toc-content">
+										<!-- Table of contents will be generated by JavaScript -->
+									</div>
 								</div>
 							</div>
 						</aside>
 					)}
-					<div class="flex-1 min-w-0 order-1 overflow-hidden">
-					<div class="w-[1200px] max-w-[calc(100%-2em)] mx-auto py-8 px-4 text-[rgb(var(--gray-dark))]">
-						{heroVisual && (
-							<div class="w-full my-10">
-								<Image
-									width={1020}
-									height={510}
-									src={heroVisual}
-									alt={`${eventName} event visual`}
-									class="block mx-auto rounded-xl shadow-[var(--box-shadow)] object-cover"
-								/>
-							</div>
-						)}
-						{hasHeroSlot ? (
-							<slot name="hero" />
-						) : (
-							<div class="event-header">
-								{showTitle && <h1 class="event-title">{eventName}</h1>}
+					
+					<div class="doc-main">
+						<div class="doc-paper">
+							{heroVisual && (
+								<div class="doc-hero">
+									<Image width={960} height={480} src={heroVisual} alt={eventName} />
+								</div>
+							)}
+							
+							<header class="doc-header">
+								<a href="/events" class="doc-back-link">
+									<Icon icon="ArrowLeft" size={14} />
+									<span>All events</span>
+								</a>
 								
-								<div class="event-meta-container">
-									<div class="event-status-section">
-										<div class="event-status-row">
-											<div class="event-status-badge" style={{ borderColor: statusColor + '40', background: statusColor + '10', color: statusColor }}>
-												<Icon icon={statusIcon} size={14} className="event-stat-icon" />
-												<span class="capitalize">{eventStatus}</span>
-											</div>
-										</div>
-										
-										<div class="event-reading-time" id="reading-time-indicator">
-											<Icon icon="BookOpen" size={12} className="event-stat-icon" />
-											<span id="reading-time-text">Calculating...</span>
-										</div>
+								{showTitle && <h1 class="doc-title">{eventName}</h1>}
+								
+								<div class="doc-meta">
+									<span class="doc-status-badge" style={{ backgroundColor: statusColor + '15', color: statusColor }}>
+										<Icon icon={statusIcon} size={12} />
+										<span class="capitalize">{currentEventStatus}</span>
+									</span>
+									<span class="doc-meta-divider">·</span>
+									<span class="doc-meta-item">{eventDuration}</span>
+								</div>
+
+								<div class="doc-event-details">
+									<div class="doc-event-detail">
+										<span class="doc-event-detail-label">Date & Time</span>
+										<span class="doc-event-detail-value">{eventDateRange}</span>
 									</div>
-									
-									<div class="event-details-section">
-										<div class="event-stats-grid">
-											<div class="event-stat-card">
-												<Icon icon="Calendar" size={16} className="event-stat-icon" />
-												<div class="event-stat-content">
-													<span class="event-stat-label">Date & Time</span>
-													<span class="event-stat-value">{eventDateRange}</span>
-												</div>
-											</div>
-											
-											<div class="event-stat-card">
-												<Icon icon="MapPin" size={16} className="event-stat-icon" />
-												<div class="event-stat-content">
-													<span class="event-stat-label">Location</span>
-													<span class="event-stat-value">{resolvedEventLocation}</span>
-												</div>
-											</div>
-											
-											<div class="event-stat-card">
-												<Icon icon="Users" size={16} className="event-stat-icon" />
-												<div class="event-stat-content">
-													<span class="event-stat-label">Audience</span>
-													<span class="event-stat-value">{resolvedEventAudience}</span>
-												</div>
-											</div>
-										</div>
+									<div class="doc-event-detail">
+										<span class="doc-event-detail-label">Location</span>
+										<span class="doc-event-detail-value">{resolvedEventLocation}</span>
+									</div>
+									<div class="doc-event-detail">
+										<span class="doc-event-detail-label">Audience</span>
+										<span class="doc-event-detail-value">{resolvedEventAudience}</span>
 									</div>
 								</div>
-								
-								<div class="event-controls">
-									<a href="/events" class="event-back-button">
-										<Icon icon="ArrowLeft" size={14} />
-										<span>Back to Events</span>
-									</a>
-								</div>
-								
-								{allTagsWithCategories && allTagsWithCategories.length > 0 && (
-									<div class="event-tags-section">
-										<div class="event-tags-header">
-											<Icon icon="Tag" size={14} className="event-stat-icon" />
-											<h2 class="event-tags-title">Tags</h2>
-										</div>
-										<div class="event-tags-grid">
-											{allTagsWithCategories.map((tagInfo) => (
-												<div class="event-tag">
-													<Icon icon={tagInfo.icon} size={12} className="event-tag-icon" />
-													<span class="event-tag-text">{tagInfo.tag}</span>
-													<span class="event-tag-category">{tagInfo.category}</span>
-												</div>
-											))}
-										</div>
+
+								{allTagsWithCategories.length > 0 && (
+									<div class="doc-tags">
+										{allTagsWithCategories.map((tagInfo) => (
+											<span class="doc-tag">
+												<Icon icon={tagInfo.icon} size={12} />
+												{tagInfo.tag}
+											</span>
+										))}
 									</div>
 								)}
-							</div>
-						)}
-						<div class="markdown-content">
+							</header>
+
+							<div class="doc-content markdown-content">
 								<slot />
 							</div>
 						</div>
@@ -659,40 +479,23 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#3b82f6' :
 				</div>
 			</article>
 		</main>
+		
 		<Footer />
+		
 		{showTOC && <script type="module" is:inline src={tableOfContentsScript}></script>}
 		<script type="module" is:inline src={headingAnchorsScript}></script>
 		<script type="module" is:inline src={copyCodeScript}></script>
-		<script is:inline>
+		<script is:inline define:vars={{ eventName: eventName }}>
 			document.addEventListener('DOMContentLoaded', () => {
-			  // Reading progress bar
-			  const progressBar = document.getElementById('reading-progress');
-			  
-			  function updateReadingProgress() {
-				  const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-				  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-				  const progress = (scrollTop / scrollHeight) * 100;
-				  progressBar.style.width = progress + '%';
-			  }
-			  
-			  window.addEventListener('scroll', updateReadingProgress);
-			  updateReadingProgress();
-			  
-			  // Calculate reading time
+				// Remove redundant H1 if it matches the page title
 				const markdownContent = document.querySelector('.markdown-content');
 				if (markdownContent) {
-				 const text = markdownContent.textContent || '';
-			   const wordsPerMinute = 200;
-			   const wordCount = text.trim().split(/\s+/).length;
-			   const readingTime = Math.ceil(wordCount / wordsPerMinute);
-			   
-			   const readingTimeText = document.getElementById('reading-time-text');
-			   if (readingTimeText) {
-			    readingTimeText.textContent = `${readingTime} min read`;
-			   }
-			  }
-			  
-				});
+					const firstH1 = markdownContent.querySelector('h1');
+					if (firstH1 && firstH1.textContent.trim().toLowerCase() === eventName.toLowerCase()) {
+						firstH1.remove();
+					}
+				}
+			});
 		</script>
 	</body>
 </html>
