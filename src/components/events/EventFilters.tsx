@@ -134,7 +134,7 @@ export default function EventFilters({
 		category: string,
 		tags: Set<string>,
 		selected: Set<string>,
-		setSelected: (s: Set<string>) => Set<string>
+		setSelected: (s: Set<string>) => void
 	) => {
 		const sortedTags = Array.from(tags)
 			.filter((tag) => tag.trim().length > 0)
@@ -143,16 +143,19 @@ export default function EventFilters({
 		if (sortedTags.length === 0) return null;
 
 		return (
-			<div key={category} className="flex-1 min-w-[200px]">
+			<div key={category} className="filter-select-wrapper">
+				<label className="filter-label">{category}</label>
 				<Select
 					placeholder={`Select ${category.toLowerCase()}...`}
 					selectionMode="multiple"
 					selectedKeys={selected}
-					onSelectionChange={(keys) => setSelected(new Set(keys))}
-					label={category}
+					onSelectionChange={(keys) => setSelected(new Set(keys as Iterable<string>))}
 					classNames={{
 						base: "w-full",
-						trigger: "min-h-[44px]",
+						trigger: "filter-trigger",
+						value: "filter-value",
+						selectorIcon: "filter-icon",
+						popoverContent: "filter-popover",
 					}}
 					disallowEmptySelection={false}
 				>
@@ -167,10 +170,10 @@ export default function EventFilters({
 	};
 
 	return (
-		<div className="w-full">
-			<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
-				<div>
-					<h3 className="text-lg font-semibold text-slate-900">Filter Events</h3>
+		<div className="filters-container">
+			<div className="filters-header">
+				<div className="filters-header-left">
+					<h3 className="filters-title">Filters</h3>
 					{hasFilters && (
 						<button
 							onClick={() => {
@@ -180,43 +183,43 @@ export default function EventFilters({
 								setSelectedTopic(new Set<string>());
 								setSelectedOther(new Set<string>());
 							}}
-							className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
+							className="filters-clear"
 						>
-							Clear all filters
+							Clear all
 						</button>
 					)}
 				</div>
 			</div>
 
 			{Object.keys(availableTagsByCategory).length > 0 ? (
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+				<div className="filters-grid">
 					{CATEGORY_PRIORITY.map((category) => {
 						const tags = availableTagsByCategory[category];
 						if (!tags || tags.size === 0) return null;
 
 						let selected: Set<string>;
-						let setSelected: (s: Set<string>) => Set<string>;
+						let setSelected: (s: Set<string>) => void;
 
 						switch (category) {
 							case "Audience":
 								selected = selectedAudience;
-								setSelected = setSelectedAudience;
+								setSelected = (s: Set<string>) => setSelectedAudience(s);
 								break;
 							case "Type":
 								selected = selectedType;
-								setSelected = setSelectedType;
+								setSelected = (s: Set<string>) => setSelectedType(s);
 								break;
 							case "Location":
 								selected = selectedLocation;
-								setSelected = setSelectedLocation;
+								setSelected = (s: Set<string>) => setSelectedLocation(s);
 								break;
 							case "Topic":
 								selected = selectedTopic;
-								setSelected = setSelectedTopic;
+								setSelected = (s: Set<string>) => setSelectedTopic(s);
 								break;
 							case "Other":
 								selected = selectedOther;
-								setSelected = setSelectedOther;
+								setSelected = (s: Set<string>) => setSelectedOther(s);
 								break;
 							default:
 								return null;
@@ -226,8 +229,8 @@ export default function EventFilters({
 					})}
 				</div>
 			) : (
-				<div className="text-center py-8 bg-slate-50 rounded-2xl">
-					<p className="text-slate-500 text-sm">No event tags available</p>
+				<div className="filters-empty">
+					<p>No event tags available</p>
 				</div>
 			)}
 		</div>

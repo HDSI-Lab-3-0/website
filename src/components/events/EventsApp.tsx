@@ -128,9 +128,9 @@ export default function EventsApp({ events }: EventsAppProps) {
 
 	return (
 		<HeroUIProvider>
-			<div className="flex flex-col gap-8">
+			<div className="events-app">
 				{/* Filters at the top */}
-				<section className="w-full">
+				<section className="events-filters-section">
 					<EventFilters
 						onFiltersChange={(
 							audience,
@@ -150,11 +150,11 @@ export default function EventsApp({ events }: EventsAppProps) {
 				</section>
 
 				{/* Events grid */}
-				<section className="flex-1 min-w-0 w-full">
-					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-						<h2 className="text-2xl font-semibold text-slate-900">Available Events</h2>
-						<span className="text-sm text-slate-600">
-							Showing {filteredEvents.length} of {events.length} events
+				<section className="events-section">
+					<div className="events-section-header">
+						<h2 className="events-section-title">Available Events</h2>
+						<span className="events-section-count">
+							{filteredEvents.length} of {events.length}
 						</span>
 					</div>
 
@@ -168,14 +168,14 @@ export default function EventsApp({ events }: EventsAppProps) {
 							/>
 						</>
 					) : (
-						<div className="text-center py-16">
-							<div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 mb-4">
-								<svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+						<div className="events-empty">
+							<div className="events-empty-icon">
+								<svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
 								</svg>
 							</div>
-							<h3 className="text-xl font-semibold text-slate-900 mb-2">No events found</h3>
-							<p className="text-slate-600 mb-4">
+							<h3 className="events-empty-title">No events found</h3>
+							<p className="events-empty-text">
 								{selectedAudience.size +
 									selectedType.size +
 									selectedLocation.size +
@@ -199,7 +199,7 @@ export default function EventsApp({ events }: EventsAppProps) {
 										setSelectedTopic(new Set<string>());
 										setSelectedOther(new Set<string>());
 									}}
-									className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+									className="events-empty-clear"
 								>
 									Clear all filters
 								</button>

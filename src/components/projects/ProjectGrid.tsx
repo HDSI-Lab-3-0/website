@@ -8,7 +8,7 @@ interface ProjectGridProps {
 
 export default function ProjectGrid({ projects }: ProjectGridProps) {
 	return (
-		<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+		<div className="projects-grid">
 			{projects.map((project) => {
 				const displayImage =
 					getImageSrc(project.data.imageGif) ||
@@ -19,90 +19,65 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 					<a
 						key={project.id}
 						href={`/projects/${project.id}`}
-						className="group block transition-all duration-300 hover:shadow-xl hover:-translate-y-1 rounded-xl border border-slate-200 bg-white overflow-hidden"
+						className="project-card group"
 					>
-						{/* Card header with image */}
-						<div className="relative h-48 overflow-hidden">
+						{/* Card image */}
+						<div className="project-card-image">
 							<img
 								src={displayImage}
 								alt={project.data.title}
-								className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+								className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
 							/>
 						</div>
 
-						{/* Card body */}
-						<div className="p-5">
-							<h3 className="text-xl font-semibold text-slate-900 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
+						{/* Card content */}
+						<div className="project-card-content">
+							<h3 className="project-card-title">
 								{project.data.title}
 							</h3>
 
-							<p className="text-slate-600 text-sm mb-4 line-clamp-3">
+							<p className="project-card-description">
 								{project.data.description}
 							</p>
 
-							{/* Tags row */}
-							<div className="flex flex-wrap gap-2 mb-4">
+							{/* Tags */}
+							<div className="project-card-tags">
 								{project.data.tags?.slice(0, 3).map((tag) => (
-									<Chip
-										key={tag}
-										size="sm"
-										variant="flat"
-										className="bg-slate-100 text-slate-600 text-xs"
-									>
+									<span key={tag} className="project-tag">
 										{tag}
-									</Chip>
+									</span>
 								))}
 								{project.data.tags && project.data.tags.length > 3 && (
-									<Chip
-										size="sm"
-										variant="flat"
-										className="bg-slate-100 text-slate-600 text-xs"
-									>
+									<span className="project-tag project-tag-more">
 										+{project.data.tags.length - 3}
-									</Chip>
+									</span>
 								)}
 							</div>
 
-							{/* Meta information */}
-							<div className="flex items-center justify-between text-xs text-slate-500">
-								<div className="flex items-center gap-4">
-									<span className="flex items-center gap-1">
-										<svg
-											className="w-4 h-4"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-											/>
+							{/* Meta row */}
+							<div className="project-card-meta">
+								<div className="project-meta-items">
+									<span className="project-meta-item">
+										<svg className="project-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+											<circle cx="12" cy="12" r="10"/>
+											<polyline points="12,6 12,12 16,14"/>
 										</svg>
-										{project.data.estimated_time
-											? `${project.data.estimated_time} min`
-											: "N/A"}
+										{project.data.estimated_time ? `${project.data.estimated_time} min` : "N/A"}
 									</span>
-									<span className="flex items-center gap-1">
-										<svg
-											className="w-4 h-4"
-											fill="none"
-											stroke="currentColor"
-											viewBox="0 0 24 24"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-											/>
+									<span className="project-meta-item">
+										<svg className="project-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+											<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+											<circle cx="12" cy="10" r="3"/>
 										</svg>
 										{getLocationFromTags(project.data.tags)}
 									</span>
 								</div>
-								<span className="text-blue-600 font-medium group-hover:text-blue-700 transition-colors">
-									View Details →
+								<span className="project-card-link">
+									View Details
+									<svg className="project-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+										<line x1="5" y1="12" x2="19" y2="12"/>
+										<polyline points="12,5 19,12 12,19"/>
+									</svg>
 								</span>
 							</div>
 						</div>

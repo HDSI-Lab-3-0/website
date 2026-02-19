@@ -61,7 +61,7 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 
 	return (
 		<HeroUIProvider>
-			<div className="flex flex-col gap-8">
+			<div className="projects-app">
 				<ProjectFilters
 					onFiltersChange={(
 						schoolLevel,
@@ -81,13 +81,13 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 					availableProjects={projects}
 				/>
 
-				<section className="flex-1 min-w-0 w-full">
-					<div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-						<h2 className="text-2xl font-semibold text-slate-900">
+				<section className="projects-section">
+					<div className="projects-section-header">
+						<h2 className="projects-section-title">
 							Available Projects
 						</h2>
-						<span className="text-sm text-slate-600">
-							Showing {filteredProjects.length} of {projects.length} projects
+						<span className="projects-section-count">
+							{filteredProjects.length} of {projects.length}
 						</span>
 					</div>
 
