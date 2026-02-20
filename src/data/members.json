@@ -3,31 +3,31 @@
         {
             "name": "Emmy Wei",
             "role": "Lab Fellow",
-            "image": "/images/members/emmy.png",
-            "sketch": "/images/sketches/emmy-sketch.png",
+            "image": "/images/members/emmy.webp",
+            "sketch": "/images/sketches/emmy-sketch.webp",
             "bio": "Lab Fellow specializing in advanced robotics research and development.",
             "category": "lab-fellow"
         },
         {
             "name": "Andrew Lara",
             "role": "Senior Lab Fellow",
-            "image": "/images/members/saura-naderi.jpg",
+            "image": "/images/members/saura-naderi.webp",
             "bio": "Lab Fellow focusing on innovative robotics applications and systems integration.",
             "category": "senior-lab-fellow"
         },
         {
             "name": "Wan-Rong Leung",
             "role": "Senior Lab Fellow",
-            "image": "/images/members/wan-rong-leung.png",
-            "sketch": "/images/sketches/Emma-sketch.png",
+            "image": "/images/members/wan-rong-leung.webp",
+            "sketch": "/images/sketches/Emma-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development.",
             "category": "senior-lab-fellow"
         },
         {
             "name": "Charles Nguyen",
             "role": "Lab Fellow",
-            "image": "/images/members/charles-nguyen.png",
-            "sketch": "/images/sketches/charles-sketch.png",
+            "image": "/images/members/charles-nguyen.webp",
+            "sketch": "/images/sketches/charles-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development.",
             "majors": ["Computer Science"],
             "graduatingYear": 2026,
@@ -36,16 +36,16 @@
         {
             "name": "Cecilia Werre",
             "role": "Lab Fellow",
-            "image": "/images/members/cecilia-werre.png",
-            "sketch": "/images/sketches/cecilia-sketch.png",
+            "image": "/images/members/cecilia-werre.webp",
+            "sketch": "/images/sketches/cecilia-sketch.webp",
             "bio": "Lab Fellow specializing in robotics research and development.",
             "category": "lab-fellow"
         },
         {
             "name": "Hannah Gonzalez",
             "role": "Lab Fellow",
-            "image": "/images/members/hannah.jpg",
-            "sketch": "/images/sketches/Hannah-sketch.png",
+            "image": "/images/members/hannah.webp",
+            "sketch": "/images/sketches/Hannah-sketch.webp",
             "majors": ["Data Science", "International Business"],
             "graduatingYear": 2027,
             "bio": "Lab Fellow focusing on robotics systems and applications.",
@@ -54,8 +54,8 @@
         {
             "name": "Hana Tjendrawasi",
             "role": "Lab Fellow",
-            "image": "/images/members/hana.jpeg",
-            "sketch": "/images/sketches/Hana-sketch.png",
+            "image": "/images/members/hana.webp",
+            "sketch": "/images/sketches/Hana-sketch.webp",
             "majors": ["Data Science"],
             "graduatingYear": 2026,
             "bio": "Lab Fellow specializing in robotics research and development.",
@@ -64,32 +64,32 @@
         {
             "name": "Jamera Fernando",
             "role": "Lab Fellow",
-            "image": "/images/members/jamera.jpg",
-            "sketch": "/images/sketches/jamera-sketch.png",
+            "image": "/images/members/jamera.webp",
+            "sketch": "/images/sketches/jamera-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development.",
             "category": "lab-fellow"
         },
         {
             "name": "Kyle Shiroma",
             "role": "Lab Fellow",
-            "image": "/images/members/kyle-shiroma.png",
-            "sketch": "/images/sketches/kyle-sketch.png",
+            "image": "/images/members/kyle-shiroma.webp",
+            "sketch": "/images/sketches/kyle-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development projects.",
             "category": "lab-fellow"
         },
         {
             "name": "Marcos Pascual Rodriguez",
             "role": "Lab Fellow",
-            "image": "/images/members/marcos.png",
-            "sketch": "/images/sketches/Marcos-sketch.png",
+            "image": "/images/members/marcos.webp",
+            "sketch": "/images/sketches/Marcos-sketch.webp",
             "bio": "Lab Fellow specializing in robotics systems and applications.",
             "category": "lab-fellow"
         },
         {
             "name": "Moniriddh (Rudd) Bunyay",
             "role": "Lab Fellow",
-            "image": "/images/members/rudd.jpeg",
-            "sketch": "/images/sketches/rudd-sketch.png",
+            "image": "/images/members/rudd.webp",
+            "sketch": "/images/sketches/rudd-sketch.webp",
             "majors": ["Data Science"],
             "graduatingYear": 2027,
             "bio": "Lab Fellow focusing on robotics systems and applications.",
@@ -98,24 +98,24 @@
         {
             "name": "Selina Zhang",
             "role": "Lab Fellow",
-            "image": "/images/members/selina.jpg",
-            "sketch": "/images/sketches/selina-sketch.png",
+            "image": "/images/members/selina.webp",
+            "sketch": "/images/sketches/selina-sketch.webp",
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "lab-fellow"
         },
         {
             "name": "Saura Naderi",
             "role": "Director",
-            "image": "/images/members/saura.png",
-            "sketch": "/images/sketches/saura-sketch.png",
+            "image": "/images/members/saura.webp",
+            "sketch": "/images/sketches/saura-sketch.webp",
             "bio": "Saura Naderi is the K–14 Outreach Director at UC San Diego’s School of Computing, Information, and Data Science, where she creates hands-on robotics and data science experiences that connect undergraduates, researchers, and K–12 students. Her work blends engineering, creativity, and education to make STEM more accessible and inspiring.",
             "category": "director"
         },
         {
             "name": "Yifei Chen",
             "role": "Lab Fellow",
-            "image": "/images/members/yifei.jpg",
-            "sketch": "/images/sketches/yifei-sketch.jpg",
+            "image": "/images/members/yifei.webp",
+            "sketch": "/images/sketches/yifei-sketch.webp",
             "bio": "Lab Fellow specializing in robotics research and development.",
             "category": "lab-fellow"
         }

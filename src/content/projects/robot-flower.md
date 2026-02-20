@@ -7,8 +7,8 @@ audience: "High school"
 engagementType: "Hands-on workshop or activity"
 location: "In classroom or lunch-time program"
 sponsor: "TILOS"
-heroImage: "../../assets/project-placeholder-3.jpg"
-imageGif: "../../assets/project-placeholder-1.jpg"
+heroImage: "../../assets/project-placeholder-3.webp"
+imageGif: "../../assets/project-placeholder-1.webp"
 tags:
     [
         "in classroom",
@@ -619,13 +619,13 @@ def collect_training_data():
 
         if key == ord('s') and len(faces) > 0:
             face_roi = cv2.resize(face_roi, (64, 64))
-            cv2.imwrite(f'smile_data/smiling/smile_{smiling_count}.jpg', face_roi)
+            cv2.imwrite(f'smile_data/smiling/smile_{smiling_count}.webp', face_roi)
             smiling_count += 1
             print(f"Captured smiling image {smiling_count}")
 
         elif key == ord('n') and len(faces) > 0:
             face_roi = cv2.resize(face_roi, (64, 64))
-            cv2.imwrite(f'smile_data/not_smiling/not_smile_{not_smiling_count}.jpg', face_roi)
+            cv2.imwrite(f'smile_data/not_smiling/not_smile_{not_smiling_count}.webp', face_roi)
             not_smiling_count += 1
             print(f"Captured not smiling image {not_smiling_count}")
 

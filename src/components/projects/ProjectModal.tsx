@@ -32,7 +32,7 @@ export default function ProjectModal({
 	const projectSlug = project.id;
 	const displayImage =
 		getImageSrc(data.heroImage) ||
-		"/assets/project-placeholder-1.jpg";
+		"/assets/project-placeholder-1.webp";
 
 	return (
 		<Modal

@@ -13,7 +13,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 				const displayImage =
 					getImageSrc(project.data.imageGif) ||
 					getImageSrc(project.data.heroImage) ||
-					"/assets/project-placeholder-1.jpg";
+					"/assets/project-placeholder-1.webp";
 
 				return (
 					<a

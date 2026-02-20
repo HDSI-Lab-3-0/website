@@ -42,7 +42,7 @@ export default function EventGrid({
 					getImageSrc(event.data.eventImage) ||
 					getImageSrc(event.data.imageGif) ||
 					getImageSrc(event.data.heroImage) ||
-					"/assets/project-placeholder-1.jpg";
+					"/assets/project-placeholder-1.webp";
 
 				const handleEventSelect = () => {
 					onEventClick(event);

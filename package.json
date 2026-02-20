@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "optimize-images": "bun run scripts/optimize-images.ts"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.5",
