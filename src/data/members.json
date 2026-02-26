@@ -6,14 +6,20 @@
             "image": "/images/members/emmy.webp",
             "sketch": "/images/sketches/emmy-sketch.webp",
             "bio": "Lab Fellow specializing in advanced robotics research and development.",
-            "category": "lab-fellow"
+            "category": "lab-fellow",
+            "majors": ["Electrical Engineering"],
+            "minors": ["Entrepreneurship & Innovation"],
+            "graduatingYear": 2027
         },
         {
             "name": "Andrew Lara",
             "role": "Senior Lab Fellow",
             "image": "/images/members/saura-naderi.webp",
             "bio": "Lab Fellow focusing on innovative robotics applications and systems integration.",
-            "category": "senior-lab-fellow"
+            "category": "senior-lab-fellow",
+            "majors": ["Computer Science"],
+            "minors": ["ICAM"],
+            "graduatingYear": 2026
         },
         {
             "name": "Wan-Rong Leung",
@@ -39,7 +45,9 @@
             "image": "/images/members/cecilia-werre.webp",
             "sketch": "/images/sketches/cecilia-sketch.webp",
             "bio": "Lab Fellow specializing in robotics research and development.",
-            "category": "senior-lab-fellow"
+            "category": "senior-lab-fellow",
+            "majors": ["Theatre Major"],
+            "graduatingYear": 2027
         },
         {
             "name": "Hannah Gonzalez",
@@ -75,7 +83,9 @@
             "image": "/images/members/kyle-shiroma.webp",
             "sketch": "/images/sketches/kyle-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development projects.",
-            "category": "lab-fellow"
+            "category": "lab-fellow",
+            "majors": ["Data Science"],
+            "graduatingYear": 2027
         },
         {
             "name": "Marcos Pascual Rodriguez",
@@ -83,7 +93,9 @@
             "image": "/images/members/marcos.webp",
             "sketch": "/images/sketches/Marcos-sketch.webp",
             "bio": "Lab Fellow specializing in robotics systems and applications.",
-            "category": "lab-fellow"
+            "category": "lab-fellow",
+            "majors": ["Engineering Physics", "Industrial Engineering"],
+            "graduatingYear": 2028
         },
         {
             "name": "Moniriddh (Rudd) Bunyay",
