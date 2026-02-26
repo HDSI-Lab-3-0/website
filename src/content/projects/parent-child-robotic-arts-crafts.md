@@ -7,7 +7,7 @@ audience: "Grades 4–6 (with parent/guardian)"
 engagementType: "Hands-on workshop"
 location: "Lab (on campus)"
 sponsor: "EnCORE"
-tags: ["at UCSD", "Grades 4-6", "EnCORE", "Free"]
+tags: ["at UCSD", "Elementary", "EnCORE", "Free"]
 estimated_time: 180
 ---
 

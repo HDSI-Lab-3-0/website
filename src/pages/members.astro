@@ -75,18 +75,18 @@ const volunteers = sortedMembers.filter(m => m.category === 'senior-volunteer' |
     <style>
       .members-grid {
         display: grid;
-        gap: 2rem;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       }
 
       .section-title {
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: #1a202c;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         text-align: center;
         position: relative;
-        padding-bottom: 1rem;
+        padding-bottom: 0.5rem;
       }
 
       .section-title::after {
@@ -102,38 +102,38 @@ const volunteers = sortedMembers.filter(m => m.category === 'senior-volunteer' |
       }
 
       .page-title {
-        font-size: 3rem;
+        font-size: 2rem;
         font-weight: 800;
         color: #1a202c;
-        margin-bottom: 1rem;
+        margin-bottom: 0.5rem;
         text-align: center;
       }
 
       .page-subtitle {
-        font-size: 1.125rem;
+        font-size: 1rem;
         color: #4a5568;
         text-align: center;
-        margin-bottom: 3rem;
-        max-width: 700px;
+        margin-bottom: 2rem;
+        max-width: 600px;
         margin-left: auto;
         margin-right: auto;
       }
 
       .section-spacer {
-        margin-bottom: 4rem;
+        margin-bottom: 2rem;
       }
 
       @media (max-width: 640px) {
         .page-title {
-          font-size: 2rem;
-        }
-
-        .section-title {
           font-size: 1.5rem;
         }
 
+        .section-title {
+          font-size: 1.25rem;
+        }
+
         .members-grid {
-          gap: 1.5rem;
+          gap: 1rem;
           grid-template-columns: 1fr;
         }
       }

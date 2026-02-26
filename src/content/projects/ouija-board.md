@@ -17,17 +17,17 @@ estimated_time: 15
 
 An interactive ouija-board-style canvas where a pointer moves magnetically while voice-to-text and an LLM generate responses.
 
-## K-12 Learning Goals
+## Goal
 
-Fun, spooky intro to electromagnetism + AI systems + language models.
+Participants will be able to engage with a ouija board on a canvas where the planchette is magnetically moved around to the letters.
 
 ## Undergraduates Learning
 
-Magnetic actuation, speech-to-text pipeline, and building safe LLM interactions.
+Undergraduates will learn how to magnetically move a planchette on a canvas and also create a voice to text mechanism and also create an LLM that will respond to their questions.
 
-## Overview
+## K-12 Engagement
 
-Participants will be able to engage with a ouija board on a canvas where the point is magnetically moved around to the letters. Students learn how to magnetically move a piece on a canvas and also create a voice to text mechanism and also create an LLM that will respond to their questions.
+This can serve as a demonstration to inspire kids to the use cases of data science.
 
 ## Demo Details
 

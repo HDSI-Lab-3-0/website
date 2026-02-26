@@ -1,13 +1,12 @@
 {
     "categories": {
         "Location": ["in classroom", "out of classroom", "at UCSD"],
-        "School Level": [
+        "Learner stage": [
             "Elementary",
-            "Grades 4-6",
             "Middle School",
             "High School",
-            "UCSD Undergraduate",
-            "Community College"
+            "Community College",
+            "Undergraduates"
         ],
         "Sponsor": [
             "NSF TILOS",

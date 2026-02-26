@@ -172,7 +172,7 @@ export default function EventFilters({
 	return (
 		<div className="filters-container">
 			<div className="filters-header">
-				<div className="filters-header-left">
+				<div className="filters-header-group">
 					<h3 className="filters-title">Filters</h3>
 					{hasFilters && (
 						<button

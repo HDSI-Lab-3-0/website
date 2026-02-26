@@ -8,7 +8,7 @@ engagementType: "Hands-on activity"
 location: "Classroom or lab"
 sponsor: "TILOS"
 tags: ["Middle School", "TILOS", "Free", "in classroom"]
-estimated_time: 90
+estimated_time: 270
 ---
 
 # Data Science Automaton
@@ -21,7 +21,7 @@ Students collect friction data from different materials and build an automaton t
 
 Data collection + experimental thinking; physical build tied to analysis.
 
-## Undergraduates Learning
+## Undergraduate Learning
 
 Facilitation and curriculum refinement.
 
@@ -35,4 +35,4 @@ Participants learn about data science concepts by collecting data on different m
 - **Output**: Working automaton mechanism
 - **Skills**: Measurement, variable identification, experimentation
 - **Setting**: Classroom or lab environment
-- **Duration**: 90 minutes
+- **Duration**: Three to four 90-minute sessions

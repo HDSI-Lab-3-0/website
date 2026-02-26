@@ -10,7 +10,7 @@ import tagsData from '@/data/tags.json';
 const posts = (await getCollection('projects')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const schoolLevelsCount = tagsData.categories['School Level'].length;
+const schoolLevelsCount = tagsData.categories['Learner stage'].length;
 ---
 
 <!doctype html>

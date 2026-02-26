@@ -35,11 +35,11 @@
         },
         {
             "name": "Cecilia Werre",
-            "role": "Lab Fellow",
+            "role": "Senior Lab Fellow",
             "image": "/images/members/cecilia-werre.webp",
             "sketch": "/images/sketches/cecilia-sketch.webp",
             "bio": "Lab Fellow specializing in robotics research and development.",
-            "category": "lab-fellow"
+            "category": "senior-lab-fellow"
         },
         {
             "name": "Hannah Gonzalez",

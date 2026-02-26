@@ -8,7 +8,7 @@ engagementType: "Hands-on activity"
 location: "Classroom / outreach sites"
 sponsor: "TILOS"
 tags: ["Middle School", "TILOS", "Free", "in classroom", "out of classroom"]
-estimated_time: 60
+estimated_time: 120
 ---
 
 # Pre-Programmed Robotic Arts & Crafts
@@ -35,4 +35,4 @@ Participants will gain exposure to programming concepts without a computer. This
 - **Accessibility**: No computers or internet required
 - **Target**: Schools with limited technology access
 - **Setting**: Classroom or outreach sites
-- **Duration**: 60 minutes
+- **Duration**: One to two 60 minute sessions

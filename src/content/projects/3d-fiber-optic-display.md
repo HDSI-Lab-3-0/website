@@ -7,7 +7,7 @@ audience: "All ages (demo-friendly)"
 engagementType: "Inspirational demo"
 location: "On campus / Lab"
 sponsor: "Professor Haojian Jin"
-tags: ["at UCSD", "UCSD Undergraduate", "All ages", "Demo-friendly"]
+tags: ["at UCSD", "Undergraduates", "All ages", "Demo-friendly"]
 estimated_time: 15
 ---
 
@@ -25,48 +25,13 @@ Inspire curiosity about computing, perception, and robotics through a striking v
 
 Mechanical + electrical build, prototype iteration, and the connection between computer vision and physical output.
 
-## Specifications
+## Overview
 
+Undergraduates are creating a dynamically controlled fiber optic display. This requires mechanical, electrical, and data science experience. Under the guidance of Professor Haojian Jin, students are 3D printing prototypes to control 400 fiber optic rods with stepper motors. The images displayed are ultimately going to be controlled using computer vision. 
 
+## Demo Details
 
-[Image of fiber optic lighting diagram]
-
-
-### Hardware Requirements
-* **Fiber Optic Cables**: High-quality cables to ensure clear light transmission and flexibility.
-* **Servo Motors**: Precision servo motors to control the movement of the cables.
-* **Frame and Mounts**: A robust structure to hold the fiber optics and servomotors securely.
-* **Lighting System**: LED sources to illuminate the fiber optics with vibrant colors.
-
-### Software Requirements
-* **Control Software**: Algorithms to translate input data into servomotor movements, supporting pre-programmed patterns and real-time user input.
-* **Interactive Features**: A user interface for pattern selection or live interaction, and an API for integrating external data sources.
-* **Visualization Engine**: Tools for simulating and previewing patterns before they are displayed.
-
-### Performance & Design
-The system aims for precise, smooth movements and bright, evenly distributed light. It requires a real-time response to user inputs with minimal latency. The physical design will feature a sleek, modern look that is compact and portable for demonstrations.
-
-## Implementation Milestones
-
-### Phase 1: Concept and Design
-* Define system requirements and technical specifications.
-* Draft the initial design for the frame and fiber optic arrangement.
-* Recruit members with expertise in robotics, software development, and design.
-
-### Phase 2: Prototype Development
-* **Hardware**: Assemble the frame with mounted fiber optics and servomotors, testing for precision and light transmission.
-* **Software**: Develop basic control software and test static/dynamic patterns.
-* **Integration**: Synchronize hardware and software to create basic images, adjusting for smooth motion and uniform lighting.
-
-### Phase 3: Interactivity Development
-* Develop a user-friendly interface for pattern selection.
-* Implement real-time input processing for interactive visualizations.
-
-### Phase 4: Testing and Refinement
-* Conduct stress tests for prolonged operation and gather feedback from early users.
-* Finalize the physical design for durability and optimize software for performance.
-
-### Phase 5 & 6: Deployment and Evaluation
-* Showcase the display at internal events and train team members.
-* Organize a public launch event with live demonstrations.
-* Collect feedback, evaluate interactivity, and explore enhancements like AR/VR integration.
+- **Technology**: Fiber optics + stepper motors + 3D printing + computer vision
+- **Experience**: Real-time shifting 3D light display
+- **Educational Value**: Connects vision → computation → motion
+- **Best For**: All-ages inspiration demos (lab tours/open house)

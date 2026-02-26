@@ -65,7 +65,7 @@ function getAvailableTagsByCategory(
 }
 
 const CATEGORY_PRIORITY = [
-	"School Level",
+	"Learner stage",
 	"Location",
 	"Type",
 	"Sponsor",
@@ -160,7 +160,7 @@ export default function ProjectFilters({
 	return (
 		<div className="filters-container">
 			<div className="filters-header">
-				<div className="filters-header-left">
+				<div className="filters-header-group">
 					<h3 className="filters-title">Filters</h3>
 					{hasFilters && (
 						<button
@@ -190,7 +190,7 @@ export default function ProjectFilters({
 						let setSelected: (s: Set<string>) => void;
 
 						switch (category) {
-							case "School Level":
+							case "Learner stage":
 								selected = selectedSchoolLevel;
 								setSelected = (s: Set<string>) => setSelectedSchoolLevel(s);
 								break;

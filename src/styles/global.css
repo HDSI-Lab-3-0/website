@@ -209,9 +209,14 @@ div:not(.animate-scroll-text) {
 
 .filters-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 1rem;
+}
+
+.filters-header-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .filters-header-left {
