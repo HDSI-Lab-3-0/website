@@ -3,19 +3,19 @@
         {
             "name": "NSF TILOS",
             "type": "government",
-            "description": "National Science Foundation - Transforming Integrative Life Sciences Opportunities",
+            "description": "National Science Foundation - The Institute for Learning-enabled Optimization at Scale",
             "url": "https://tilos.ai/"
         },
         {
             "name": "NSF EnCORE",
             "type": "government",
-            "description": "National Science Foundation - Enhancing Cohorts and Opportunities for Research",
+            "description": "National Science Foundation - The Institute for Emerging CORE Methods in Data Science",
             "url": "https://encore.ucsd.edu/"
         },
         {
-            "name": "School of Computing Information and Data Science",
+            "name": "School of Computing, Information and Data Sciences",
             "type": "academic",
-            "description": "UC San Diego's School of Computing, Information, and Data Science",
+            "description": "UC San Diego's School of Computing, Information and Data Sciences",
             "url": "https://scids.ucsd.edu/"
         }
     ]
