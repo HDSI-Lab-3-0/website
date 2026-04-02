@@ -1,43 +1,113 @@
 # How to add, update, or edit a project
 
-Projects are Markdown or MDX files in the Astro content collection `projects`.
+Projects use the Astro content collection **`projects`**: `.md` or `.mdx` files under [`src/content/projects/`](../../src/content/projects/). Frontmatter is validated in [`src/content.config.ts`](../../src/content.config.ts).
 
-## Where files live
+---
 
-- Content: [`src/content/projects/`](../../src/content/projects/) — `.md` or `.mdx`.
-- URL: `/projects/<slug>` where `<slug>` is the file path without extension.
-- Routing: [`src/pages/projects/[...slug].astro`](../../src/pages/projects/[...slug].astro).
+## Where things connect
+
+| Piece | Role |
+| --- | --- |
+| [`src/content/projects/*`](../../src/content/projects/) | One file per project |
+| [`src/pages/projects/index.astro`](../../src/pages/projects/index.astro) | `/projects` — hero, optional CTA link, passes entries to [`ProjectsApp`](../../src/components/projects/ProjectsApp.tsx) |
+| [`src/pages/projects/[...slug].astro`](../../src/pages/projects/[...slug].astro) | `/projects/<id>` — renders MD/MDX body inside [`ProjectPost`](../../src/layouts/ProjectPost.astro) |
+| [`src/pages/rss.xml.js`](../../src/pages/rss.xml.js) | `/rss.xml` — RSS items are **projects** only (`getCollection('projects')`) |
+
+**Slug:** collection entry `id` is usually the filename without extension → `/projects/qubit-demo` for `qubit-demo.md`.
+
+---
 
 ## Add a new project
 
-1. Add `your-project-name.md` (or `.mdx`) under `src/content/projects/`.
-2. Fill frontmatter to match the `projects` schema in [`src/content.config.ts`](../../src/content.config.ts).
+1. Create `your-slug.md` (or `.mdx`) in `src/content/projects/`. **Slug** = filename without extension; use lowercase and hyphens for stable URLs.
+2. Fill **required** frontmatter: `title`, `description`, `pubDate`.
+3. Add optional fields for cards/filters and hero media (see below).
+4. Write the body in Markdown/MDX (headings, lists, etc.).
+5. Run `bun run dev` — check `/projects` and `/projects/your-slug`.
 
-### Commonly used frontmatter
+---
+
+## Frontmatter (projects schema)
+
+### Required
+
+| Field | Type | Notes |
+| --- | --- | --- |
+| `title` | string | Project name |
+| `description` | string | Short blurb for listings/cards |
+| `pubDate` | date | e.g. `2026-02-02` (coerced to `Date`) |
+
+### Optional (common)
 
 | Field | Notes |
 | --- | --- |
-| `title` | Required |
-| `description` | Required; short summary |
-| `pubDate` | Required; date |
-| `updatedDate` | Optional |
-| `heroImage`, `imageGif` | Optional; use `image()` paths per Astro content layer |
-| `links.lessonPlan`, `links.materials` | Optional URLs |
-| `tags` | Optional array; used for filters |
-| `estimated_time`, `sponsor`, `status`, `audience`, `engagementType`, `location`, `relevance` | Optional metadata for listing/filters |
+| `updatedDate` | Shown when you track revisions |
+| `heroImage`, `imageGif` | Paths resolved via `image()` in the schema—place files under `src/assets/` and reference relative to the project file |
+| `links.lessonPlan`, `links.materials` | Optional URLs for supplemental resources |
+| `relevance` | Extra text/metadata depending on layout |
+| `tags` | `string[]` — filters on `/projects`; align with [`src/data/tags.json`](../../src/data/tags.json) when possible |
+| `estimated_time` | Number (e.g. minutes) |
+| `sponsor`, `status`, `audience`, `engagementType`, `location` | Metadata for listing filters and detail header |
 
-## Body
+### Example
 
-Write Markdown/MDX below the frontmatter; it renders inside [`ProjectPost`](../../src/layouts/ProjectPost.astro).
+```yaml
+---
+title: "Example Activity"
+description: "One-line summary for cards and SEO."
+pubDate: 2026-01-15
+updatedDate: 2026-02-01
+status: "Active"
+audience: "Middle School"
+engagementType: "Workshop"
+location: "Classroom"
+sponsor: "HDSI LAB 3.0"
+tags: ["at UCSD", "Middle School", "Free"]
+estimated_time: 45
+---
+```
 
-## Update or remove
+Then add `# Example Activity` and sections in the body.
 
-- **Edit:** modify the same file; keep types consistent with `content.config.ts`.
-- **Remove:** delete the file from `src/content/projects/` (or move to [`src/content/archive/`](../../src/content/archive/) if you keep archives there).
+---
+
+## Update or retire a project
+
+- **Edit:** change the same file; keep frontmatter valid.
+- **Rename file:** changes the URL — update links and any printed materials.
+- **Archive:** some repos keep old writeups under [`src/content/archive/`](../../src/content/archive/) instead of deleting—**those files are not in the `projects` collection** unless you move them back into `src/content/projects/`.
+
+---
+
+## Listing page (`/projects`)
+
+Hero copy (“Educational Projects”, description) and the **Google Form CTA** live in [`src/pages/projects/index.astro`](../../src/pages/projects/index.astro). To change the external form URL, edit the `href` on that hero `<a>`.
+
+Filters and grid behavior are in [`ProjectsApp`](../../src/components/projects/ProjectsApp.tsx) and related components.
+
+---
+
+## RSS
+
+Subscribers to `/rss.xml` receive **projects** entries. Adding or removing a project file updates the feed on the next deploy.
+
+---
 
 ## Reference
 
-See [`project-markdown-generator.txt`](../../project-markdown-generator.txt) at the repo root for authoring hints.
+[`project-markdown-generator.txt`](../../project-markdown-generator.txt) at the repo root has extra authoring notes.
+
+---
+
+## Troubleshooting
+
+| Issue | Check |
+| --- | --- |
+| Build fails on frontmatter | Compare to `projects` in `content.config.ts` |
+| Image missing | Path relative to `.md` file into `src/assets/`; extension and case correct |
+| Project not in filters | `tags` and other metadata match what `ProjectsApp` / `tags.json` expect |
+
+---
 
 ## Preview
 
@@ -45,4 +115,5 @@ See [`project-markdown-generator.txt`](../../project-markdown-generator.txt) at 
 bun run dev
 ```
 
-Browse `/projects` and the project detail URL.
+- `http://localhost:4321/projects`
+- `http://localhost:4321/projects/<slug>`
