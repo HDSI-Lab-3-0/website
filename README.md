@@ -13,6 +13,10 @@
 5. Start the development server with `bun run dev` (This allows you to see the changes live)
 6. Open your browser and navigate to `http://localhost:4321`
 
+## Documentation
+
+Contributor guides (home page, events, projects, members, legal pages, and a full route map) live in **[docs/README.md](docs/README.md)**.
+
 ## Project Structure
 
 ```text
@@ -86,4 +90,4 @@ This website is deployed on GitHub Pages. The deployment is automated using GitH
 
 ## Updating Content
 
-To update the content of the website, you will need to update the files in the `src/content/` directory. You can add new content by creating new markdown (.md) or markdown with JSX (.mdx) files in this directory. You can also update existing content by editing the files in this directory.
+Projects and events use Markdown/MDX under `src/content/` (see [docs](docs/README.md)). The home page, members, sponsors, contact/donate copy, and legal pages are edited in other paths listed there.
