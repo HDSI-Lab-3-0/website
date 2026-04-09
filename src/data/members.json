@@ -41,7 +41,7 @@
         },
         {
             "name": "Cecilia Werre",
-            "role": "Senior Lab Fellow",
+            "role": "Senior Art Lab Fellow",
             "image": "/images/members/cecilia-werre.webp",
             "sketch": "/images/sketches/cecilia-sketch.webp",
             "bio": "Lab Fellow specializing in robotics research and development.",
@@ -109,11 +109,11 @@
         },
         {
             "name": "Selina Zhang",
-            "role": "Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/selina.webp",
             "sketch": "/images/sketches/selina-sketch.webp",
             "bio": "Lab Fellow focusing on robotics systems and applications.",
-            "category": "lab-fellow"
+            "category": "former-lab-fellow"
         },
         {
             "name": "Saura Naderi",

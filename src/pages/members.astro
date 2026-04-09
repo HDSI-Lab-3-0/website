@@ -25,7 +25,7 @@ const displayCategoryOrder = ['director', 'lab-fellow', 'volunteer'];
 
 // Define seniority order within each category (senior first)
 const seniorityOrder: Record<string, string[]> = {
-  'lab-fellow': ['senior-lab-fellow', 'lab-fellow'],
+  'lab-fellow': ['senior-lab-fellow', 'lab-fellow', 'former-lab-fellow'],
   'volunteer': ['senior-volunteer', 'volunteer']
 };
 
@@ -33,7 +33,7 @@ const seniorityOrder: Record<string, string[]> = {
 const sortedMembers = [...membersData.members as Member[]].sort((a, b) => {
   // Map original categories to display categories
   const getDisplayCategory = (category: string) => {
-    if (category === 'senior-lab-fellow' || category === 'lab-fellow') return 'lab-fellow';
+    if (category === 'senior-lab-fellow' || category === 'lab-fellow' || category === 'former-lab-fellow') return 'lab-fellow';
     if (category === 'senior-volunteer' || category === 'volunteer') return 'volunteer';
     return category;
   };
@@ -65,7 +65,7 @@ const sortedMembers = [...membersData.members as Member[]].sort((a, b) => {
 
 // Group members by display category
 const director = sortedMembers.filter(m => m.category === 'director');
-const labFellows = sortedMembers.filter(m => m.category === 'senior-lab-fellow' || m.category === 'lab-fellow');
+const labFellows = sortedMembers.filter(m => m.category === 'senior-lab-fellow' || m.category === 'lab-fellow' || m.category === 'former-lab-fellow');
 const volunteers = sortedMembers.filter(m => m.category === 'senior-volunteer' || m.category === 'volunteer');
 ---
 
