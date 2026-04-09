@@ -49,6 +49,21 @@ Projects use the Astro content collection **`projects`**: `.md` or `.mdx` files 
 | `estimated_time` | Number (e.g. minutes) |
 | `sponsor`, `status`, `audience`, `engagementType`, `location` | Metadata for listing filters and detail header |
 
+**Hero media priority:** if both `imageGif` and `heroImage` are set, **`imageGif` is used first** for the grid, modal, and project detail hero (`imageGif` → `heroImage`).
+
+---
+
+### Images: `src/assets` vs `public`
+
+- **Frontmatter image fields** (`heroImage`, `imageGif`): paths **relative to the project file** into [`src/assets/`](../../src/assets/). They are validated by Astro’s `image()` helper and optimized at build time.
+- **`public/`**: files are served at the **site root** unchanged (e.g. `/assets/project-placeholder-1.webp` for listing fallbacks when no project image is set). Use `public/` for static URLs, not for collection `image()` references.
+
+---
+
+### Detail hero `<Image>` dimensions
+
+The project detail layout ([`ProjectPost.astro`](../../src/layouts/ProjectPost.astro)) passes `width` and `height` to `<Image>` for the hero. Those values set the **default displayed width** (up to the content column) and drive optimization and aspect ratio—they are not forced to stretch past that width.
+
 ### Example
 
 ```yaml

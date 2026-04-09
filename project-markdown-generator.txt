@@ -1,117 +1,128 @@
-# AI Prompt for Project Markdown Generation
+# AI Prompt: Project Markdown (projects collection)
 
 ## Instructions for AI
 
-Generate a complete markdown document for a project following the specifications below. Your response must contain the entire markdown content in a single code block that can be easily copied and used.
+Generate a complete markdown document for a **project** in this repo. Output the **entire file** in one fenced code block so it can be copied into `src/content/projects/<slug>.md` (or `.mdx`).
 
-## Frontmatter Fields
+Match `src/content.config.ts` (`projects` collection). Frontmatter is validated with Zod; image fields use Astro `image()` — paths must be **relative to the project file** into `src/assets/`.
 
-Include YAML frontmatter at the beginning of the file with these fields:
+---
 
-### Required Fields:
-- title (string): The project title
-- description (string): Brief description of the project
-- pubDate (date): Publication date in YYYY-MM-DD format
+## Frontmatter
 
-### Optional Fields:
-- updatedDate (date): Last updated date in YYYY-MM-DD format
-- heroImage (image path): Path to the main project image
-- imageGif (image path): Path to a project GIF
-- links (object): Contains lessonPlan and materials URLs
-- relevance (string): Explanation of why this project matters
-- tags (array of strings): Tags from the categories below
-- estimated_time (number): Time to complete in minutes
+### Required
 
-## Tag Categories and Valid Options
+| Field | Type | Notes |
+| --- | --- | --- |
+| `title` | string | Project title |
+| `description` | string | Short blurb for cards and SEO |
+| `pubDate` | date | `YYYY-MM-DD` |
 
-When adding tags, use only these exact values:
+### Optional
 
-### Location:
+| Field | Type | Notes |
+| --- | --- | --- |
+| `updatedDate` | date | `YYYY-MM-DD` |
+| `heroImage` | image path | Static hero still (WebP/PNG/JPEG under `src/assets/`) |
+| `imageGif` | image path | If set with `heroImage`, **used first** for grid, modal, and detail hero |
+| `links` | object | `lessonPlan`, `materials` — optional URL strings |
+| `relevance` | string | “Why this matters” callout on the detail page |
+| `tags` | string[] | Filters on `/projects`; align with `src/data/tags.json` when possible |
+| `estimated_time` | number | Minutes (shown on cards/meta) |
+| `sponsor` | string | Comma-separated ok |
+| `status` | string | e.g. prototype / active |
+| `audience` | string | |
+| `engagementType` | string | |
+| `location` | string | |
+
+**Images:** put files under e.g. `src/assets/projects/` and reference from frontmatter like `../../assets/projects/my-hero.webp`. Do **not** use `public/` paths for `heroImage` / `imageGif` — those fields go through the asset pipeline.
+
+---
+
+## Tag categories (use exact strings when applicable)
+
+### Location
 - "in classroom"
-- "out of classroom" 
+- "out of classroom"
 - "at UCSD"
 
-### School Level:
+### School level
 - "Elementary"
 - "Middle School"
 - "High School"
 - "UCSD Undergraduate"
 - "Community College"
 
-### Sponsor:
+### Sponsor
 - "NSF TILOS"
 - "NSF ENCORE"
 - "HDSI LAB 3.0"
 
-### Cost:
+### Cost
 - "Free"
 - "Paid"
 - "Offers Sponsorship"
 
-### Type:
+### Type
 - "Professional Development for Teachers"
 - "Summer Day Camp"
 - "Evening Workshops"
 
-## Content Structure
+---
 
-After the frontmatter, use standard markdown formatting:
+## Body structure
 
-- Use headings (# ## ###) for structure
-- Write clear paragraphs
-- Include images with alt text
-- Use blockquotes for highlights
-- Create tables when needed
-- Include code blocks for technical content
-- Use lists (ordered and unordered) appropriately
+After frontmatter, use normal Markdown:
 
-## Example Structure
+- `#` or `##` headings; the layout may dedupe a body `h1` that duplicates `title`.
+- Paragraphs, lists, tables, code fences, blockquotes as needed.
+- Inline images in the body can use relative paths or imports per Astro/MDX conventions.
+
+---
+
+## Example (full file)
 
 ```markdown
 ---
-title: "Example Project"
-description: "A brief description of this project"
-pubDate: 2023-11-15
-tags: ["in classroom", "High School", "Free"]
+title: "Example Hands-On Activity"
+description: "One-line summary for cards and SEO."
+pubDate: 2026-04-01
+updatedDate: 2026-04-08
+heroImage: "../../assets/projects/example-hero.webp"
+imageGif: "../../assets/projects/example-animated.webp"
+status: "Active"
+audience: "Middle School"
+engagementType: "Workshop"
+location: "Classroom"
+sponsor: "HDSI LAB 3.0"
+tags: ["at UCSD", "Middle School", "Free", "Evening Workshops"]
+estimated_time: 45
+relevance: "Connects data literacy to tangible robotics projects."
+links:
+  lessonPlan: "https://example.org/lesson"
+  materials: "https://example.org/materials"
 ---
 
-# Project Title
+# Example Hands-On Activity
 
 ## Overview
 
-This paragraph describes the project...
+Short introduction for readers.
 
 ## Objectives
 
 - First objective
 - Second objective
 
-## Implementation
+## Session outline
 
-### Step 1
-
-Detailed instructions...
-
-### Code Example
-
-```javascript
-// Example code
-function example() {
-  return "Hello World";
-}
+1. Warm-up
+2. Build
+3. Share-out
 ```
 
-## Results
+---
 
-> "This project achieved its goals successfully."
+## User message
 
-## Resources
-
-| Resource | Link |
-|----------|------|
-| Documentation | [Link](url) |
-```
-
-## User Instructions
-
-After this prompt, paste your project information and I'll generate the complete markdown document with proper formatting, frontmatter, and structure that you can directly use for your project documentation.
+After this prompt, paste project facts (title, dates, tags, image filenames, links). Respond with a single complete markdown file in one code block, ready to save under `src/content/projects/`.
