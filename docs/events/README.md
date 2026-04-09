@@ -49,9 +49,24 @@ All required fields must be present or **`bun run build` will fail** with a Zod/
 
 | Field | Notes |
 | --- | --- |
-| `heroImage` | Optional alternate hero visual |
-| `imageGif` | Optional; layout may prefer GIF for hero when set |
+| `heroImage` | Optional; used if `imageGif` is not set before falling back to `eventImage` |
+| `imageGif` | Optional; **first** choice for the detail hero when set |
 | `eventTags` | `string[]` — used for **filters** on `/events`; see [`tags.json`](../../src/data/tags.json) for canonical category values |
+
+**Hero priority on the event page:** `imageGif` → `heroImage` → `eventImage`. Listing cards use `eventImage` → `imageGif` → `heroImage` (see [`EventGrid.tsx`](../../src/components/events/EventGrid.tsx)).
+
+---
+
+### Images: `src/assets` vs `public`
+
+- **Frontmatter image fields** (`eventImage`, optional `heroImage`, `imageGif`): paths **relative to the event file** into [`src/assets/`](../../src/assets/) (often `src/assets/events/`). They are processed by Astro’s `image()` helper at build time.
+- **`public/`**: copied to the site root as-is (e.g. `/assets/...` placeholders in grids). Not used for collection `image()` paths.
+
+---
+
+### Detail hero `<Image>` dimensions
+
+The event detail layout ([`EventPost.astro`](../../src/layouts/EventPost.astro)) passes `width` and `height` to `<Image>` for the hero. Those set the **default displayed width** (capped by the content column) and optimization—not a forced full-bleed stretch.
 
 ### Minimal example (adjust paths and dates)
 

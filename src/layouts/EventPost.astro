@@ -17,8 +17,7 @@ type Props = CollectionEntry<'events'>['data'] & {
 	showTOC?: boolean;
 };
 
-const { eventName, eventDescription, eventDateStart, eventDateEnd, eventStatus, eventLocation, eventFor, eventImage, imageGif, eventTags, showTitle = true, showTOC = true } = Astro.props;
-const hasHeroSlot = Astro.slots.has('hero');
+const { eventName, eventDescription, eventDateStart, eventDateEnd, eventStatus, eventLocation, eventFor, eventImage, heroImage, imageGif, eventTags, showTitle = true, showTOC = true } = Astro.props;
 
 // Get status color and icon from utility functions
 const currentEventStatus = getEventStatus(eventDateStart, eventDateEnd);
@@ -27,7 +26,7 @@ const resolvedEventLocation = eventLocation?.trim() || getEventLocation(eventTag
 const resolvedEventAudience = eventFor?.trim() || getEventAudience(eventTags);
 const eventDateRange = formatEventDateTimeRange(eventDateStart, eventDateEnd);
 const eventDuration = getEventDuration(eventDateStart, eventDateEnd);
-const heroVisual = imageGif || eventImage;
+const heroVisual = imageGif || heroImage || eventImage;
 
 // Get status icon
 function getStatusIcon(status: string): string {
@@ -194,9 +193,10 @@ const statusColor = statusBadgeProps.className.includes('blue') ? '#2563eb' :
 			}
 
 			.doc-hero img {
-				width: 100%;
+				max-width: 100%;
 				height: auto;
 				display: block;
+				margin-inline: auto;
 			}
 
 			/* Document header */

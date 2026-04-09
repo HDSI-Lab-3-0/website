@@ -16,7 +16,8 @@ type Props = CollectionEntry<'projects'>['data'] & {
 	showTOC?: boolean;
 };
 
-const { title, description, pubDate, updatedDate, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true } = Astro.props;
+const heroVisual = imageGif || heroImage;
 
 // Get icon for each category
 function getCategoryIcon(category: string): string {
@@ -165,9 +166,10 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 			}
 
 			.doc-hero img {
-				width: 100%;
+				max-width: 100%;
 				height: auto;
 				display: block;
+				margin-inline: auto;
 			}
 
 			/* Document header */
@@ -354,9 +356,9 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 					
 					<div class="doc-main">
 						<div class="doc-paper">
-							{imageGif && (
+							{heroVisual && (
 								<div class="doc-hero">
-									<Image width={960} height={480} src={imageGif} alt={title} />
+									<Image width={960} height={480} src={heroVisual} alt={title} />
 								</div>
 							)}
 							
