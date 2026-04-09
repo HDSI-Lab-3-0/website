@@ -8,6 +8,7 @@ engagementType: "Hands-on activity"
 location: "Classroom or lab"
 sponsor: "TILOS"
 tags: ["Middle School", "TILOS", "Free", "in classroom"]
+imageGif: "/automaton image.png"
 estimated_time: 270
 ---
 

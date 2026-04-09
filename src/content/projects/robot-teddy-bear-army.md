@@ -7,6 +7,8 @@ audience: "Adaptable for K-12 visitors"
 engagementType: "Interactive experience + demo"
 location: "Campus"
 sponsor: "HDSI LAB 3.0"
+heroImage: "../../assets/robot-flower-image.webp"
+imageGif: "/teddy bear image.jpeg"
 tags: ["at UCSD", "Undergraduates", "HDSI LAB 3.0"]
 estimated_time: 15
 ---
