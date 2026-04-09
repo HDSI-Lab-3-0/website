@@ -37,3 +37,24 @@ This workshop creates an opportunity for parents to work with their kids to lear
 - **Location**: On-campus lab
 - **Food**: Pizza included
 - **Take-home**: Participants keep their robotic creation
+
+## Workshop videos
+
+<div class="project-video-grid">
+  <video controls playsinline preload="metadata" title="Workshop clip 1">
+    <source src="/robotic-arts-crafts/IMG_8524.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8524.MOV" type="video/quicktime" />
+  </video>
+  <video controls playsinline preload="metadata" title="Workshop clip 2">
+    <source src="/robotic-arts-crafts/IMG_8535.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8535.MOV" type="video/quicktime" />
+  </video>
+  <video controls playsinline preload="metadata" title="Workshop clip 3">
+    <source src="/robotic-arts-crafts/IMG_8548.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8548.MOV" type="video/quicktime" />
+  </video>
+  <video controls playsinline preload="metadata" title="Workshop clip 4">
+    <source src="/robotic-arts-crafts/IMG_8555.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8555.MOV" type="video/quicktime" />
+  </video>
+</div>

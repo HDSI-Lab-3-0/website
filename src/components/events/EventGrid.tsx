@@ -42,7 +42,7 @@ export default function EventGrid({
 					getImageSrc(event.data.eventImage) ||
 					getImageSrc(event.data.imageGif) ||
 					getImageSrc(event.data.heroImage) ||
-					"/assets/project-placeholder-1.webp";
+					"";
 
 				const handleEventSelect = () => {
 					onEventClick(event);
@@ -80,12 +80,19 @@ export default function EventGrid({
 					>
 						{/* Card image */}
 						<div className="event-card-image">
-							<img
-								src={displayImage}
-								alt={event.data.eventName}
-								className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-								loading="lazy"
-							/>
+							{displayImage ? (
+								<img
+									src={displayImage}
+									alt={event.data.eventName}
+									className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+									loading="lazy"
+								/>
+							) : (
+								<div
+									className="w-full h-full bg-slate-200"
+									aria-hidden
+								/>
+							)}
 							<div className="event-card-overlay" />
 							<div className="event-card-status-badge">
 								<Chip size="sm" {...statusBadgeProps} className="event-status-chip">

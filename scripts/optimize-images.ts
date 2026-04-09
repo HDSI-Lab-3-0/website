@@ -118,6 +118,7 @@ async function main() {
     path.join(rootDir, 'src', 'content', 'events', 'robot-teddy-bear-scavenger-hunt.mdx'),
     path.join(rootDir, 'src', 'content', 'events', 'parent-child-robotic-arts-crafts.mdx'),
     path.join(rootDir, 'src', 'content', 'projects', 'robot-flower.md'),
+    path.join(rootDir, 'src', 'content', 'projects', 'robot-teddy-bear-army.md'),
   ];
   
   for (const file of filesToUpdate) {

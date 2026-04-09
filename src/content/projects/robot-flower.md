@@ -7,8 +7,8 @@ audience: "High school"
 engagementType: "Hands-on workshop or activity"
 location: "In classroom or lunch-time program"
 sponsor: "TILOS"
-heroImage: "../../assets/robot-flower-image.webp"
-imageGif: "/robot flower image.jpeg"
+heroImage: "../../assets/projects/robot-flower-image.webp"
+imageGif: "../../assets/projects/robot-flower-image.webp"
 tags:
     [
         "in classroom",

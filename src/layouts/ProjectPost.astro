@@ -87,6 +87,14 @@ function getAllTagsWithCategories(projectTags: string[] | undefined) {
 // Split sponsor by commas if present
 const sponsorList = sponsor ? sponsor.split(',').map(s => s.trim()) : [];
 const allTagsWithCategories = getAllTagsWithCategories(tags);
+
+function formatEstimatedDuration(minutes: number): string {
+	const h = Math.floor(minutes / 60);
+	const m = minutes % 60;
+	if (h === 0) return `${m} min`;
+	if (m === 0) return `${h} hr`;
+	return `${h} hr ${m} min`;
+}
 ---
 
 <html lang="en">
@@ -159,14 +167,20 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 			}
 
-			/* Hero image */
+			/* Hero image — cap vertical size; portrait assets crop to a wide banner */
 			.doc-hero {
 				border-bottom: 1px solid var(--paper-border);
+				width: 100%;
+				height: clamp(200px, 34vh, 380px);
+				overflow: hidden;
+				background: #eceae7;
 			}
 
 			.doc-hero img {
 				width: 100%;
-				height: auto;
+				height: 100%;
+				object-fit: cover;
+				object-position: center;
 				display: block;
 			}
 
@@ -294,6 +308,10 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 			}
 
 			@media (max-width: 768px) {
+				.doc-hero {
+					height: clamp(180px, 28vh, 300px);
+				}
+
 				.doc-container {
 					padding: 1rem;
 				}
@@ -356,7 +374,7 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 						<div class="doc-paper">
 							{imageGif && (
 								<div class="doc-hero">
-									<Image width={240} height={240} src={imageGif} alt={title} />
+									<Image width={960} height={480} src={imageGif} alt={title} />
 								</div>
 							)}
 							
@@ -367,10 +385,10 @@ const allTagsWithCategories = getAllTagsWithCategories(tags);
 									<span class="doc-meta-item">
 										<FormattedDate date={pubDate} />
 									</span>
-									{estimated_time && (
+									{estimated_time != null && estimated_time > 0 && (
 										<>
 											<span class="doc-meta-divider">·</span>
-											<span class="doc-meta-item">{estimated_time} min read</span>
+											<span class="doc-meta-item">Est. {formatEstimatedDuration(estimated_time)}</span>
 										</>
 									)}
 									{sponsorList.length > 0 && (

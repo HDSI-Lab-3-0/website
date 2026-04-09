@@ -8,7 +8,6 @@ engagementType: "Hands-on activity (in class or out of class)"
 location: "Classroom or lab"
 sponsor: "TILOS"
 tags: ["Middle School", "High School", "TILOS", "Free", "in classroom"]
-imageGif: "/data driven robotic art image.jpg"
 estimated_time: 120
 ---
 

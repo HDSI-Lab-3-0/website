@@ -13,7 +13,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 				const displayImage =
 					getImageSrc(project.data.imageGif) ||
 					getImageSrc(project.data.heroImage) ||
-					"/assets/project-placeholder-1.webp";
+					"";
 
 				return (
 					<a
@@ -23,11 +23,18 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 					>
 						{/* Card image */}
 						<div className="project-card-image">
-							<img
-								src={displayImage}
-								alt={project.data.title}
-								className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-							/>
+							{displayImage ? (
+								<img
+									src={displayImage}
+									alt={project.data.title}
+									className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+								/>
+							) : (
+								<div
+									className="w-full h-full bg-slate-200"
+									aria-hidden
+								/>
+							)}
 						</div>
 
 						{/* Card content */}
