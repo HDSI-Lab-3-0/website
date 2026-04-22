@@ -7,6 +7,8 @@ audience: "Middle school"
 engagementType: "Hands-on activity"
 location: "Classroom / outreach sites"
 sponsor: "TILOS"
+heroImage: "../../assets/projects/ufo-pre-programmed-example.png"
+imageGif: "../../assets/projects/ufo-pre-programmed-example.png"
 tags: ["Middle School", "TILOS", "Free", "in classroom", "out of classroom"]
 estimated_time: 120
 ---
@@ -36,3 +38,24 @@ Participants will gain exposure to programming concepts without a computer. This
 - **Target**: Schools with limited technology access
 - **Setting**: Classroom or outreach sites
 - **Duration**: One to two 60 minute sessions
+
+## Workshop videos
+
+<div class="project-video-grid">
+  <video controls playsinline preload="metadata" title="Workshop clip 1">
+    <source src="/robotic-arts-crafts/IMG_8524.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8524.MOV" type="video/quicktime" />
+  </video>
+  <video controls playsinline preload="metadata" title="Workshop clip 2">
+    <source src="/robotic-arts-crafts/IMG_8535.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8535.MOV" type="video/quicktime" />
+  </video>
+  <video controls playsinline preload="metadata" title="Workshop clip 3">
+    <source src="/robotic-arts-crafts/IMG_8548.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8548.MOV" type="video/quicktime" />
+  </video>
+  <video controls playsinline preload="metadata" title="Workshop clip 4">
+    <source src="/robotic-arts-crafts/IMG_8555.mp4" type="video/mp4" />
+    <source src="/robotic-arts-crafts/IMG_8555.MOV" type="video/quicktime" />
+  </video>
+</div>

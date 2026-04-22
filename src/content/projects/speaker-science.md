@@ -7,6 +7,8 @@ audience: "Middle School, High School"
 engagementType: "Hands-on classroom kit"
 location: "Classroom or outreach"
 sponsor: "EnCORE, Victor Minces"
+heroImage: "../../assets/projects/speaker-kit.jpeg"
+imageGif: "../../assets/projects/speaker-kit.jpeg"
 tags: ["Middle School", "High School", "EnCORE", "Free", "in classroom"]
 estimated_time: 90
 ---
