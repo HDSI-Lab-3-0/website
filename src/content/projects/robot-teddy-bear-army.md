@@ -8,7 +8,6 @@ engagementType: "Interactive experience + demo"
 location: "Campus"
 sponsor: "HDSI LAB 3.0"
 heroImage: "../../assets/projects/teddy-bear-image.webp"
-imageGif: "../../assets/projects/teddy-bear-image.webp"
 tags: ["at UCSD", "Undergraduates", "HDSI LAB 3.0"]
 estimated_time: 15
 ---

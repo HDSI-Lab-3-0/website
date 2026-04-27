@@ -87,7 +87,7 @@ function getAllTagsWithCategories(projectTags: string[] | undefined) {
 // Split sponsor by commas if present
 const sponsorList = sponsor ? sponsor.split(',').map(s => s.trim()) : [];
 const allTagsWithCategories = getAllTagsWithCategories(tags);
-const inlineHeroVisual = heroImage || imageGif;
+const inlineHeroVisual = imageGif || heroImage;
 
 function formatEstimatedDuration(minutes: number): string {
 	const h = Math.floor(minutes / 60);
@@ -168,11 +168,11 @@ function formatEstimatedDuration(minutes: number): string {
 				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 			}
 
-			/* Hero image — cap vertical size; portrait assets crop to a wide banner */
+			/* Hero — fixed 16:9 frame; full image via object-fit contain */
 			.doc-hero {
 				border-bottom: 1px solid var(--paper-border);
 				width: 100%;
-				height: clamp(200px, 34vh, 380px);
+				aspect-ratio: 16 / 9;
 				overflow: hidden;
 				background: #eceae7;
 			}
@@ -180,7 +180,7 @@ function formatEstimatedDuration(minutes: number): string {
 			.doc-hero img {
 				width: 100%;
 				height: 100%;
-				object-fit: cover;
+				object-fit: contain;
 				object-position: center;
 				display: block;
 			}
@@ -287,28 +287,6 @@ function formatEstimatedDuration(minutes: number): string {
 				padding: 2rem 3rem 3rem;
 			}
 
-			.doc-content-hero {
-				margin: 0 0 2rem;
-				border: 1px solid var(--paper-border);
-				border-radius: 4px;
-				overflow: hidden;
-				background: #000;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				height: min(62vh, 520px);
-			}
-
-			.doc-content-hero img {
-				width: 100%;
-				height: 100%;
-				object-fit: contain;
-				display: block;
-				background: #000;
-				margin: 0;
-				border-radius: 0;
-			}
-
 			/* Responsive */
 			@media (max-width: 1024px) {
 				.doc-wrapper {
@@ -331,10 +309,6 @@ function formatEstimatedDuration(minutes: number): string {
 			}
 
 			@media (max-width: 768px) {
-				.doc-hero {
-					height: clamp(180px, 28vh, 300px);
-				}
-
 				.doc-container {
 					padding: 1rem;
 				}
@@ -395,9 +369,9 @@ function formatEstimatedDuration(minutes: number): string {
 					
 					<div class="doc-main">
 						<div class="doc-paper">
-							{imageGif && (
+							{inlineHeroVisual && (
 								<div class="doc-hero">
-									<Image width={960} height={480} src={imageGif} alt={title} />
+									<Image width={960} height={540} src={inlineHeroVisual} alt={title} />
 								</div>
 							)}
 							
@@ -444,16 +418,6 @@ function formatEstimatedDuration(minutes: number): string {
 							</header>
 
 							<div class="doc-content markdown-content">
-								{inlineHeroVisual && (
-									<div class="doc-content-hero">
-										<Image
-											width={inlineHeroVisual.width}
-											height={inlineHeroVisual.height}
-											src={inlineHeroVisual}
-											alt={title}
-										/>
-									</div>
-								)}
 								<slot />
 							</div>
 						</div>

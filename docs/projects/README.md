@@ -62,7 +62,7 @@ Projects use the Astro content collection **`projects`**: `.md` or `.mdx` files 
 
 ### Detail hero `<Image>` dimensions
 
-The project detail layout ([`ProjectPost.astro`](../../src/layouts/ProjectPost.astro)) passes `width` and `height` to `<Image>` for the hero. Those values set the **default displayed width** (up to the content column) and drive optimization and aspect ratio—they are not forced to stretch past that width.
+The project detail layout ([`ProjectPost.astro`](../../src/layouts/ProjectPost.astro)) passes **`width={960}`** and **`height={540}`** (16:9) to `<Image>` for the hero. The hero sits in a **16:9** `.doc-hero` frame with **`object-fit: contain`**, so the full asset is visible (letterboxing for non-16:9 sources). Those props drive optimization; the block width follows the content column (`max-width` on `.doc-main`).
 
 ### Example
 

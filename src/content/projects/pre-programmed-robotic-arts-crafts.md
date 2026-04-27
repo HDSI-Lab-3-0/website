@@ -8,7 +8,6 @@ engagementType: "Hands-on activity"
 location: "Classroom / outreach sites"
 sponsor: "TILOS"
 heroImage: "../../assets/projects/ufo-pre-programmed-example.png"
-imageGif: "../../assets/projects/ufo-pre-programmed-example.png"
 tags: ["Middle School", "TILOS", "Free", "in classroom", "out of classroom"]
 estimated_time: 120
 ---
