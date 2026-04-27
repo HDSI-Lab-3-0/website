@@ -168,11 +168,11 @@ function formatEstimatedDuration(minutes: number): string {
 				box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 			}
 
-			/* Hero — fixed 16:9 frame; full image via object-fit contain */
+			/* Hero — fixed 16:8 frame; full image via object-fit contain */
 			.doc-hero {
 				border-bottom: 1px solid var(--paper-border);
 				width: 100%;
-				aspect-ratio: 16 / 9;
+				aspect-ratio: 16 / 8;
 				overflow: hidden;
 				background: #eceae7;
 			}
@@ -371,7 +371,7 @@ function formatEstimatedDuration(minutes: number): string {
 						<div class="doc-paper">
 							{inlineHeroVisual && (
 								<div class="doc-hero">
-									<Image width={960} height={540} src={inlineHeroVisual} alt={title} />
+									<Image width={960} height={480} src={inlineHeroVisual} alt={title} />
 								</div>
 							)}
 							
