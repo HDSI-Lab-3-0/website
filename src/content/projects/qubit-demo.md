@@ -2,6 +2,7 @@
 title: "Qubit Demo"
 description: "A visual/interactive demonstration designed to explain basic quantum concepts to students."
 pubDate: 2026-02-02
+heroImage: "../../assets/projects/qubit-demo.jpeg"
 status: "Prototype development"
 audience: "Demo-friendly (Middle School, High School)"
 engagementType: "Demo"

@@ -2,6 +2,7 @@
 title: "Data Science Automaton"
 description: "Students collect friction data from different materials and build an automaton to learn about measurement, variables, and experimentation."
 pubDate: 2026-02-02
+heroImage: "../../assets/projects/data-science-automaton.jpeg"
 status: "Ready"
 audience: "Middle school"
 engagementType: "Hands-on activity"

@@ -2,6 +2,7 @@
 title: "Parent/Child Robotic Arts & Crafts Workshop"
 description: "A 3-hour parent/child lab experience learning circuits, Arduino basics, and robotics through creative making (pizza included)."
 pubDate: 2026-02-02
+heroImage: "../../assets/projects/parent-child-workshop.jpeg"
 status: "Ready for participants"
 audience: "Grades 4–6 (with parent/guardian)"
 engagementType: "Hands-on workshop"

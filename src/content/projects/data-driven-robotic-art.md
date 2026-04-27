@@ -2,6 +2,7 @@
 title: "Data-Driven Robotic Art"
 description: "Students use math to find patterns in a dataset and drive servo motors to create an artistic representation of relationships in the data."
 pubDate: 2026-02-02
+heroImage: "../../assets/projects/data-driven-robotic-art.jpeg"
 status: "Ready"
 audience: "Middle School, High School"
 engagementType: "Hands-on activity (in class or out of class)"

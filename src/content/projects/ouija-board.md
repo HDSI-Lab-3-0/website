@@ -2,6 +2,7 @@
 title: "Ouija Board (Magnetic + Voice-to-LLM)"
 description: "An interactive ouija-board-style canvas where a pointer moves magnetically while voice-to-text and an LLM generate responses."
 pubDate: 2026-02-02
+heroImage: "../../assets/projects/ouija-board.jpeg"
 status: "Prototype development"
 audience: "Demo-friendly (Middle School, High School)"
 engagementType: "Demo"

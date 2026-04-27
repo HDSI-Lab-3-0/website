@@ -16,7 +16,7 @@ type Props = CollectionEntry<'projects'>['data'] & {
 	showTOC?: boolean;
 };
 
-const { title, description, pubDate, updatedDate, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true } = Astro.props;
 
 // Get icon for each category
 function getCategoryIcon(category: string): string {
@@ -87,6 +87,7 @@ function getAllTagsWithCategories(projectTags: string[] | undefined) {
 // Split sponsor by commas if present
 const sponsorList = sponsor ? sponsor.split(',').map(s => s.trim()) : [];
 const allTagsWithCategories = getAllTagsWithCategories(tags);
+const inlineHeroVisual = heroImage || imageGif;
 
 function formatEstimatedDuration(minutes: number): string {
 	const h = Math.floor(minutes / 60);
@@ -286,6 +287,28 @@ function formatEstimatedDuration(minutes: number): string {
 				padding: 2rem 3rem 3rem;
 			}
 
+			.doc-content-hero {
+				margin: 0 0 2rem;
+				border: 1px solid var(--paper-border);
+				border-radius: 4px;
+				overflow: hidden;
+				background: #000;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: min(62vh, 520px);
+			}
+
+			.doc-content-hero img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+				display: block;
+				background: #000;
+				margin: 0;
+				border-radius: 0;
+			}
+
 			/* Responsive */
 			@media (max-width: 1024px) {
 				.doc-wrapper {
@@ -421,6 +444,16 @@ function formatEstimatedDuration(minutes: number): string {
 							</header>
 
 							<div class="doc-content markdown-content">
+								{inlineHeroVisual && (
+									<div class="doc-content-hero">
+										<Image
+											width={inlineHeroVisual.width}
+											height={inlineHeroVisual.height}
+											src={inlineHeroVisual}
+											alt={title}
+										/>
+									</div>
+								)}
 								<slot />
 							</div>
 						</div>

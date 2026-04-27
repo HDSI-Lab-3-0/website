@@ -2,6 +2,7 @@
 title: "3D Fiber Optic Display"
 description: "A dynamically controlled fiber optic display made of 400 rods, designed to visualize images driven by computer vision."
 pubDate: 2026-02-02
+heroImage: "../../assets/projects/fiber-optic-display.jpeg"
 status: "Prototype development"
 audience: "All ages (demo-friendly)"
 engagementType: "Inspirational demo"
