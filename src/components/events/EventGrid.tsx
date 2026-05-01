@@ -48,23 +48,35 @@ export default function EventGrid({
 					onEventClick(event);
 				};
 
-				const dateTimeRange = formatEventDateTimeRange(
-					event.data.eventDateStart,
-					event.data.eventDateEnd
-				);
+				const dateTimeRange =
+					event.data.eventDateLabel ||
+					formatEventDateTimeRange(
+						event.data.eventDateStart,
+						event.data.eventDateEnd
+					);
 				const location = event.data.eventLocation?.trim() || getEventLocation(event.data.eventTags);
 				const audience = event.data.eventFor?.trim() || getEventAudience(event.data.eventTags);
 				const duration = getEventDuration(event.data.eventDateStart, event.data.eventDateEnd);
 				const tags = event.data.eventTags ?? [];
 
 				const statusLabel = getEventStatusLabel(event.data.eventDateStart, event.data.eventDateEnd, referenceDate);
-				let computedStatus = getEventStatus(event.data.eventDateStart, event.data.eventDateEnd, referenceDate);
+				let computedStatus = event.data.eventDateLabel
+					? event.data.eventStatus
+					: getEventStatus(event.data.eventDateStart, event.data.eventDateEnd, referenceDate);
 				if (computedStatus === "past") {
 					computedStatus = "completed";
 				}
 				const isOngoing = computedStatus === "ongoing";
 				const isPast = computedStatus === "completed";
 				const statusBadgeProps = getEventStatusBadgeProps(computedStatus);
+				const displayStatusLabel =
+					computedStatus === "ongoing"
+						? "Ongoing"
+						: computedStatus === "completed"
+							? "Past"
+							: computedStatus === "cancelled"
+								? "Cancelled"
+								: statusLabel;
 
 				const detailItems = [
 					{ Icon: CalendarDays, label: dateTimeRange },
@@ -116,7 +128,7 @@ export default function EventGrid({
 						<div className="event-card-content">
 							<div className="event-card-status">
 								<Chip size="sm" {...statusBadgeProps} className="event-status-chip-inline">
-									{statusLabel}
+									{displayStatusLabel}
 								</Chip>
 							</div>
 

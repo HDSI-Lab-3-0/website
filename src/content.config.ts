@@ -42,10 +42,12 @@ const events = defineCollection({
             // Transform string to Date object
             eventDateStart: z.coerce.date(),
             eventDateEnd: z.coerce.date(),
+            eventDateLabel: z.string().optional(),
             eventStatus: z.enum(["upcoming", "ongoing", "completed", "cancelled"]),
             eventLocation: z.string(),
             eventFor: z.string(),
             eventImage: image(),
+            eventRegistrationUrl: z.string().url().optional(),
             heroImage: image().optional(),
             imageGif: image().optional(),
             eventTags: z.array(z.string()).optional(),

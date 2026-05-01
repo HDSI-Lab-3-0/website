@@ -103,6 +103,46 @@
   border-bottom-color: #2563eb;
 }
 
+.markdown-content .registration-cta {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 0;
+}
+
+.markdown-content .registration-cta a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.85rem 1.75rem;
+  border: 1px solid #1d4ed8;
+  border-radius: 6px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.markdown-content .registration-cta a:hover {
+  border-color: #1e40af;
+  background: #1d4ed8;
+  box-shadow: 0 10px 22px rgba(37, 99, 235, 0.24);
+  transform: translateY(-1px);
+}
+
+.markdown-content .registration-note {
+  margin: 1rem 0 1.25rem;
+  text-align: center;
+}
+
 /* ==========================================================================
    Lists
    ========================================================================== */
