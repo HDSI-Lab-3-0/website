@@ -7,9 +7,10 @@ import WIPBanner from './WIPBanner.astro';
 ---
 
 <div class="sticky-container">
+	<a class="skip-link" href="#main-content">Skip to main content</a>
 	<header class="sticky-header">
-		<nav>
-			<h2><a href="/">{SITE_TITLE}</a></h2>
+		<nav aria-label="Primary">
+			<div class="site-title"><a href="/">{SITE_TITLE}</a></div>
 			
 			<!-- Desktop Navigation -->
 			<div class="internal-links desktop-only">
@@ -28,7 +29,7 @@ import WIPBanner from './WIPBanner.astro';
 			</div>
 			
 			<div class="social-links desktop-only">
-				<a href="https://github.com/HDSI-Lab-3-0/website" target="_blank">
+				<a href="https://github.com/HDSI-Lab-3-0/website" target="_blank" rel="noopener noreferrer">
 					<span class="sr-only">Go to HDSI Lab GitHub repo</span>
 					<Icon icon="Github" size={20} className="text-gray-600 hover:text-gray-900" />
 				</a>
@@ -44,20 +45,42 @@ import WIPBanner from './WIPBanner.astro';
 		z-index: 100;
 	}
 
+	.skip-link {
+		position: absolute;
+		left: 1rem;
+		top: 0.5rem;
+		z-index: 1000;
+		transform: translateY(-150%);
+		background: rgb(var(--black));
+		color: white;
+		padding: 0.75rem 1rem;
+		border-radius: 0.5rem;
+		font-weight: 700;
+		text-decoration: none;
+		box-shadow: 0 6px 16px rgba(var(--black), 18%);
+		transition: transform 0.15s ease;
+	}
+
+	.skip-link:focus-visible {
+		transform: translateY(0);
+		outline: 3px solid var(--focus-ring);
+		outline-offset: 3px;
+	}
+
 	.sticky-header {
 		margin: 0;
 		padding: 0 1em;
 		background: white;
 		box-shadow: 0 2px 8px rgba(var(--black), 5%);
 	}
-	h2 {
+	.site-title {
 		margin: 0;
 		font-size: 1em;
 		font-weight: 700;
 	}
 
-	h2 a,
-	h2 a.active {
+	.site-title a,
+	.site-title a.active {
 		text-decoration: none;
 		color: rgb(var(--black));
 	}

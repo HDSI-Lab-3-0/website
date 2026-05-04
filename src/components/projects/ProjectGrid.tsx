@@ -1,4 +1,3 @@
-import { Chip } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
 import { getImageSrc, getLocationFromTags } from "@/utils/projectHelpers.ts";
 
@@ -28,6 +27,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 									src={displayImage}
 									alt={project.data.title}
 									className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+									loading="lazy"
 								/>
 							) : (
 								<div
@@ -65,14 +65,14 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 							<div className="project-card-meta">
 								<div className="project-meta-items">
 									<span className="project-meta-item">
-										<svg className="project-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+										<svg className="project-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
 											<circle cx="12" cy="12" r="10"/>
 											<polyline points="12,6 12,12 16,14"/>
 										</svg>
 										{project.data.estimated_time ? `${project.data.estimated_time} min` : "N/A"}
 									</span>
 									<span className="project-meta-item">
-										<svg className="project-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+										<svg className="project-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
 											<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
 											<circle cx="12" cy="10" r="3"/>
 										</svg>
@@ -81,7 +81,7 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 								</div>
 								<span className="project-card-link">
 									View Details
-									<svg className="project-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+									<svg className="project-link-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
 										<line x1="5" y1="12" x2="19" y2="12"/>
 										<polyline points="12,5 19,12 12,19"/>
 									</svg>

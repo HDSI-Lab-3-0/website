@@ -23,7 +23,7 @@ const MobileNavigation: React.FC = () => {
         <Button
           isIconOnly
           variant="light"
-          aria-label="Toggle navigation menu"
+          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
           aria-expanded={isOpen}
           aria-controls="mobile-navigation-modal"
           className="p-3 min-h-[44px] min-w-[44px] touch-manipulation"
@@ -86,6 +86,9 @@ const MobileNavigation: React.FC = () => {
           {(onClose) => (
             <>
               <ModalHeader className="flex flex-col gap-1 border-b border-gray-200 dark:border-gray-700">
+                <h2 id="mobile-nav-title" className="text-xl font-semibold text-gray-900 dark:text-white">
+                  Navigation
+                </h2>
               </ModalHeader>
               <ModalBody className="py-8">
                 <nav

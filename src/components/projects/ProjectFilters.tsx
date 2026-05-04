@@ -132,8 +132,11 @@ export default function ProjectFilters({
 
 		return (
 			<div key={category} className="filter-select-wrapper">
-				<label className="filter-label">{category}</label>
+				<span className="filter-label" id={`project-filter-${category.toLowerCase().replace(/\s+/g, "-")}`}>
+					{category}
+				</span>
 				<Select
+					aria-labelledby={`project-filter-${category.toLowerCase().replace(/\s+/g, "-")}`}
 					placeholder={`Select ${category.toLowerCase()}...`}
 					selectionMode="multiple"
 					selectedKeys={selected}
@@ -173,6 +176,7 @@ export default function ProjectFilters({
 								setSelectedOther(new Set<string>());
 							}}
 							className="filters-clear"
+							aria-label="Clear all project filters"
 						>
 							Clear all
 						</button>

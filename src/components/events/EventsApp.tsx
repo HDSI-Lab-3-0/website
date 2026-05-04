@@ -23,7 +23,6 @@ export default function EventsApp({ events }: EventsAppProps) {
 	const [selectedTopic, setSelectedTopic] = useState<Set<string>>(new Set([]));
 	const [selectedOther, setSelectedOther] = useState<Set<string>>(new Set([]));
 	const [currentPage, setCurrentPage] = useState(1);
-	const [eventStats, setEventStats] = useState({ upcoming: 0, past: 0 });
 
 	useEffect(() => {
 		const activeFiltersElement = document.getElementById("active-filters");
@@ -60,8 +59,6 @@ export default function EventsApp({ events }: EventsAppProps) {
 			isEventPast(event.data.eventDateEnd, referenceDate)
 		).length;
 		
-		setEventStats({ upcoming: upcomingCount, past: pastCount });
-
 		const upcomingElement = document.getElementById("upcoming-count");
 		const pastElement = document.getElementById("past-count");
 		

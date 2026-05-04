@@ -144,8 +144,11 @@ export default function EventFilters({
 
 		return (
 			<div key={category} className="filter-select-wrapper">
-				<label className="filter-label">{category}</label>
+				<span className="filter-label" id={`event-filter-${category.toLowerCase().replace(/\s+/g, "-")}`}>
+					{category}
+				</span>
 				<Select
+					aria-labelledby={`event-filter-${category.toLowerCase().replace(/\s+/g, "-")}`}
 					placeholder={`Select ${category.toLowerCase()}...`}
 					selectionMode="multiple"
 					selectedKeys={selected}
@@ -184,6 +187,7 @@ export default function EventFilters({
 								setSelectedOther(new Set<string>());
 							}}
 							className="filters-clear"
+							aria-label="Clear all event filters"
 						>
 							Clear all
 						</button>

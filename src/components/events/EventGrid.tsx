@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Chip, Button } from "@heroui/react";
+import type { MouseEvent } from "react";
+import { Chip } from "@heroui/react";
 import type { CollectionEntry } from "astro:content";
 import { CalendarDays, Clock3, MapPin, Users } from "lucide-react";
 
@@ -44,7 +45,20 @@ export default function EventGrid({
 					getImageSrc(event.data.heroImage) ||
 					"";
 
-				const handleEventSelect = () => {
+				const eventHref = `/events/${event.id}`;
+				const handleEventSelect = (eventClick: MouseEvent<HTMLAnchorElement>) => {
+					if (
+						eventClick.defaultPrevented ||
+						eventClick.metaKey ||
+						eventClick.ctrlKey ||
+						eventClick.shiftKey ||
+						eventClick.altKey ||
+						eventClick.button !== 0
+					) {
+						return;
+					}
+
+					eventClick.preventDefault();
 					onEventClick(event);
 				};
 
@@ -85,10 +99,12 @@ export default function EventGrid({
 				].filter(({ label }) => Boolean(label));
 
 				return (
-					<div
+					<a
 						key={event.id}
+						href={eventHref}
 						className={`event-card group ${isOngoing ? 'event-card-ongoing' : isPast ? 'event-card-past' : 'event-card-upcoming'}`}
 						onClick={handleEventSelect}
+						aria-label={`View details for ${event.data.eventName}`}
 					>
 						{/* Card image */}
 						<div className="event-card-image">
@@ -143,7 +159,7 @@ export default function EventGrid({
 							{/* Audience row */}
 							{audience && (
 								<div className="event-card-meta-row">
-									<Users className="event-meta-icon" strokeWidth={2} />
+									<Users className="event-meta-icon" strokeWidth={2} aria-hidden="true" />
 									<span className="event-meta-text">{audience}</span>
 								</div>
 							)}
@@ -152,7 +168,7 @@ export default function EventGrid({
 							<div className="event-card-details">
 								{detailItems.map(({ Icon, label }, index) => (
 									<div key={`${label}-${index}`} className="event-card-meta-row">
-										<Icon className="event-meta-icon" strokeWidth={2} />
+										<Icon className="event-meta-icon" strokeWidth={2} aria-hidden="true" />
 										<span className="event-meta-text">{label}</span>
 									</div>
 								))}
@@ -171,18 +187,12 @@ export default function EventGrid({
 							<div className="event-card-footer">
 								<span className="event-footer-label">Details</span>
 								<div className="event-footer-line" />
-								<Button
-									size="sm"
-									variant="shadow"
-									color="primary"
-									className="event-footer-button"
-									onPress={handleEventSelect}
-								>
+								<span className="event-footer-button" aria-hidden="true">
 									View details
-								</Button>
+								</span>
 							</div>
 						</div>
-					</div>
+					</a>
 				);
 			})}
 		</div>

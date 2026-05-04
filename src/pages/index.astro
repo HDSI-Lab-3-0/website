@@ -16,14 +16,15 @@ import sponsors from "@/data/sponsors.json";
 	</head>
 	<body>
 		<Header />
-		<main>
+		<main id="main-content" tabindex="-1">
 			<!-- Hero Section -->
 			<section
 				class="relative min-h-screen flex items-center justify-center overflow-hidden lg:min-h-[600px]"
 			>
 				<Image
 					src={heroImage}
-					alt="Hero background"
+					alt=""
+					aria-hidden="true"
 					class="absolute inset-0 w-full h-full object-cover z-0"
 				/>
 				<div
@@ -37,7 +38,7 @@ import sponsors from "@/data/sponsors.json";
 						HDSI Lab 3
 					</p>
 					<h1
-						class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight bg-gradient-to-br from-slate-900 to-slate-700 bg-clip-text text-transparent"
+						class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight tracking-tight"
 					>
 						Build Cool Stuff. Inspire Kids.
 					</h1>
@@ -140,7 +141,7 @@ import sponsors from "@/data/sponsors.json";
 						>
 							<Image
 								src={aboutImage}
-								alt="About HDSI Lab"
+								alt="HDSI Lab students working together at an outreach table"
 								class="w-full h-auto"
 							/>
 						</div>
@@ -232,6 +233,8 @@ import sponsors from "@/data/sponsors.json";
 													fill="none"
 													stroke="currentColor"
 													viewBox="0 0 24 24"
+													aria-hidden="true"
+													focusable="false"
 												>
 													<path
 														stroke-linecap="round"

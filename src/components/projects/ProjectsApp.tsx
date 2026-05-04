@@ -9,7 +9,6 @@ interface ProjectsAppProps {
 }
 
 export default function ProjectsApp({ projects }: ProjectsAppProps) {
-	console.log("ProjectsApp component loaded with", projects.length, "projects");
 	const [selectedSchoolLevel, setSelectedSchoolLevel] = useState<Set<string>>(
 		new Set([])
 	);

@@ -42,20 +42,28 @@ This workshop creates an opportunity for parents to work with their kids to lear
 ## Workshop videos
 
 <div class="project-video-grid">
-  <video controls playsinline preload="metadata" title="Workshop clip 1">
+  <video controls playsinline preload="metadata" title="Workshop clip 1" aria-describedby="workshop-video-transcript">
     <source src="/robotic-arts-crafts/IMG_8524.mp4" type="video/mp4" />
     <source src="/robotic-arts-crafts/IMG_8524.MOV" type="video/quicktime" />
+    <track kind="captions" src="/robotic-arts-crafts/IMG_8524-captions.vtt" srclang="en" label="English captions" default />
   </video>
-  <video controls playsinline preload="metadata" title="Workshop clip 2">
+  <video controls playsinline preload="metadata" title="Workshop clip 2" aria-describedby="workshop-video-transcript">
     <source src="/robotic-arts-crafts/IMG_8535.mp4" type="video/mp4" />
     <source src="/robotic-arts-crafts/IMG_8535.MOV" type="video/quicktime" />
+    <track kind="captions" src="/robotic-arts-crafts/IMG_8535-captions.vtt" srclang="en" label="English captions" default />
   </video>
-  <video controls playsinline preload="metadata" title="Workshop clip 3">
+  <video controls playsinline preload="metadata" title="Workshop clip 3" aria-describedby="workshop-video-transcript">
     <source src="/robotic-arts-crafts/IMG_8548.mp4" type="video/mp4" />
     <source src="/robotic-arts-crafts/IMG_8548.MOV" type="video/quicktime" />
+    <track kind="captions" src="/robotic-arts-crafts/IMG_8548-captions.vtt" srclang="en" label="English captions" default />
   </video>
-  <video controls playsinline preload="metadata" title="Workshop clip 4">
+  <video controls playsinline preload="metadata" title="Workshop clip 4" aria-describedby="workshop-video-transcript">
     <source src="/robotic-arts-crafts/IMG_8555.mp4" type="video/mp4" />
     <source src="/robotic-arts-crafts/IMG_8555.MOV" type="video/quicktime" />
+    <track kind="captions" src="/robotic-arts-crafts/IMG_8555-captions.vtt" srclang="en" label="English captions" default />
   </video>
 </div>
+
+<p id="workshop-video-transcript" class="video-transcript">
+  Video transcript: Four short workshop clips show robotic arts-and-crafts activities in progress with ambient room audio. No spoken instructions are provided in the clips.
+</p>
