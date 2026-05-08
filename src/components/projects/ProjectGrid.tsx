@@ -1,11 +1,12 @@
 import type { CollectionEntry } from "astro:content";
-import { getImageSrc, getLocationFromTags } from "@/utils/projectHelpers.ts";
+import { getImageSrc, getLocationFromTags, getLinkedEvent, getEventDisplayStatus, getEventStatusStyle, isEventActive } from "@/utils/projectHelpers.ts";
 
 interface ProjectGridProps {
 	projects: CollectionEntry<"projects">[];
+	events: CollectionEntry<"events">[];
 }
 
-export default function ProjectGrid({ projects }: ProjectGridProps) {
+export default function ProjectGrid({ projects, events }: ProjectGridProps) {
 	return (
 		<div className="projects-grid">
 			{projects.map((project) => {
@@ -13,6 +14,10 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 					getImageSrc(project.data.imageGif) ||
 					getImageSrc(project.data.heroImage) ||
 					"";
+
+				const linkedEvent = getLinkedEvent(project.data.event, events);
+				const linkedEventStatus = linkedEvent ? getEventDisplayStatus(linkedEvent) : null;
+				const eventStyle = linkedEventStatus ? getEventStatusStyle(linkedEventStatus) : null;
 
 				return (
 					<a
@@ -34,6 +39,28 @@ export default function ProjectGrid({ projects }: ProjectGridProps) {
 									className="w-full h-full bg-slate-200"
 									aria-hidden
 								/>
+							)}
+							{linkedEvent && eventStyle && (
+								<div
+									onClick={(e) => {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = `/events/${linkedEvent.id}`;
+									}}
+									className="absolute top-3 right-3 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer"
+									style={{
+										backgroundColor: eventStyle.text,
+										color: '#ffffff',
+									}}
+								>
+									<svg width="10" height="10" viewBox="0 0 10 10" fill="none" className="flex-shrink-0">
+										<circle cx="5" cy="5" r="4.5" fill="currentColor" opacity="0.8" />
+										{linkedEventStatus === 'ongoing' && (
+											<circle cx="5" cy="5" r="2.5" fill="currentColor" />
+										)}
+									</svg>
+									<span>{isEventActive(linkedEventStatus ?? '') ? eventStyle.label : 'Event'}</span>
+								</div>
 							)}
 						</div>
 

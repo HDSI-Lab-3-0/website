@@ -6,9 +6,10 @@ import ProjectGrid from "@/components/projects/ProjectGrid.tsx";
 
 interface ProjectsAppProps {
 	projects: CollectionEntry<"projects">[];
+	events: CollectionEntry<"events">[];
 }
 
-export default function ProjectsApp({ projects }: ProjectsAppProps) {
+export default function ProjectsApp({ projects, events }: ProjectsAppProps) {
 	const [selectedSchoolLevel, setSelectedSchoolLevel] = useState<Set<string>>(
 		new Set([])
 	);
@@ -90,7 +91,7 @@ export default function ProjectsApp({ projects }: ProjectsAppProps) {
 						</span>
 					</div>
 
-					<ProjectGrid projects={filteredProjects} />
+					<ProjectGrid projects={filteredProjects} events={events} />
 				</section>
 			</div>
 		</HeroUIProvider>

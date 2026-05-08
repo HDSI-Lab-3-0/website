@@ -34,6 +34,7 @@ Match `src/content.config.ts` (`projects` collection). Frontmatter is validated 
 | `audience` | string | |
 | `engagementType` | string | |
 | `location` | string | |
+| `event` | string | Slug of the associated event (e.g. `parent-child-robotic-arts-crafts`). When set, a callout banner links to the event page on the project detail view |
 
 **Images:** put files under e.g. `src/assets/projects/` and reference from frontmatter like `../../assets/projects/my-hero.webp`. Do **not** use `public/` paths for `heroImage` / `imageGif` — those fields go through the asset pipeline.
 
@@ -101,6 +102,7 @@ relevance: "Connects data literacy to tangible robotics projects."
 links:
   lessonPlan: "https://example.org/lesson"
   materials: "https://example.org/materials"
+event: "example-event-slug"
 ---
 
 # Example Hands-On Activity

@@ -10,6 +10,7 @@ import tagsData from '@/data/tags.json';
 const posts = (await getCollection('projects')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const allEvents = await getCollection('events');
 const schoolLevelsCount = tagsData.categories['Learner stage'].length;
 ---
 
@@ -69,7 +70,7 @@ const schoolLevelsCount = tagsData.categories['Learner stage'].length;
 
 		<main id="main-content" class="projects-page-main" tabindex="-1">
 			<div class="page-content-wrapper">
-				<ProjectsApp client:load projects={posts} />
+				<ProjectsApp client:load projects={posts} events={allEvents} />
 			</div>
 		</main>
 		<Footer />

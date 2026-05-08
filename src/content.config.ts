@@ -28,6 +28,7 @@ const projects = defineCollection({
         audience: z.string().optional(),
         engagementType: z.string().optional(),
         location: z.string().optional(),
+        event: z.string().optional(),
     }),
 });
 

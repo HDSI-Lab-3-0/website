@@ -10,6 +10,7 @@ sponsor: "HDSI LAB 3.0"
 heroImage: "../../assets/projects/teddy-bear-image.webp"
 tags: ["at UCSD", "Undergraduates", "HDSI LAB 3.0"]
 estimated_time: 15
+event: "robot-teddy-bear-scavenger-hunt"
 ---
 
 # Robot Teddy Bear Army Scavenger Hunt & Parade

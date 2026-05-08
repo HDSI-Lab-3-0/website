@@ -10,6 +10,7 @@ location: "Lab (on campus)"
 sponsor: "EnCORE"
 tags: ["at UCSD", "Elementary", "EnCORE", "Free"]
 estimated_time: 180
+event: "parent-child-robotic-arts-crafts"
 ---
 
 # Parent/Child Robotic Arts & Crafts Workshop

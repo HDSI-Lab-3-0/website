@@ -1,6 +1,7 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import ProjectPost from '../../layouts/ProjectPost.astro';
+import { getLinkedEvent } from '../../utils/projectHelpers';
 import '../../styles/markdown.css';
 
 export async function getStaticPaths() {
@@ -13,10 +14,12 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'projects'>;
 
 const post = Astro.props;
+const allEvents = await getCollection('events');
+const linkedEvent = getLinkedEvent(post.data.event, allEvents);
 const { Content } = await render(post);
 ---
 
-<ProjectPost {...post.data}>
+<ProjectPost {...post.data} linkedEvent={linkedEvent}>
 	<div class="markdown-content">
 		<Content />
 	</div>

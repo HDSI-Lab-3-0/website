@@ -10,13 +10,15 @@ import tagsData from '../data/tags.json';
 import tableOfContentsScript from '../scripts/table-of-contents.js?url';
 import headingAnchorsScript from '../scripts/heading-anchors.js?url';
 import copyCodeScript from '../scripts/copy-code.js?url';
+import { getEventDisplayStatus, getEventStatusStyle, isEventActive } from '../utils/projectHelpers';
 
 type Props = CollectionEntry<'projects'>['data'] & {
 	showTitle?: boolean;
 	showTOC?: boolean;
+	linkedEvent?: CollectionEntry<'events'>;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, imageGif, links, relevance, tags, estimated_time, sponsor, showTitle = true, showTOC = true, linkedEvent } = Astro.props;
 
 // Get icon for each category
 function getCategoryIcon(category: string): string {
@@ -88,6 +90,10 @@ function getAllTagsWithCategories(projectTags: string[] | undefined) {
 const sponsorList = sponsor ? sponsor.split(',').map(s => s.trim()) : [];
 const allTagsWithCategories = getAllTagsWithCategories(tags);
 const inlineHeroVisual = imageGif || heroImage;
+
+// Linked event computation
+const linkedEventStatus = linkedEvent ? getEventDisplayStatus(linkedEvent) : null;
+const eventStyle = linkedEventStatus ? getEventStatusStyle(linkedEventStatus) : null;
 
 function formatEstimatedDuration(minutes: number): string {
 	const h = Math.floor(minutes / 60);
@@ -282,6 +288,72 @@ function formatEstimatedDuration(minutes: number): string {
 				color: #713f12;
 			}
 
+			/* Event callout banner */
+			.doc-event-banner {
+				margin: 1.25rem 3rem 0;
+				padding: 1rem 1.5rem;
+				border-left: 3px solid;
+				border-radius: 0 4px 4px 0;
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+			}
+
+			.doc-event-banner-content {
+				display: flex;
+				align-items: center;
+				gap: 0.75rem;
+				flex: 1;
+			}
+
+			.doc-event-banner-icon {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 20px;
+				height: 20px;
+				flex-shrink: 0;
+			}
+
+			.doc-event-banner-icon svg {
+				display: block;
+			}
+
+			.doc-event-banner-text {
+				font-size: 0.875rem;
+				font-weight: 500;
+				line-height: 1.4;
+			}
+
+			.doc-event-banner-link {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.4rem;
+				font-size: 0.8125rem;
+				font-weight: 600;
+				text-decoration: none;
+				padding: 0.4rem 0.9rem;
+				border-radius: 4px;
+				white-space: nowrap;
+				flex-shrink: 0;
+				transition: all 0.15s ease;
+			}
+
+			.doc-event-banner-link:hover {
+				transform: translateY(-1px);
+			}
+
+			.doc-event-banner-link svg {
+				width: 14px;
+				height: 14px;
+				transition: transform 0.15s ease;
+			}
+
+			.doc-event-banner-link:hover svg {
+				transform: translateX(2px);
+			}
+
 			/* Content area */
 			.doc-content {
 				padding: 2rem 3rem 3rem;
@@ -321,12 +393,19 @@ function formatEstimatedDuration(minutes: number): string {
 					font-size: 1.75rem;
 				}
 
-				.doc-content {
-					padding: 1.5rem 1.25rem 2rem;
+				.doc-event-banner {
+					margin: 1rem 1.25rem 0;
+					padding: 0.875rem 1.25rem;
+					flex-direction: column;
+					align-items: flex-start;
 				}
 
-				.doc-meta {
-					font-size: 0.75rem;
+				.doc-event-banner-link {
+					align-self: flex-start;
+				}
+
+				.doc-content {
+					padding: 1.5rem 1.25rem 2rem;
 				}
 			}
 
@@ -337,6 +416,20 @@ function formatEstimatedDuration(minutes: number): string {
 
 				.doc-header {
 					padding: 1.25rem 1rem 1.25rem;
+				}
+
+				.doc-event-banner {
+					margin: 0.75rem 1rem 0;
+					padding: 0.75rem 1rem;
+				}
+
+				.doc-event-banner-text {
+					font-size: 0.8125rem;
+				}
+
+				.doc-event-banner-link {
+					font-size: 0.75rem;
+					padding: 0.35rem 0.75rem;
 				}
 
 				.doc-content {
@@ -416,6 +509,37 @@ function formatEstimatedDuration(minutes: number): string {
 									</div>
 								)}
 							</header>
+
+							{linkedEvent && eventStyle && (
+								<div
+									class="doc-event-banner"
+									style={`border-color: ${eventStyle.border}; background-color: ${eventStyle.bg};`}
+								>
+									<div class="doc-event-banner-content">
+										<span class="doc-event-banner-icon">
+											<svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+												<circle cx="7" cy="7" r="6" fill={eventStyle.text} opacity="0.8" />
+												{linkedEventStatus === 'ongoing' && (
+													<circle cx="7" cy="7" r="3" fill={eventStyle.text} />
+												)}
+											</svg>
+										</span>
+										<span class="doc-event-banner-text" style={`color: ${eventStyle.text};`}>
+											<strong>This project is open for registration</strong>
+										</span>
+									</div>
+									<a
+										href={`/events/${linkedEvent.id}`}
+										class="doc-event-banner-link"
+										style={`color: #ffffff; background-color: ${eventStyle.text};`}
+									>
+										{isEventActive(linkedEventStatus || '') ? 'View Event' : 'Event Details'}
+										<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width={2} d="M9 5l7 7-7 7" />
+										</svg>
+									</a>
+								</div>
+							)}
 
 							<div class="doc-content markdown-content">
 								<slot />
