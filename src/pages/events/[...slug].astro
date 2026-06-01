@@ -14,17 +14,6 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'events'>;
 
 const event = Astro.props;
-const { slug } = Astro.params;
-
-// Handle undefined slug case
-if (!slug || slug === 'undefined') {
-	return Astro.redirect('/events');
-}
-
-if (!event) {
-	return Astro.redirect('/events');
-}
-
 const { Content } = await render(event);
 ---
 

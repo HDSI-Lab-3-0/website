@@ -388,6 +388,7 @@ div:not(.animate-scroll-text) {
 }
 
 .project-card-image {
+  position: relative;
   height: 180px;
   overflow: hidden;
   background: #f1f5f9;

@@ -10,6 +10,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
     site: "https://hdsi-lab-3-0.github.io",
+    output: "static",
     integrations: [mdx(), sitemap(), react()],
 
     vite: {
