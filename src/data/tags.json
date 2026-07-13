@@ -23,6 +23,7 @@
         "Cost": ["Free", "Paid", "Offers Sponsorship"],
         "Type": [
             "Professional Development for Teachers",
+            "Summer Program",
             "Summer Day Camp",
             "Evening Workshops"
         ],
