@@ -89,11 +89,11 @@
         },
         {
             "name": "Marcos Pascual Rodriguez",
-            "role": "Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/marcos.webp",
             "sketch": "/images/sketches/Marcos-sketch.webp",
-            "bio": "Lab Fellow specializing in robotics systems and applications.",
-            "category": "lab-fellow",
+            "bio": "Former Lab Fellow specializing in robotics systems and applications.",
+            "category": "former-lab-fellow",
             "majors": ["Engineering Physics", "Industrial Engineering"],
             "graduatingYear": 2028
         },
