@@ -819,6 +819,14 @@ div:not(.animate-scroll-text) {
   font-size: 0.875rem;
   color: #475569;
   margin: 0 0 1rem 0;
+  line-height: 1.6;
+}
+
+.events-empty-text a {
+  color: #1d4ed8;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .events-empty-clear {
@@ -837,14 +845,28 @@ div:not(.animate-scroll-text) {
   color: #4338ca;
 }
 
+.past-events-details {
+  display: block;
+}
+
+.past-events-details > summary {
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.past-events-details > summary::marker {
+  color: #1d4ed8;
+  font-size: 0.875rem;
+}
+
+.past-events-grid {
+  margin-top: 1.5rem;
+}
+
 /* -- App Containers -- */
 .projects-app,
 .events-app {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-}
-
-.events-filters-section {
-  width: 100%;
 }

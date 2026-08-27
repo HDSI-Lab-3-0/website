@@ -5,12 +5,10 @@ import Footer from '@/components/layout/Footer.astro';
 import Header from '@/components/layout/Header.astro';
 import EventsApp from '@/components/events/EventsApp.tsx';
 import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts.ts';
-import tagsData from '@/data/tags.json';
 
 const events = (await getCollection('events')).sort(
 	(a, b) => b.data.eventDateStart.valueOf() - a.data.eventDateStart.valueOf(),
 );
-const schoolLevelsCount = tagsData.categories['Learner stage'].length;
 ---
 
 <!doctype html>
@@ -25,31 +23,12 @@ const schoolLevelsCount = tagsData.categories['Learner stage'].length;
 		<header class="page-hero">
 			<div class="page-hero-container">
 				<div class="page-hero-content">
-					<span class="page-hero-label">Calendar</span>
 					<h1 class="page-hero-title">
 						Events & Programs
 					</h1>
 					<p class="page-hero-description">
 						Stay plugged into upcoming workshops, showcases, and happenings that power UC San Diego's HDSI Lab 3.0 community.
 					</p>
-				</div>
-				
-				<!-- Stats bar - Minimal -->
-				<div class="page-stats">
-					<div class="page-stat">
-						<span class="page-stat-value">{events.length}</span>
-						<span class="page-stat-label">Events</span>
-					</div>
-					<div class="page-stat-divider"></div>
-					<div class="page-stat">
-						<span class="page-stat-value" id="active-filters">0</span>
-						<span class="page-stat-label">Filters</span>
-					</div>
-					<div class="page-stat-divider"></div>
-					<div class="page-stat">
-						<span class="page-stat-value">{schoolLevelsCount}</span>
-						<span class="page-stat-label">Levels</span>
-					</div>
 				</div>
 			</div>
 		</header>
@@ -112,48 +91,6 @@ const schoolLevelsCount = tagsData.categories['Learner stage'].length;
 		line-height: 1.6;
 	}
 
-	.page-stats {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		gap: 2rem;
-		padding: 1.25rem 2rem;
-		background: #ffffff;
-		border: 1px solid #e8ecf0;
-		border-radius: 12px;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-		max-width: fit-content;
-		margin: 0 auto;
-	}
-
-	.page-stat {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.25rem;
-	}
-
-	.page-stat-value {
-		font-size: 1.5rem;
-		font-weight: 700;
-		color: #0f172a;
-		line-height: 1;
-	}
-
-	.page-stat-label {
-		font-size: 0.75rem;
-		font-weight: 500;
-		color: #475569;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.page-stat-divider {
-		width: 1px;
-		height: 32px;
-		background: #e2e8f0;
-	}
-
 	.page-content-wrapper {
 		max-width: 1400px;
 		margin: 0 auto;
@@ -171,15 +108,6 @@ const schoolLevelsCount = tagsData.categories['Learner stage'].length;
 
 		.page-hero-description {
 			font-size: 1rem;
-		}
-
-		.page-stats {
-			gap: 1.25rem;
-			padding: 1rem 1.5rem;
-		}
-
-		.page-stat-value {
-			font-size: 1.25rem;
 		}
 
 		.page-content-wrapper {

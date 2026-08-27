@@ -1,45 +1,20 @@
 ---
 import BaseHead from '../../components/layout/BaseHead.astro';
-import Footer from '../../components/layout/Footer.astro';
-import Header from '../../components/layout/Header.astro';
 ---
 
 <html lang="en">
 	<head>
-		<BaseHead title="Opportunities" description="Discover programs and resources for students, parents, teachers, faculty, and staff to get involved with robotics education and outreach." />
+		<BaseHead title="Opportunities" description="Contact HDSI Lab 3.0 to join our interest list or send a question." />
+		<meta http-equiv="refresh" content="0; url=/contact/" />
+		<link rel="canonical" href="/contact/" />
 	</head>
 
 	<body>
-		<Header />
-		
-		<main id="main-content" class="w-[calc(100%-2em)] max-w-full m-0" tabindex="-1">
-			<article>
-				<div class="flex flex-col lg:flex-row gap-12 max-w-[1400px] mx-auto relative py-8 px-4">
-					<div class="flex-1 min-w-0 overflow-hidden">
-						<div class="w-full max-w-[calc(100%-2em)] mx-auto py-8 px-4 text-[rgb(var(--gray-dark))]">
-							<div class="mb-8 pb-6 text-center leading-[1.2]">
-								<div class="markdown-content">
-									<div class="max-w-5xl mx-auto px-8 sm:px-4 md:px-6 lg:px-8">
-										<!-- CTA Section -->
-										<section class="my-16 p-12 bg-[rgb(var(--white))] rounded-2xl text-center border border-[rgba(var(--gray),0.15)] shadow-[0_2px_8px_rgba(var(--gray),0.06)]">
-											<div>
-												<h2 class="text-2xl sm:text-xl md:text-3xl font-semibold text-[rgb(var(--black))] mb-5 tracking-tight">Ready to Get Started?</h2>
-												<p class="text-base max-w-md mx-auto mb-8 leading-relaxed text-[rgba(var(--text-color),0.7)]">
-													We're excited to have you join our community! Fill out our interest form to let us know about your background, skills, and what opportunities interest you most.
-												</p>
-												<a href="https://forms.gle/ZJpHG1mCB6ShiYJy9" class="inline-block px-8 py-4 bg-[rgba(var(--gray),0.9)] text-white no-underline rounded-lg font-medium text-base transition-all duration-250 shadow-[0_2px_4px_rgba(var(--gray),0.2)] hover:-translate-y-px hover:shadow-[0_4px_12px_rgba(var(--gray),0.25)] hover:bg-[rgb(var(--gray))]" target="_blank" rel="noopener noreferrer">
-													Fill Out Interest Form
-												</a>
-											</div>
-										</section>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</article>
+		<main id="main-content" class="constrained-main" tabindex="-1">
+			<h1>Opportunities have moved</h1>
+			<p>
+				This page has moved to <a href="/contact/">Contact</a>.
+			</p>
 		</main>
-		<Footer />
 	</body>
 </html>

@@ -16,8 +16,8 @@ Astro maps **files under `src/pages/`** to URLs. Special files (`[...slug].astro
 | `/projects/<slug>` | [`src/pages/projects/[...slug].astro`](../../src/pages/projects/[...slug].astro) + [`src/content/projects/<slug>.md(x)`](../../src/content/projects/) | Markdown/MDX + frontmatter per project |
 | `/events` | [`src/pages/events/index.astro`](../../src/pages/events/index.astro) | Hero for events listing; all cards from `getCollection('events')` |
 | `/events/<slug>` | [`src/pages/events/[...slug].astro`](../../src/pages/events/[...slug].astro) + [`src/content/events/<slug>.md(x)`](../../src/content/events/) | Markdown/MDX + frontmatter per event |
-| `/opportunities` | [`src/pages/opportunities/index.astro`](../../src/pages/opportunities/index.astro) | Inline HTML (CTAs, copy, external links) |
-| `/contact` | [`src/pages/contact.astro`](../../src/pages/contact.astro) | Page chrome; embedded Google Form via `<iframe src="...">` |
+| `/opportunities` | [`src/pages/opportunities/index.astro`](../../src/pages/opportunities/index.astro) | Redirects visitors to `/contact` |
+| `/contact` | [`src/pages/contact.astro`](../../src/pages/contact.astro) | Contact copy and interest form CTA |
 | `/donate` | [`src/pages/donate.astro`](../../src/pages/donate.astro) | Copy, external giving URLs |
 | `/terms` | [`src/pages/terms.astro`](../../src/pages/terms.astro) | Full legal HTML |
 | `/privacy` | [`src/pages/privacy.astro`](../../src/pages/privacy.astro) | Full policy HTML |

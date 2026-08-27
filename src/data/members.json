@@ -2,42 +2,42 @@
     "members": [
         {
             "name": "Emmy Wei",
-            "role": "Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/emmy.webp",
             "sketch": "/images/sketches/emmy-sketch.webp",
             "bio": "Lab Fellow specializing in advanced robotics research and development.",
-            "category": "lab-fellow",
+            "category": "former-lab-fellow",
             "majors": ["Electrical Engineering"],
             "minors": ["Entrepreneurship & Innovation"],
             "graduatingYear": 2027
         },
         {
             "name": "Andrew Lara",
-            "role": "Senior Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/saura-naderi.webp",
             "bio": "Lab Fellow focusing on innovative robotics applications and systems integration.",
-            "category": "senior-lab-fellow",
+            "category": "former-lab-fellow",
             "majors": ["Computer Science"],
             "minors": ["ICAM"],
             "graduatingYear": 2026
         },
         {
             "name": "Wan-Rong Leung",
-            "role": "Senior Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/wan-rong-leung.webp",
             "sketch": "/images/sketches/Emma-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development.",
-            "category": "senior-lab-fellow"
+            "category": "former-lab-fellow"
         },
         {
             "name": "Charles Nguyen",
-            "role": "Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/charles-nguyen.webp",
             "sketch": "/images/sketches/charles-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development.",
             "majors": ["Computer Science"],
             "graduatingYear": 2026,
-            "category": "lab-fellow"
+            "category": "former-lab-fellow"
         },
         {
             "name": "Cecilia Werre",
@@ -61,13 +61,13 @@
         },
         {
             "name": "Hana Tjendrawasi",
-            "role": "Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/hana.webp",
             "sketch": "/images/sketches/Hana-sketch.webp",
             "majors": ["Data Science"],
             "graduatingYear": 2026,
             "bio": "Lab Fellow specializing in robotics research and development.",
-            "category": "lab-fellow"
+            "category": "former-lab-fellow"
         },
         {
             "name": "Jamera Fernando",
@@ -99,13 +99,13 @@
         },
         {
             "name": "Moniriddh (Rudd) Bunyay",
-            "role": "Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/rudd.webp",
             "sketch": "/images/sketches/rudd-sketch.webp",
             "majors": ["Data Science"],
             "graduatingYear": 2027,
             "bio": "Lab Fellow focusing on robotics systems and applications.",
-            "category": "lab-fellow"
+            "category": "former-lab-fellow"
         },
         {
             "name": "Selina Zhang",
@@ -125,11 +125,11 @@
         },
         {
             "name": "Yifei Chen",
-            "role": "Lab Fellow",
+            "role": "Former Lab Fellow",
             "image": "/images/members/yifei.webp",
             "sketch": "/images/sketches/yifei-sketch.webp",
             "bio": "Lab Fellow specializing in robotics research and development.",
-            "category": "lab-fellow"
+            "category": "former-lab-fellow"
         }
     ]
 }

@@ -12,7 +12,6 @@ const MobileNavigation: React.FC = () => {
     { href: '/members', label: 'Members' },
     { href: '/projects', label: 'Projects' },
     { href: '/events', label: 'Events' },
-    { href: '/opportunities', label: 'Opportunities' },
     { href: '/contact', label: 'Contact' },
   ];
 
