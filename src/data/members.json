@@ -50,6 +50,16 @@
             "graduatingYear": 2027
         },
         {
+            "name": "Claire Mallela",
+            "role": "Lab Fellow",
+            "image": "/images/members/ClaireReal.png",
+            "sketch": "/images/members/ClaireDrawn.jpeg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow",
+            "majors": ["Cognitive Science", "ICAM"],
+            "graduatingYear": 2027
+        },
+        {
             "name": "Hannah Gonzalez",
             "role": "Lab Fellow",
             "image": "/images/members/hannah.webp",
@@ -129,6 +139,16 @@
             "category": "former-lab-fellow",
             "majors": ["Engineering Physics", "Industrial Engineering"],
             "graduatingYear": 2028
+        },
+        {
+            "name": "Roberto Echeverria Sosa",
+            "role": "Lab Fellow",
+            "image": "/images/members/robertoReal.jpeg",
+            "sketch": "/images/members/RobertoDrawn.jpeg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow",
+            "majors": ["Data Science"],
+            "graduatingYear": 2027
         },
         {
             "name": "Moniriddh (Rudd) Bunyay",
