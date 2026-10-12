@@ -11,6 +11,7 @@ interface Member {
   majors?: string[];
   minors?: string[];
   graduatingYear?: number;
+  imageFit?: 'cover' | 'contain';
 }
 
 interface MemberCardProps {
@@ -21,6 +22,7 @@ interface MemberCardProps {
 export default function MemberCard({ member, isDirector = false }: MemberCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const hasSketch = member.sketch;
+  const imageFitClass = member.imageFit === 'contain' ? 'member-image-contain' : '';
 
   return (
     <div
@@ -33,13 +35,13 @@ export default function MemberCard({ member, isDirector = false }: MemberCardPro
           <img
             src={member.sketch}
             alt={`${member.name} sketch`}
-            className="sketch-image default-image"
+            className={`sketch-image default-image ${imageFitClass}`}
           />
         )}
         <img
           src={member.image}
           alt={member.name}
-          className="member-image hover-image"
+          className={`member-image hover-image ${imageFitClass}`}
           style={{
             opacity: isHovered ? 1 : 0,
             transform: isHovered ? 'scale(1)' : 'scale(1.05)',

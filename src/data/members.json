@@ -75,7 +75,40 @@
             "image": "/images/members/jamera.webp",
             "sketch": "/images/sketches/jamera-sketch.webp",
             "bio": "Lab Fellow contributing to robotics research and development.",
-            "category": "lab-fellow"
+            "category": "lab-fellow",
+            "majors": ["Data Science"],
+            "graduatingYear": 2028
+        },
+        {
+            "name": "Kaitlyn Loera",
+            "role": "Lab Fellow",
+            "image": "/images/members/KaitlynReal.jpeg",
+            "sketch": "/images/members/KaitlynDrawn.jpeg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow",
+            "majors": ["Data Science"],
+            "graduatingYear": 2027
+        },
+        {
+            "name": "Kemo Smith",
+            "role": "Lab Fellow",
+            "image": "/images/members/KemoReal.jpg",
+            "sketch": "/images/members/KemoDrawn.jpeg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow",
+            "majors": ["Data Science"],
+            "graduatingYear": 2028,
+            "imageFit": "contain"
+        },
+        {
+            "name": "Kyle Malling",
+            "role": "Lab Fellow",
+            "image": "/images/members/KyleMReal.jpeg",
+            "sketch": "/images/members/KyleMDrawn.png",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow",
+            "majors": ["Computer Engineering"],
+            "graduatingYear": 2029
         },
         {
             "name": "Kyle Shiroma",
@@ -106,6 +139,17 @@
             "graduatingYear": 2027,
             "bio": "Lab Fellow focusing on robotics systems and applications.",
             "category": "former-lab-fellow"
+        },
+        {
+            "name": "Naomika Nadkarni",
+            "role": "Lab Fellow",
+            "image": "/images/members/NaomikaReal.jpg",
+            "sketch": "/images/members/naomikaDrawn.jpg",
+            "bio": "Lab Fellow contributing to robotics research and development.",
+            "category": "lab-fellow",
+            "majors": ["Cognitive Science"],
+            "minors": ["Computer Science", "Theater"],
+            "graduatingYear": 2027
         },
         {
             "name": "Selina Zhang",
