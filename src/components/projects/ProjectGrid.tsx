@@ -15,7 +15,7 @@ export default function ProjectGrid({ projects, events }: ProjectGridProps) {
 					getImageSrc(project.data.heroImage) ||
 					"";
 
-				const linkedEvent = getLinkedEvent(project.data.event, events);
+				const linkedEvent = getLinkedEvent(project.data.event, events, project.id);
 				const linkedEventStatus = linkedEvent ? getEventDisplayStatus(linkedEvent) : null;
 				const eventStyle = linkedEventStatus ? getEventStatusStyle(linkedEventStatus) : null;
 
@@ -40,7 +40,7 @@ export default function ProjectGrid({ projects, events }: ProjectGridProps) {
 									aria-hidden
 								/>
 							)}
-							{linkedEvent && eventStyle && (
+							{linkedEvent && eventStyle && isEventActive(linkedEventStatus ?? '') && (
 								<div
 									onClick={(e) => {
 										e.preventDefault();

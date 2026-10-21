@@ -15,7 +15,7 @@ type Props = CollectionEntry<'projects'>;
 
 const post = Astro.props;
 const allEvents = await getCollection('events');
-const linkedEvent = getLinkedEvent(post.data.event, allEvents);
+const linkedEvent = getLinkedEvent(post.data.event, allEvents, post.id);
 const { Content } = await render(post);
 ---
 

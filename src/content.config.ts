@@ -49,6 +49,7 @@ const events = defineCollection({
             eventFor: z.string(),
             eventImage: image(),
             eventRegistrationUrl: z.string().url().optional(),
+            eventProjectSlug: z.string().optional(),
             heroImage: image().optional(),
             imageGif: image().optional(),
             eventTags: z.array(z.string()).optional(),

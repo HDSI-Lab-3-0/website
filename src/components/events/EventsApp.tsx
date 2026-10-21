@@ -12,7 +12,9 @@ const mailingListUrl = "https://forms.gle/ZJpHG1mCB6ShiYJy9";
 
 export default function EventsApp({ events }: EventsAppProps) {
 	const upcomingEvents = useMemo(
-		() => events.filter((event) => isEventActive(getEventDisplayStatus(event))),
+		() => events
+			.filter((event) => isEventActive(getEventDisplayStatus(event)))
+			.sort((a, b) => a.data.eventDateStart.valueOf() - b.data.eventDateStart.valueOf()),
 		[events]
 	);
 

@@ -45,9 +45,12 @@ export default function EventGrid({
 					getImageSrc(event.data.heroImage) ||
 					"";
 
-				const eventHref = `/events/${event.id}`;
+				const eventHref = event.data.eventProjectSlug
+					? `/projects/${event.data.eventProjectSlug}`
+					: `/events/${event.id}`;
 				const handleEventSelect = (eventClick: MouseEvent<HTMLAnchorElement>) => {
 					if (
+						event.data.eventProjectSlug ||
 						eventClick.defaultPrevented ||
 						eventClick.metaKey ||
 						eventClick.ctrlKey ||
@@ -99,12 +102,9 @@ export default function EventGrid({
 				].filter(({ label }) => Boolean(label));
 
 				return (
-					<a
+					<article
 						key={event.id}
-						href={eventHref}
 						className={`event-card group ${isOngoing ? 'event-card-ongoing' : isPast ? 'event-card-past' : 'event-card-upcoming'}`}
-						onClick={handleEventSelect}
-						aria-label={`View details for ${event.data.eventName}`}
 					>
 						{/* Card image */}
 						<div className="event-card-image">
@@ -153,7 +153,9 @@ export default function EventGrid({
 							</h3>
 
 							<p className="event-card-description">
-								{event.data.eventDescription}
+								{event.data.eventDescription.split(/(\blab3\b)/g).map((part, index) =>
+									part === "lab3" ? <strong key={index}>{part}</strong> : part
+								)}
 							</p>
 
 							{/* Audience row */}
@@ -184,15 +186,23 @@ export default function EventGrid({
 							</div>
 
 							{/* Footer */}
+							{event.data.eventRegistrationUrl && event.data.eventProjectSlug && !isPast && (
+								<a
+									href={event.data.eventRegistrationUrl}
+									className="event-registration-link"
+								>
+									Register & check availability on Eventbrite
+								</a>
+							)}
 							<div className="event-card-footer">
 								<span className="event-footer-label">Details</span>
 								<div className="event-footer-line" />
-								<span className="event-footer-button" aria-hidden="true">
+								<a href={eventHref} onClick={handleEventSelect} className="event-footer-button" aria-label={`View details for ${event.data.eventName}`}>
 									View details
-								</span>
+								</a>
 							</div>
 						</div>
-					</a>
+					</article>
 				);
 			})}
 		</div>

@@ -510,7 +510,7 @@ function formatEstimatedDuration(minutes: number): string {
 								)}
 							</header>
 
-							{linkedEvent && eventStyle && (
+							{linkedEvent && eventStyle && isEventActive(linkedEventStatus ?? '') && (
 								<div
 									class="doc-event-banner"
 									style={`border-color: ${eventStyle.border}; background-color: ${eventStyle.bg};`}

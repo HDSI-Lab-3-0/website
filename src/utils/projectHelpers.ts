@@ -47,8 +47,15 @@ export function getImageSrc(image: ProjectImage): string | undefined {
 
 export function getLinkedEvent(
 	eventSlug: string | undefined,
-	allEvents: CollectionEntry<"events">[]
+	allEvents: CollectionEntry<"events">[],
+	projectSlug?: string
 ): CollectionEntry<"events"> | undefined {
+	const upcomingEvent = projectSlug
+		? allEvents
+			.filter((event) => event.data.eventProjectSlug === projectSlug && isEventActive(getEventDisplayStatus(event)))
+			.sort((a, b) => a.data.eventDateStart.valueOf() - b.data.eventDateStart.valueOf())[0]
+		: undefined;
+	if (upcomingEvent) return upcomingEvent;
 	if (!eventSlug) return undefined;
 	return allEvents.find((event) => event.id === eventSlug);
 }

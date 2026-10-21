@@ -49,6 +49,8 @@ All required fields must be present or **`bun run build` will fail** with a Zod/
 
 | Field | Notes |
 | --- | --- |
+| `eventDateLabel` | Display date text; use this to direct visitors to the registration page when session times are not listed here. |
+| `eventProjectSlug` | Corresponding project slug; sends the card's “View details” link to that project and enables the registration link inside the card. |
 | `heroImage` | Optional; used if `imageGif` is not set before falling back to `eventImage` |
 | `imageGif` | Optional; **first** choice for the detail hero when set |
 | `eventTags` | `string[]` — used for **filters** on `/events`; see [`tags.json`](../../src/data/tags.json) for canonical category values |
